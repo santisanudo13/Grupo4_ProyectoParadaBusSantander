@@ -1,0 +1,10 @@
+2) Añadidas historias faltantes, pero sin pruebas de aceptación, tareas ni estimaciones tal y como indica él en el punto 3. FALTAN LOS BUSINESS VALUE Y EFFORT (entre todos).
+
+3) Aunque no había que haberlo hecho tampoco lo voy a borrar que valdrá bastante.
+
+5) He bajado el business value de “Realizar Búsqueda de Paradas Totales” de 8 a 5.
+   >¿Por qué Mostrar Información Favoritos es distinto de Mostrar Parada? ¿No debería ser la misma información con independencia de desde donde acceda? <--- Esto no lo entiendo
+   >Visualizar causas de errores no es una historia de usuario, sino una restricción no funcional relacionada con la totalidad del sistema. No se puede gestionar como una historia de usuario porque afecta a cada historia de usuario que pueda generar un error. <--- He borrado la historia
+   He mejorado lo demás lo mejor que he podido (sintaxis y ortografía).
+   
+ Actualizados los puntos de esfuerzo que indica.

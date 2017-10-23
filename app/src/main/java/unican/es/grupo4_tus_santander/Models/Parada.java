@@ -9,24 +9,28 @@ import java.util.Date;
 public class Parada {
 
     private long idParada;
-    private String numero;
+    private int numero;
     private String sentido;
     private String address1;
     private String nombre;
-    private Posicion posicion;
-    private Date ultimaModificacion;
+    private double wgs84_long;
+    private double wgs84_lat;
+    private double cordX;
+    private double cordY;
 
-    public Parada() {
-    }
 
-    public Parada(long idParada, String numero, String sentido, String address1, String nombre, Posicion posicion, Date ultimaModificacion) {
+    public Parada(){}
+
+    public Parada(long idParada, int numero, String sentido, String address1, String nombre, double wgs84_long, double wgs84_lat, double cordX, double cordY) {
         this.idParada = idParada;
         this.numero = numero;
         this.sentido = sentido;
         this.address1 = address1;
         this.nombre = nombre;
-        this.posicion = posicion;
-        this.ultimaModificacion = ultimaModificacion;
+        this.wgs84_long = wgs84_long;
+        this.wgs84_lat = wgs84_lat;
+        this.cordX = cordX;
+        this.cordY = cordY;
     }
 
     public long getIdParada() {
@@ -37,11 +41,11 @@ public class Parada {
         this.idParada = idParada;
     }
 
-    public String getNumero() {
+    public int getNumero() {
         return numero;
     }
 
-    public void setNumero(String numero) {
+    public void setNumero(int numero) {
         this.numero = numero;
     }
 
@@ -69,19 +73,35 @@ public class Parada {
         this.nombre = nombre;
     }
 
-    public Posicion getPosicion() {
-        return posicion;
+    public double getWgs84_long() {
+        return wgs84_long;
     }
 
-    public void setPosicion(Posicion posicion) {
-        this.posicion = posicion;
+    public void setWgs84_long(double wgs84_long) {
+        this.wgs84_long = wgs84_long;
     }
 
-    public Date getUltimaModificacion() {
-        return ultimaModificacion;
+    public double getWgs84_lat() {
+        return wgs84_lat;
     }
 
-    public void setUltimaModificacion(Date ultimaModificacion) {
-        this.ultimaModificacion = ultimaModificacion;
+    public void setWgs84_lat(double wgs84_lat) {
+        this.wgs84_lat = wgs84_lat;
+    }
+
+    public double getCordX() {
+        return cordX;
+    }
+
+    public void setCordX(double cordX) {
+        this.cordX = cordX;
+    }
+
+    public double getCordY() {
+        return cordY;
+    }
+
+    public void setCordY(double cordY) {
+        this.cordY = cordY;
     }
 }

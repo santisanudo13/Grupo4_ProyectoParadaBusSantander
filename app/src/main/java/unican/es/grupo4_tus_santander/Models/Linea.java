@@ -9,14 +9,14 @@ import java.util.List;
 public class Linea {
 
     private long idLinea;
-    private String numero;
+    private int numero;
     private String nombre;
     private List<Parada> paradas;
     private Color color;
 
     public Linea() {}
 
-    public Linea(long idLinea, String numero, String nombre, List<Parada> paradas, Color color) {
+    public Linea(long idLinea, int numero, String nombre, List<Parada> paradas, Color color) {
         this.idLinea = idLinea;
         this.numero = numero;
         this.nombre = nombre;
@@ -32,11 +32,11 @@ public class Linea {
         this.idLinea = idLinea;
     }
 
-    public String getNumero() {
+    public int getNumero() {
         return numero;
     }
 
-    public void setNumero(String numero) {
+    public void setNumero(int numero) {
         this.numero = numero;
     }
 

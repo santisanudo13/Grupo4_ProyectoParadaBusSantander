@@ -6,17 +6,26 @@ package unican.es.grupo4_tus_santander.Models;
 
 public class Color {
 
-
+    private long id;
     private int alpha, red, green , blue;
 
     public Color() {
     }
 
-    public Color(int alpha, int red, int green, int blue) {
+    public Color(long id, int alpha, int red, int green, int blue) {
+        this.id = id;
         this.alpha = alpha;
         this.red = red;
         this.green = green;
         this.blue = blue;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public int getAlpha() {

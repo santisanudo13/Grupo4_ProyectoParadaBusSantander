@@ -10,11 +10,14 @@ import java.util.ArrayList;
  */
 
 public class ParadasActivity extends Activity {
-    ArrayList<Parada> paradas = new ArrayList<Parada>();
+    Linea linea;
+    ArrayList<Parada> paradas;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_paradas);
+
+        paradas = linea.getParadas();
     }
 }

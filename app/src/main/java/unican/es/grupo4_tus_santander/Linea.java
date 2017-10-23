@@ -1,5 +1,6 @@
 package unican.es.grupo4_tus_santander;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -11,12 +12,14 @@ public class Linea {
     private String numero;
     private int id;
     private Date modified;
+    private ArrayList<Parada> paradas;
 
     public Linea(String nombre, String numero, int id, Date modified){
         this.nombre = nombre;
         this.numero = numero;
         this.id = id;
         this.modified = modified;
+        paradas = new ArrayList<Parada>();
     }
 
     public String getNombre(){
@@ -33,5 +36,9 @@ public class Linea {
 
     public Date getModified(){
         return modified;
+    }
+
+    public ArrayList<Parada> getParadas(){
+        return paradas;
     }
 }

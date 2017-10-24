@@ -6,14 +6,10 @@
     android:layout_height="match_parent"
     tools:context="unican.es.grupo4_tus_santander.Views.ParadasActivity">
 
-    <LinearLayout
+    <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/linearLayout_paradas">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView_paradas"/>
-    </LinearLayout>
+        android:id="@+id/listView_paradas">
+    </ListView>
 
 </LinearLayout>

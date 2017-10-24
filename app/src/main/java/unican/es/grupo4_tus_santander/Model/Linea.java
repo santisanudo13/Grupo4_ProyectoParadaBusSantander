@@ -3,8 +3,6 @@ package unican.es.grupo4_tus_santander.Model;
 import java.util.ArrayList;
 import java.util.Date;
 
-import unican.es.grupo4_tus_santander.Parada;
-
 /**
  * Created by guill on 23/10/2017.
  */

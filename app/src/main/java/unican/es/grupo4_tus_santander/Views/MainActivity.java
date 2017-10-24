@@ -1,7 +1,9 @@
-package unican.es.grupo4_tus_santander;
+package unican.es.grupo4_tus_santander.Views;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+
+import unican.es.grupo4_tus_santander.R;
 
 public class MainActivity extends AppCompatActivity {
 

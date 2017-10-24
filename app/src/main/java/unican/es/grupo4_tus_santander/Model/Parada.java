@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander;
+package unican.es.grupo4_tus_santander.Model;
 
 import java.util.Date;
 

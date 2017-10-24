@@ -11,31 +11,43 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class LineaDbHelper extends SQLiteOpenHelper {
 
-    //Sentencia SQL para crear la tabla de Usuarios
-    String sqlCreate = "CREATE TABLE Linea (id REAL, numero INTEGER, nombre TEXT)";
+    public static final String TABLE_NAME = "Linea";
+    public static final String TABLE_ID = "_id";
+    public static final String COLUMN_1 = "_idColor";
+    public static final String COLUMN_2 = "_numero";
+    public static final String COLUMN_3 = "_nombre";
 
-    public LineaDbHelper(Context contexto, String nombreDB,
-                         CursorFactory factory, int version) {
-        super(contexto, nombreDB, factory, version);
+
+
+
+    private static final String DATABASE_NAME = "TUS.db";
+    private static final int DATABASE_VERSION = 1;
+
+    // creation SQLite statement
+    private static final String DATABASE_CREATE = "create table " + TABLE_NAME
+            + "(" + TABLE_ID + " integer primary key autoincrement, "
+            + "(" + COLUMN_1 + " integer not null, "
+            + "(" + COLUMN_2 + " integer not null, "
+            + COLUMN_3 + " text not null);";
+
+    public LineaDbHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        //Se ejecuta la sentencia SQL de creación de la tabla
-        db.execSQL(sqlCreate);
+        db.execSQL(DATABASE_CREATE);
+
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int versionAnterior, int versionNueva) {
-        //NOTA: Por simplicidad del ejemplo aquí utilizamos directamente la opción de
-        //      eliminar la tabla anterior y crearla de nuevo vacía con el nuevo formato.
-        //      Sin embargo lo normal será que haya que migrar datos de la tabla antigua
-        //      a la nueva, por lo que este método debería ser más elaborado.
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // you should do some logging in here
+        // ..
 
-        //Se elimina la versión anterior de la tabla
-        db.execSQL("DROP TABLE IF EXISTS Linea");
-
-        //Se crea la nueva versión de la tabla
-        db.execSQL(sqlCreate);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        onCreate(db);
     }
+
 }
+

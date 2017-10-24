@@ -11,31 +11,53 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class ParadaDbHelper extends SQLiteOpenHelper {
 
-    //Sentencia SQL para crear la tabla de Usuarios
-    String sqlCreate = "CREATE TABLE Parada (id REAL, numero INTEGER, sentido TEXT, address1 TEXT, nombre TEXT, wgs84_long REAL, wgs84_lat REAL, coordX REAL, coordY REAL)";
+    public static final String TABLE_NAME = "Parada";
+    public static final String TABLE_ID = "_id";
+    public static final String COLUMN_1 = "_idLinea";
+    public static final String COLUMN_2 = "_numero";
+    public static final String COLUMN_3 = "_sentido";
+    public static final String COLUMN_4 = "_address";
+    public static final String COLUMN_5 = "_nombre";
+    public static final String COLUMN_6 = "_wgs84Long";
+    public static final String COLUMN_7 = "_wgs84Lat";
+    public static final String COLUMN_8 = "_coordX";
+    public static final String COLUMN_9 = "_coordY";
 
-    public ParadaDbHelper(Context contexto, String nombreDB,
-                          CursorFactory factory, int version) {
-        super(contexto, nombreDB, factory, version);
+
+
+    private static final String DATABASE_NAME = "TUS.db";
+    private static final int DATABASE_VERSION = 1;
+
+    // creation SQLite statement
+    private static final String DATABASE_CREATE = "create table " + TABLE_NAME
+            + "(" + TABLE_ID + " integer primary key autoincrement, "
+            + "(" + COLUMN_1 + " integer not null, "
+            + "(" + COLUMN_2 + " integer not null, "
+            + "(" + COLUMN_3 + " intenger not null, "
+            + "(" + COLUMN_4 + " text not null, "
+            + "(" + COLUMN_5 + " text not null, "
+            + "(" + COLUMN_6 + " real not null, "
+            + "(" + COLUMN_7 + " real not null, "
+            + "(" + COLUMN_8 + " real not null, "
+            + COLUMN_9 + " real not null);";
+
+    public ParadaDbHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        //Se ejecuta la sentencia SQL de creación de la tabla
-        db.execSQL(sqlCreate);
+        db.execSQL(DATABASE_CREATE);
+
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int versionAnterior, int versionNueva) {
-        //NOTA: Por simplicidad del ejemplo aquí utilizamos directamente la opción de
-        //      eliminar la tabla anterior y crearla de nuevo vacía con el nuevo formato.
-        //      Sin embargo lo normal será que haya que migrar datos de la tabla antigua
-        //      a la nueva, por lo que este método debería ser más elaborado.
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // you should do some logging in here
+        // ..
 
-        //Se elimina la versión anterior de la tabla
-        db.execSQL("DROP TABLE IF EXISTS Parada");
-
-        //Se crea la nueva versión de la tabla
-        db.execSQL(sqlCreate);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        onCreate(db);
     }
+
 }

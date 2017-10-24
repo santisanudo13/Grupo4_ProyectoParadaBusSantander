@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.Models;
+package unican.es.grupo4_tus_santander.Models.BaseDatos.DBPojos;
 
 import java.util.Date;
 
@@ -8,10 +8,11 @@ import java.util.Date;
 
 public class Parada {
 
-    private long idParada;
+    private int id;
+    private int idLinea;
     private int numero;
-    private String sentido;
-    private String address1;
+    private int sentido;
+    private String address;
     private String nombre;
     private double wgs84_long;
     private double wgs84_lat;
@@ -21,11 +22,12 @@ public class Parada {
 
     public Parada(){}
 
-    public Parada(long idParada, int numero, String sentido, String address1, String nombre, double wgs84_long, double wgs84_lat, double cordX, double cordY) {
-        this.idParada = idParada;
+    public Parada(int id, int idLinea, int numero, int sentido, String address, String nombre, double wgs84_long, double wgs84_lat, double cordX, double cordY) {
+        this.id = id;
+        this.idLinea = idLinea;
         this.numero = numero;
         this.sentido = sentido;
-        this.address1 = address1;
+        this.address = address;
         this.nombre = nombre;
         this.wgs84_long = wgs84_long;
         this.wgs84_lat = wgs84_lat;
@@ -33,12 +35,20 @@ public class Parada {
         this.cordY = cordY;
     }
 
-    public long getIdParada() {
-        return idParada;
+    public int getId() {
+        return id;
     }
 
-    public void setIdParada(long idParada) {
-        this.idParada = idParada;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getIdLinea() {
+        return idLinea;
+    }
+
+    public void setIdLinea(int idLinea) {
+        this.idLinea = idLinea;
     }
 
     public int getNumero() {
@@ -49,20 +59,20 @@ public class Parada {
         this.numero = numero;
     }
 
-    public String getSentido() {
+    public int getSentido() {
         return sentido;
     }
 
-    public void setSentido(String sentido) {
+    public void setSentido(int sentido) {
         this.sentido = sentido;
     }
 
-    public String getAddress1() {
-        return address1;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAddress1(String address1) {
-        this.address1 = address1;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getNombre() {

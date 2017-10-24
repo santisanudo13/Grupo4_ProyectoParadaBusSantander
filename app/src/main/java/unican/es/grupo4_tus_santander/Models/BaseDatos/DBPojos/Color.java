@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.Models;
+package unican.es.grupo4_tus_santander.Models.BaseDatos.DBPojos;
 
 /**
  * Created by Tiago on 23/10/17.
@@ -6,26 +6,39 @@ package unican.es.grupo4_tus_santander.Models;
 
 public class Color {
 
-    private long id;
-    private int alpha, red, green , blue;
+    private int id;
+    private int idLinea;
+    private int alpha;
+    private int red;
+    private int green;
+    private int blue;
 
     public Color() {
     }
 
-    public Color(long id, int alpha, int red, int green, int blue) {
+    public Color(int id, int idLinea, int alpha, int red, int green, int blue) {
         this.id = id;
+        this.idLinea = idLinea;
         this.alpha = alpha;
         this.red = red;
         this.green = green;
         this.blue = blue;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
+    }
+
+    public int getIdLinea() {
+        return idLinea;
+    }
+
+    public void setIdLinea(int idLinea) {
+        this.idLinea = idLinea;
     }
 
     public int getAlpha() {

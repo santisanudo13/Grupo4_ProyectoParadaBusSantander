@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.Models.BaseDatos.DBPojos;
+package unican.es.quiniela.Models.BaseDatos.DBModel;
 
 /**
  * Created by Tiago on 23/10/17.
@@ -7,7 +7,6 @@ package unican.es.grupo4_tus_santander.Models.BaseDatos.DBPojos;
 public class Color {
 
     private int id;
-    private int idLinea;
     private int alpha;
     private int red;
     private int green;
@@ -16,9 +15,7 @@ public class Color {
     public Color() {
     }
 
-    public Color(int id, int idLinea, int alpha, int red, int green, int blue) {
-        this.id = id;
-        this.idLinea = idLinea;
+    public Color(int alpha, int red, int green, int blue) {
         this.alpha = alpha;
         this.red = red;
         this.green = green;
@@ -31,14 +28,6 @@ public class Color {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getIdLinea() {
-        return idLinea;
-    }
-
-    public void setIdLinea(int idLinea) {
-        this.idLinea = idLinea;
     }
 
     public int getAlpha() {

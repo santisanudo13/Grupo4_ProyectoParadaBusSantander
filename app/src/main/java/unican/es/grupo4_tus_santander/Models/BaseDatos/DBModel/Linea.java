@@ -1,6 +1,4 @@
-package unican.es.grupo4_tus_santander.Models.BaseDatos.DBPojos;
-
-import java.util.List;
+package unican.es.quiniela.Models.BaseDatos.DBModel;
 
 /**
  * Created by Tiago on 23/10/17.
@@ -9,16 +7,13 @@ import java.util.List;
 public class Linea {
 
     private int id;
-    private int idColor;
     private int numero;
     private String nombre;
 
 
     public Linea() {}
 
-    public Linea(int id, int idColor, int numero, String nombre) {
-        this.id = id;
-        this.idColor = idColor;
+    public Linea( int numero, String nombre) {
         this.numero = numero;
         this.nombre = nombre;
     }
@@ -31,13 +26,7 @@ public class Linea {
         this.id = id;
     }
 
-    public int getIdColor() {
-        return idColor;
-    }
 
-    public void setIdColor(int idColor) {
-        this.idColor = idColor;
-    }
 
     public int getNumero() {
         return numero;

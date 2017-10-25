@@ -198,9 +198,12 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 
 		Cursor c = db.rawQuery(selectQuery, null);
 
-		if (c != null)
-			c.moveToFirst();
+		if(c == null){
+			System.out.println("Cursor nulo al obtener color");
+			return null;
+		}
 
+		c.moveToFirst();
 		Color color = new Color();
 		color.setId(c.getInt(c.getColumnIndex(KEY_ID)));
 		color.setAlpha((c.getInt(c.getColumnIndex(KEY_ALPHA))));
@@ -292,8 +295,12 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 
 		Cursor c = db.rawQuery(selectQuery, null);
 
-		if (c != null)
-			c.moveToFirst();
+		if(c == null){
+			System.out.println("Cursor nulo al obtener linea");
+			return null;
+		}
+
+		c.moveToFirst();
 
 		Linea linea = new Linea();
 		linea.setId(c.getInt((c.getColumnIndex(KEY_ID))));
@@ -386,8 +393,12 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 
 		Cursor c = db.rawQuery(selectQuery, null);
 
-		if (c != null)
-			c.moveToFirst();
+		if (c == null){
+			System.out.println("Cursor nulo al obtener parada");
+			return null;
+		}
+
+		c.moveToFirst();
 
 		Parada parada = new Parada();
 		parada.setId(c.getInt(c.getColumnIndex(KEY_ID)));

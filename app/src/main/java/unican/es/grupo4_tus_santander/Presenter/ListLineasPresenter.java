@@ -8,7 +8,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel.Color;
 import unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel.Linea;
 import unican.es.grupo4_tus_santander.Models.BaseDatos.helper.DatabaseHelper;
 import unican.es.grupo4_tus_santander.View.*;
@@ -32,12 +31,9 @@ public class ListLineasPresenter {
     }// ListLineasPresenter
 
     public void start(){
-        //listaLineasBus.add(new Linea(1,1,1,"addadaf"));
+
         listLineasView.showProgress(true);
         new getLineas().execute();
-
-        //listLineasView.showList(getListaLineasBus());
-        //listLineasView.showProgress(false);
 
     }// start
 
@@ -51,13 +47,6 @@ public class ListLineasPresenter {
 
     }
 
-    /**
-     * Método a través del cual se almacenan las lineas de buses en el atributo listaLineasBus
-     * de esta clase. Para realizar esto internamente realiza una llamada a la función
-     * getJSON (RemoteFetch) para seguidamente parsear el JSON obtenido con la llamada
-     * a readArrayLineasBus (ParserJSON)
-     * @return
-     */
     public boolean obtenLineas(){
 
         try {

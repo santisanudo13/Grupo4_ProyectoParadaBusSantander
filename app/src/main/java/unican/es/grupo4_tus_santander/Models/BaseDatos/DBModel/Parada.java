@@ -1,4 +1,4 @@
-package unican.es.quiniela.Models.BaseDatos.DBModel;
+package unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel;
 
 /**
  * Created by Tiago on 23/10/17.

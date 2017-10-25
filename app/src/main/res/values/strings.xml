@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TUS Santander</string>
+    <string name="waitData">Obteniendo datos</string>
+    <string name="hint_search">Buscar...</string>
 </resources>

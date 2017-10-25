@@ -1,11 +1,18 @@
 package unican.es.grupo4_tus_santander.Presenter;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 import java.util.List;
 
-import unican.es.grupo4_tus_santander.Model.*;
+import unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel.Color;
+import unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel.Linea;
+import unican.es.grupo4_tus_santander.Models.BaseDatos.helper.DatabaseHelper;
 import unican.es.grupo4_tus_santander.View.*;
+
 
 /**
  * Created by alejandro on 11/10/17.
@@ -14,22 +21,21 @@ import unican.es.grupo4_tus_santander.View.*;
 public class ListLineasPresenter {
     private IListLineasView listLineasView;
     private List<Linea> listaLineasBus;
-    //private RemoteFetch remoteFetchLineas;
     private Context context;
+    DatabaseHelper ld;
 
     public ListLineasPresenter(Context context, IListLineasView listLineasView){
         this.listLineasView = listLineasView;
-        //this.remoteFetchLineas = new RemoteFetch();
         this.context = context;
+        this.listaLineasBus=new ArrayList<>();
+        this.ld = new DatabaseHelper(this.context,1);
     }// ListLineasPresenter
 
     public void start(){
+        //listaLineasBus.add(new Linea(1,1,1,"addadaf"));
         listLineasView.showProgress(true);
-        try {
-            new FetchAsync().execute(this).get();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        new getLineas().execute();
+
         //listLineasView.showList(getListaLineasBus());
         //listLineasView.showProgress(false);
 
@@ -53,16 +59,18 @@ public class ListLineasPresenter {
      * @return
      */
     public boolean obtenLineas(){
+
         try {
-            remoteFetchLineas.getJSON(RemoteFetch.URL_LINEAS_BUS);
-            listaLineasBus = ParserJSON.readArrayLineasBus(remoteFetchLineas.getBufferedData());
-            Log.d("ENTRA", "Obten gasolineras:"+listaLineasBus.size());
+            listaLineasBus=ld.getAllLinea();
+            ld.close();
             return true;
         }catch(Exception e){
             Log.e("ERROR","Error en la obtención de las lineas de Bus: "+e.getMessage());
             e.printStackTrace();
+            listLineasView.showProgress(false);
+            Toast.makeText(this.context, "Error de conexion", Toast.LENGTH_SHORT).show();
             return false;
-        }//try
+        }
     }//obtenLineas
 
 
@@ -87,5 +95,18 @@ public class ListLineasPresenter {
         }//if
         return textoLineas;
     }//getTextoLineas
+
+
+    private class getLineas extends AsyncTask<Void, Void, Boolean> {
+        @Override
+        protected Boolean doInBackground(Void... v) {
+                return obtenLineas();
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result){
+            continua(result);
+        }
+    }
 
 }// ListLineasPresenter

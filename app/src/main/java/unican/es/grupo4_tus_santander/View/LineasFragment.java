@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel.Linea;
 import unican.es.grupo4_tus_santander.Presenter.ListLineasPresenter;
 import unican.es.grupo4_tus_santander.R;
 /**
@@ -62,7 +63,7 @@ public class LineasFragment extends ListFragment implements IListLineasView {
     public void showProgress (boolean state){
         if(state){
             progress = new ProgressDialog(this.getContext());
-            progress.setMessage("Descargando datos");
+            progress.setMessage(R.string.waitData+"");
             progress.show();
         }else{
             progress.dismiss();
@@ -70,6 +71,6 @@ public class LineasFragment extends ListFragment implements IListLineasView {
     }
     
     public void showToast(){
-        Toast.makeText(this.getContext(), "Descargado correctamente", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this.getContext(), "Descarga completada", Toast.LENGTH_SHORT).show();
     }
 }

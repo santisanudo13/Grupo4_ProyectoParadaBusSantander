@@ -1,8 +1,8 @@
-package unican.es.quiniela.Models.BaseDatos.helper;
+package unican.es.grupo4_tus_santander.Models.BaseDatos.helper;
 
-import unican.es.quiniela.Models.BaseDatos.DBModel.Color;
-import unican.es.quiniela.Models.BaseDatos.DBModel.Linea;
-import unican.es.quiniela.Models.BaseDatos.DBModel.Parada;
+import unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel.Color;
+import unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel.Linea;
+import unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel.Parada;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package unican.es.quiniela.Models.BaseDatos.DBModel;
+package unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel;
 
 /**
  * Created by Tiago on 23/10/17.
@@ -18,7 +18,8 @@ public class Parada {
 
     public Parada(){}
 
-    public Parada(String nombreParada, int numeroParada, String direccionParada, double wgs84Long, double wgs84Lat, double coordX, double coordY) {
+    public Parada(String nombreParada, int numeroParada, String direccionParada, double wgs84Long,
+                  double wgs84Lat, double coordX, double coordY) {
         this.nombreParada = nombreParada;
         this.numeroParada = numeroParada;
         this.direccionParada = direccionParada;

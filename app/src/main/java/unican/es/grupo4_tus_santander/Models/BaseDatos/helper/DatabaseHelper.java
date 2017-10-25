@@ -1,11 +1,4 @@
-package unican.es.quiniela.Models.BaseDatos.helper;
-
-import unican.es.quiniela.Models.BaseDatos.DBModel.Color;
-import unican.es.quiniela.Models.BaseDatos.DBModel.Linea;
-import unican.es.quiniela.Models.BaseDatos.DBModel.Parada;
-
-import java.util.ArrayList;
-import java.util.List;
+package unican.es.grupo4_tus_santander.Models.BaseDatos.helper;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -13,6 +6,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel.Color;
+import unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel.Linea;
+import unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel.Parada;
 
 public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterface {
 

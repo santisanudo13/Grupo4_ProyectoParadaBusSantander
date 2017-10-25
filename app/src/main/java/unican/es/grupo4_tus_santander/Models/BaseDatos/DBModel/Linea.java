@@ -7,13 +7,13 @@ package unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel;
 public class Linea {
 
     private int id;
-    private int numero;
+    private String numero;
     private String nombre;
 
 
     public Linea() {}
 
-    public Linea( int numero, String nombre) {
+    public Linea( String numero, String nombre) {
         this.numero = numero;
         this.nombre = nombre;
     }
@@ -28,11 +28,11 @@ public class Linea {
 
 
 
-    public int getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 

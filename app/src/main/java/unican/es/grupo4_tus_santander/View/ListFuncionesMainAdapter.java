@@ -9,16 +9,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-
-
+import unican.es.grupo4_tus_santander.R;
 
 
 public class ListFuncionesMainAdapter extends ArrayAdapter {
-    static final String[] funcionesMain = {"asdasd" };
+    static final String[] funcionesMain = {"Mostrar Favoritos", "Mostrar Líneas", "Mostrar Paradas", "Mostrar Tarifas",  "Mostrar Restricciones", "Ajustes" };
     Context context;
 
     public ListFuncionesMainAdapter(Context context){
-        super(context, R.layout.custom_list_lineas_layout,funcionesMain);
+        super(context, R.layout.custom_list_funciones_main_layout,funcionesMain);
         this.context = context;
     }// ListFuncionesMainAdapter
 
@@ -27,17 +26,11 @@ public class ListFuncionesMainAdapter extends ArrayAdapter {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View viewRow = layoutInflater.inflate(R.layout.custom_list_lineas_layout,null,true);
-        TextView textViewName = (TextView) viewRow.findViewById(R.id.textViewName);
-        TextView textViewNumero = (TextView) viewRow.findViewById(R.id.textViewNumero);
-        textViewName.setText(lineasBus.get(position).getNombre().trim());
-        textViewNumero.setText( lineasBus.get(position).getNumero()+"");
-        lineasBus.get(position);
-        //int a=lineasBus.get(position).
-        //int r=lineasBus.get(position).getColor().getRed();
-        //int g=lineasBus.get(position).getColor().getGreen();
-        //int b=lineasBus.get(position).getColor().getBlue();
-        //textViewNumero.setTextColor(Color.argb(a,r,g,b));
+        View viewRow = layoutInflater.inflate(R.layout.custom_list_funciones_main_layout,null,true);
+        TextView textViewNameFuncion = (TextView) viewRow.findViewById(R.id.textViewNameFuncion);
+
+        textViewNameFuncion.setText( funcionesMain[position]);
+
         return viewRow;
     }
 }// ListFuncionesMainAdapter

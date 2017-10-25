@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,10 @@ import unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel.Color;
 import unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel.Linea;
 import unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel.Parada;
 import unican.es.grupo4_tus_santander.Models.BaseDatos.helper.DatabaseHelper;
+import unican.es.grupo4_tus_santander.Models.WebService.DataLoaders.ParserJSON;
+import unican.es.grupo4_tus_santander.Models.WebService.DataLoaders.RemoteFetch;
+import unican.es.grupo4_tus_santander.Models.WebService.WSModel.LineaJSON;
+import unican.es.grupo4_tus_santander.Models.WebService.WSModel.ParadaJSON;
 import unican.es.grupo4_tus_santander.View.*;
 
 
@@ -20,9 +25,8 @@ public class MainPresenter {
     private MainActivity mainActivity;
     private Context context;
     
-    private List<LineaYColor> lineasYColores = new ArrayList<LineaYColor>();
     private List<LineaYParadas> lineaYParadas = new ArrayList<LineaYParadas>();
-
+    private  RemoteFetch remoteFetch = new RemoteFetch();
 
     DatabaseHelper db;
 
@@ -31,39 +35,104 @@ public class MainPresenter {
         this.context = context;
         this.db = new DatabaseHelper(this.context,1);
         
-        start();
     }// MainPresenter
 
     public void start(){
-        mainActivity.showProgress(true);
+        mainActivity.showProgress(true, 0);
         new getDataServicio().execute();
+
+        mainActivity.showList();
     }// start
 
 
-    public boolean obtenData() {
+    public boolean obtenData(){
+        List<LineaJSON> listLineasJson = new ArrayList<LineaJSON>();
+        try {
+            remoteFetch.getJSON(RemoteFetch.URL_LINEAS_BUS);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            listLineasJson = ParserJSON.readArrayLineasBus(remoteFetch.getBufferedData());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-            //TODO
-            return true;
-        
+
+        List<ParadaJSON> listParadaJson = new ArrayList<ParadaJSON>();
+        for(LineaJSON lineaJson:listLineasJson){
+
+            try {
+                remoteFetch.getJSON(RemoteFetch.URL_PARADAS_BUS_LINEA+lineaJson.getNumero());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                listParadaJson = ParserJSON.readArrayParadasBus(remoteFetch.getBufferedData());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            List<Parada> listParadaDb = new ArrayList<Parada>();
+
+            for(ParadaJSON paradaJson: listParadaJson){
+                listParadaDb.add(paradaJsontoDB(paradaJson));
+            }
+
+            lineaYParadas.add(new LineaYParadas(lineaJsonToDB(lineaJson), listParadaDb));
+        }
+
+        return !lineaYParadas.isEmpty();
     }
 
-        private class getDataServicio extends AsyncTask<Void, Void, Boolean> {
-            @Override
-            protected Boolean doInBackground(Void... v) {
-                return obtenData();
+    private Parada paradaJsontoDB(ParadaJSON paradaJson) {
+        Parada parada = new Parada();
+
+        parada.setCoordX(paradaJson.getPosX());
+        parada.setCoordY(paradaJson.getPosY());
+        parada.setNombreParada(paradaJson.getNombreParada());
+        parada.setNumeroParada(paradaJson.getnParada());
+
+        return parada;
+    }
+
+    private Linea lineaJsonToDB(LineaJSON lineaJson) {
+        Linea linea = new Linea();
+        linea.setNombre(lineaJson.getName());
+        linea.setNumero(lineaJson.getNumero());
+
+        return linea;
+    }
+
+    private class getDataServicio extends AsyncTask<Void, Void, Boolean> {
+        @Override
+        protected Boolean doInBackground(Void... v) {
+            return obtenData();
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            if (result) {
+                new getSaveDataIntoDataBase().execute();
+                mainActivity.showProgress(false, 1);
+            } else {
+                mainActivity.showProgress(false, -1);
             }
 
-            @Override
-            protected void onPostExecute(Boolean result) {
-                if (result) {
-                    Toast.makeText(context, "Datos obtenidos con éxito", Toast.LENGTH_SHORT).show();
-                    guardaDataEnBaseDatos();
-                } else {
-                    Toast.makeText(context, "Error al obtener los datos", Toast.LENGTH_SHORT).show();
-                }
-                mainActivity.showProgress(false);
-            }
         }
+    }
+
+    private class getSaveDataIntoDataBase extends AsyncTask<Void, Void, Boolean> {
+        @Override
+        protected Boolean doInBackground(Void... v) {
+            guardaDataEnBaseDatos();
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+        }
+    }
 
 
     private void guardaDataEnBaseDatos() {
@@ -139,7 +208,12 @@ public class MainPresenter {
                     id_color = db.createColor(new Color(255, 0, 0, 0));
                     break;
             }
-            db.createLinea(l.getLinea(), id_color);
+            long id_linea =db.createLinea(l.getLinea(), id_color);
+
+            if(!l.getParadas().isEmpty())
+                for(Parada parada : l.getParadas()){
+                    db.createParada(parada, id_linea);
+                }
 
         }
     }
@@ -170,29 +244,5 @@ public class MainPresenter {
         }
     }
 
-    private class LineaYColor{
-        private Linea linea;
-        private Color color;
 
-        public LineaYColor(Linea linea, Color color) {
-            this.linea = linea;
-            this.color = color;
-        }
-
-        public Linea getLinea() {
-            return linea;
-        }
-
-        public void setLinea(Linea linea) {
-            this.linea = linea;
-        }
-
-        public Color getColor() {
-            return color;
-        }
-
-        public void setColor(Color color) {
-            this.color = color;
-        }
-    }
 }

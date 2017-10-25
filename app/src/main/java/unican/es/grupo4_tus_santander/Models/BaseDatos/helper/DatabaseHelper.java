@@ -16,7 +16,7 @@ import android.util.Log;
 
 public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterface {
 
-	// Logcat Linea
+	// Logcat LineaJSON
 	private static final String LOG = "DatabaseHelper";
 
 
@@ -70,7 +70,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 			+ "("
 			+ KEY_ID + " INTEGER PRIMARY KEY,"
 			+ KEY_NOMBRE+ " TEXT,"
-			+ KEY_NUMERO + " INTEGER"
+			+ KEY_NUMERO + " TEXT"
 			+ ")";
 
 	// COLOR table create statement
@@ -243,7 +243,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 
 
 
-	// ------------------------ "Linea" table methods ----------------//
+	// ------------------------ "LineaJSON" table methods ----------------//
 
 	/*
 	 * Creating linea
@@ -298,7 +298,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 		Linea linea = new Linea();
 		linea.setId(c.getInt((c.getColumnIndex(KEY_ID))));
 		linea.setNombre(c.getString(c.getColumnIndex(KEY_NOMBRE)));
-		linea.setNumero(c.getInt(c.getColumnIndex(KEY_NUMERO)));
+		linea.setNumero(c.getString(c.getColumnIndex(KEY_NUMERO)));
 
 		return linea;
 	}
@@ -320,7 +320,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 				Linea t = new Linea();
 				t.setId(c.getInt((c.getColumnIndex(KEY_ID))));
 				t.setNombre(c.getString(c.getColumnIndex(KEY_NOMBRE)));
-				t.setNumero(c.getInt(c.getColumnIndex(KEY_NUMERO)));
+				t.setNumero(c.getString(c.getColumnIndex(KEY_NUMERO)));
 
 				// adding to Lineas list
 				lineas.add(t);

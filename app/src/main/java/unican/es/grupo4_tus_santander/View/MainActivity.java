@@ -1,52 +1,55 @@
 package unican.es.grupo4_tus_santander.View;
 
 
-import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
-import java.util.List;
 
-import unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel.Linea;
 import unican.es.grupo4_tus_santander.Presenter.MainPresenter;
+import unican.es.grupo4_tus_santander.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    //private ListView listViewLineas;
-
-    private ProgressDialog dialog;
+    private Context context;
     private MainPresenter mainPresenter;
-    private ProgressDialog progress;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lineas);
-        this.mainPresenter = new MainPresenter(getApplicationContext(), this);
-        this.dialog = new ProgressDialog(getApplicationContext());
-        this.mainPresenter.start();
+        setContentView(R.layout.activity_main);
+        this.context = getApplicationContext();
+        this.progressBar =(ProgressBar) findViewById(R.id.progressBar);
+        this.mainPresenter = new MainPresenter(context, this);
+        mainPresenter.start();
     }//onCreate
 
-
-
-
-
-    @Override
-    public void showList(List<Linea> lineaList) {
-        ListFuncionesMainAdapter listFuncionesMainAdapter = new ListFuncionesMainAdapter(getApplicationContext(), lineaList);
+    public void showList() {
+        ListFuncionesMainAdapter listFuncionesMainAdapter = new ListFuncionesMainAdapter(context);
         ListView listview = (ListView) findViewById(R.id.listLineas);
         listview.setAdapter(listFuncionesMainAdapter);
     }
 
-    @Override
-    public void showProgress(boolean state) {
+    public void showProgress (boolean state, int tipo){
+        //TODO se debe completar el método para que utilizando el atributo dialog nos muestre un progress dialog
+        if(state)
+        {
+            Toast.makeText(getApplicationContext(), "Cargando datos", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.VISIBLE);
+        }else{
+            if(tipo == 1)
+                Toast.makeText(getApplicationContext(), "Carga de datos exitosa", Toast.LENGTH_SHORT).show();
+            if(tipo == -1)
+                Toast.makeText(getApplicationContext(), "Carga de datos fallida", Toast.LENGTH_SHORT).show();
 
+            progressBar.setVisibility(View.GONE);
+        }
     }
 
-    @Override
-    public void showToast() {
 
-    }
 }// MainActivity

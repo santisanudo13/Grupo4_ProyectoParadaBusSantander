@@ -277,7 +277,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 		valuesLineaColor.put(KEY_LINEA_ID, linea_id);
 		valuesLineaColor.put(KEY_COLOR_ID, color_id);
 
-		long linea_color_id = db.insert(TABLE_LINEA_COLOR, null, valuesLineaColor);
+		db.insert(TABLE_LINEA_COLOR, null, valuesLineaColor);
 
 		return linea_id;
 	}
@@ -373,8 +373,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 			valuesLineaParada.put(KEY_LINEA_ID, id_linea);
 			valuesLineaParada.put(KEY_PARADA_ID, parada_id);
 
-			long linea_parada_id = db.insert(TABLE_LINEA_PARADA, null, valuesLineaParada);
-
+			db.insert(TABLE_LINEA_PARADA, null, valuesLineaParada);
 
 			return parada_id;
 		}

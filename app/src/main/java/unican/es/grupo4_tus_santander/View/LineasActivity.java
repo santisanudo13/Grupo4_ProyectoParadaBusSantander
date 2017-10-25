@@ -1,17 +1,11 @@
 package unican.es.grupo4_tus_santander.View;
 
 
-import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.ListView;
 
 import java.util.List;
@@ -33,7 +27,7 @@ public class LineasActivity extends AppCompatActivity  implements DataCommunicat
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_lineas_list);
+        setContentView(R.layout.activity_lineas);
         this.listLineasPresenter = new ListLineasPresenter(getApplicationContext(),this);
         this.dialog = new ProgressDialog(getApplicationContext());
         this.listLineasPresenter.start();
@@ -79,7 +73,7 @@ public class LineasActivity extends AppCompatActivity  implements DataCommunicat
     @Override
     public void showList(List<Linea> lineaList) {
         ListLineasAdapter listLineasAdapter = new ListLineasAdapter(getApplicationContext(), lineaList);
-        ListView listview = (ListView) findViewById(R.id.list);
+        ListView listview = (ListView) findViewById(R.id.listLineas);
         listview.setAdapter(listLineasAdapter);
     }
 

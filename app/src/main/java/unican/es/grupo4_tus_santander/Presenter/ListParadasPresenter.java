@@ -10,18 +10,18 @@ import java.util.List;
 
 import unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel.Parada;
 import unican.es.grupo4_tus_santander.Models.BaseDatos.helper.DatabaseHelper;
-import unican.es.grupo4_tus_santander.Views.IListParadasView;
+import unican.es.grupo4_tus_santander.View.IListParadasView;
 
 
 /**
- * Created by alejandro on 11/10/17.
+ * Created by Asier on 25/10/17.
  */
 
 public class ListParadasPresenter {
     private IListParadasView listParadasView;
     private List<Parada> listaParadasBus;
     private Context context;
-    DatabaseHelper ld;
+    private DatabaseHelper ld;
 
     public ListParadasPresenter(Context context, IListParadasView listParadasView){
         this.listParadasView = listParadasView;
@@ -31,32 +31,21 @@ public class ListParadasPresenter {
     }// ListParadasPresenter
 
     public void start(){
-        //listaParadasBus.add(new Linea(1,1,1,"addadaf"));
         listParadasView.showProgress(true);
         new getParadas().execute();
-
-        //listLineasView.showList(getListaParadasBus());
-        //listLineasView.showProgress(false);
 
     }// start
 
     public void continua(boolean result){
 
         if(result){
-            //listParadasView.showList(getListaParadasBus());
+            listParadasView.showList(getListaParadasBus());
             listParadasView.showProgress(false);
             listParadasView.showToast();
         }
 
     }
 
-    /**
-     * Método a través del cual se almacenan las lineas de buses en el atributo listaParadasBus
-     * de esta clase. Para realizar esto internamente realiza una llamada a la función
-     * getJSON (RemoteFetch) para seguidamente parsear el JSON obtenido con la llamada
-     * a readArrayLineasBus (ParserJSON)
-     * @return
-     */
     public boolean obtenParadas(){
 
         try {
@@ -78,11 +67,6 @@ public class ListParadasPresenter {
     }//getListaParadasBus
 
 
-    /**
-     * Método para obtener un cadena de texto con todas las lineas. En esta cadena
-     * se muestra unicamente el nombre de la linea
-     *  @return String con todas las gasolineras separadas por un doble salto de línea
-     */
     public String getTextoParadas(){
         String textoParadas="";
         if(listaParadasBus !=null){

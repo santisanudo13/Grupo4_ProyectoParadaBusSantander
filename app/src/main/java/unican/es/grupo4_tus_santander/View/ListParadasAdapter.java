@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.Views;
+package unican.es.grupo4_tus_santander.View;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -15,13 +15,12 @@ import unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel.Parada;
 import unican.es.grupo4_tus_santander.R;
 
 /**
- * Created by alejandro on 10/08/17.
- * //http://www.viralandroid.com/2016/04/custom-android-listview-example.html
+ * Created by Asier on 25/10/17.
  */
 
 public class ListParadasAdapter extends ArrayAdapter {
-    List<Parada> paradasBus;
-    Context context;
+    private List<Parada> paradasBus;
+    private Context context;
 
     public ListParadasAdapter (Context context, List<Parada> paradasBus){
         super(context, R.layout.custom_list_paradas_layout,paradasBus);
@@ -39,12 +38,7 @@ public class ListParadasAdapter extends ArrayAdapter {
         TextView textViewNumero = (TextView) viewRow.findViewById(R.id.textViewNumero);
         textViewName.setText(paradasBus.get(position).getNombreParada().trim());
         textViewNumero.setText( paradasBus.get(position).getNumeroParada()+"");
-        paradasBus.get(position);
-        //int a=lineasBus.get(position).
-        //int r=lineasBus.get(position).getColor().getRed();
-        //int g=lineasBus.get(position).getColor().getGreen();
-        //int b=lineasBus.get(position).getColor().getBlue();
-        //textViewNumero.setTextColor(Color.argb(a,r,g,b));
+
         return viewRow;
     }
 }// ListParadasAdapter

@@ -198,9 +198,12 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 
 		Cursor c = db.rawQuery(selectQuery, null);
 
-		if (c != null)
-			c.moveToFirst();
+		if(c == null){
+			System.out.println("Cursor nulo al obtener color");
+			return null;
+		}
 
+		c.moveToFirst();
 		Color color = new Color();
 		color.setId(c.getInt(c.getColumnIndex(KEY_ID)));
 		color.setAlpha((c.getInt(c.getColumnIndex(KEY_ALPHA))));
@@ -274,7 +277,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 		valuesLineaColor.put(KEY_LINEA_ID, linea_id);
 		valuesLineaColor.put(KEY_COLOR_ID, color_id);
 
-		long linea_color_id = db.insert(TABLE_LINEA_COLOR, null, valuesLineaColor);
+		db.insert(TABLE_LINEA_COLOR, null, valuesLineaColor);
 
 		return linea_id;
 	}
@@ -292,8 +295,12 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 
 		Cursor c = db.rawQuery(selectQuery, null);
 
-		if (c != null)
-			c.moveToFirst();
+		if(c == null){
+			System.out.println("Cursor nulo al obtener linea");
+			return null;
+		}
+
+		c.moveToFirst();
 
 		Linea linea = new Linea();
 		linea.setId(c.getInt((c.getColumnIndex(KEY_ID))));
@@ -366,8 +373,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 			valuesLineaParada.put(KEY_LINEA_ID, id_linea);
 			valuesLineaParada.put(KEY_PARADA_ID, parada_id);
 
-			long linea_parada_id = db.insert(TABLE_LINEA_PARADA, null, valuesLineaParada);
-
+			db.insert(TABLE_LINEA_PARADA, null, valuesLineaParada);
 
 			return parada_id;
 		}
@@ -386,8 +392,12 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 
 		Cursor c = db.rawQuery(selectQuery, null);
 
-		if (c != null)
-			c.moveToFirst();
+		if (c == null){
+			System.out.println("Cursor nulo al obtener parada");
+			return null;
+		}
+
+		c.moveToFirst();
 
 		Parada parada = new Parada();
 		parada.setId(c.getInt(c.getColumnIndex(KEY_ID)));

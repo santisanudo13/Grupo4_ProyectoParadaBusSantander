@@ -3,17 +3,16 @@ package unican.es.grupo4_tus_santander.Presenter.Main;
 import android.content.Context;
 
 import unican.es.grupo4_tus_santander.Models.WebService.DataLoaders.RemoteFetch;
-import unican.es.grupo4_tus_santander.View.Activity;
-import unican.es.grupo4_tus_santander.View.Main.MainActivity;
+import unican.es.grupo4_tus_santander.View.Interfaz.ActivityInterface;
 
 
 public class MainPresenter {
-    private Activity activity;
+    private ActivityInterface activity;
     private Context context;
     private  RemoteFetch remoteFetch = new RemoteFetch();
 
 
-    public MainPresenter(Context context, Activity activity){
+    public MainPresenter(Context context, ActivityInterface activity){
         this.activity = activity;
         this.context = context;
 

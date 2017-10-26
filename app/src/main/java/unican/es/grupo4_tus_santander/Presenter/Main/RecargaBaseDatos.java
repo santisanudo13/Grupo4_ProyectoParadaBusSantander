@@ -7,27 +7,28 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel.Color;
-import unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel.Linea;
-import unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel.Parada;
 import unican.es.grupo4_tus_santander.Models.BaseDatos.helper.DatabaseHelper;
+import unican.es.grupo4_tus_santander.Models.Pojos.*;
 import unican.es.grupo4_tus_santander.Models.WebService.DataLoaders.ParserJSON;
 import unican.es.grupo4_tus_santander.Models.WebService.DataLoaders.RemoteFetch;
-import unican.es.grupo4_tus_santander.Models.WebService.WSModel.LineaJSON;
-import unican.es.grupo4_tus_santander.Models.WebService.WSModel.ParadaJSON;
-import unican.es.grupo4_tus_santander.View.Activity;
+import unican.es.grupo4_tus_santander.View.Interfaz.ActivityInterface;
 
 
 public class RecargaBaseDatos {
-    private Activity activity;
+    private ActivityInterface activity;
     private Context context;
 
-    private List<LineaYParadas> lineaYParadas = new ArrayList<LineaYParadas>();
+    List<Linea> listLineas = new ArrayList<Linea>();
+    List<Parada> listParadas = new ArrayList<Parada>();
+    List<ParadaConNombre> listParadasConNombre = new ArrayList<ParadaConNombre>();
+
+
+
     private  RemoteFetch remoteFetch = new RemoteFetch();
 
     DatabaseHelper db;
 
-    public RecargaBaseDatos(Context context, Activity activity){
+    public RecargaBaseDatos(Context context, ActivityInterface activity){
         this.activity = activity;
         this.context = context;
         this.db = new DatabaseHelper(this.context,1);
@@ -43,63 +44,44 @@ public class RecargaBaseDatos {
 
 
     public boolean obtenData(){
-        List<LineaJSON> listLineasJson = new ArrayList<LineaJSON>();
+        //LINEAS
         try {
             remoteFetch.getJSON(RemoteFetch.URL_LINEAS_BUS);
         } catch (IOException e) {
             e.printStackTrace();
         }
         try {
-            listLineasJson = ParserJSON.readArrayLineasBus(remoteFetch.getBufferedData());
+            listLineas = ParserJSON.readArrayLineasBus(remoteFetch.getBufferedData());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //PARADAS
+        try {
+            remoteFetch.getJSON(RemoteFetch.URL_PARADAS);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            listParadas = ParserJSON.readArrayParadas(remoteFetch.getBufferedData());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //PARADAS CON NOMBRE
+        try {
+            remoteFetch.getJSON(RemoteFetch.URL_PARADAS_NOMBRE);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            listParadasConNombre = ParserJSON.readArrayParadasConNombre(remoteFetch.getBufferedData());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-
-        List<ParadaJSON> listParadaJson = new ArrayList<ParadaJSON>();
-        for(LineaJSON lineaJson:listLineasJson){
-
-            try {
-                remoteFetch.getJSON(RemoteFetch.URL_PARADAS_BUS_LINEA+lineaJson.getIdentifier());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                listParadaJson = ParserJSON.readArrayParadasBus(remoteFetch.getBufferedData());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            List<Parada> listParadaDb = new ArrayList<Parada>();
-
-            for(ParadaJSON paradaJson: listParadaJson){
-                listParadaDb.add(paradaJsontoDB(paradaJson));
-            }
-
-            lineaYParadas.add(new LineaYParadas(lineaJsonToDB(lineaJson), listParadaDb));
-        }
-
-        return !lineaYParadas.isEmpty();
+        return !listLineas.isEmpty() && !listParadas.isEmpty();
     }
 
-    private Parada paradaJsontoDB(ParadaJSON paradaJson) {
-        Parada parada = new Parada();
 
-        parada.setCoordX(paradaJson.getPosX());
-        parada.setCoordY(paradaJson.getPosY());
-        parada.setNombreParada(paradaJson.getNombreParada());
-        parada.setNumeroParada(paradaJson.getnParada());
-
-        return parada;
-    }
-
-    private Linea lineaJsonToDB(LineaJSON lineaJson) {
-        Linea linea = new Linea();
-        linea.setNombre(lineaJson.getName());
-        linea.setNumero(lineaJson.getNumero());
-
-        return linea;
-    }
 
     private class getDataServicio extends AsyncTask<Void, Void, Boolean> {
         @Override
@@ -134,10 +116,10 @@ public class RecargaBaseDatos {
 
     private void guardaDataEnBaseDatos() {
 
-        for(LineaYParadas l: lineaYParadas) {
+        for(Linea l: listLineas) {
             long id_color = -1;
 
-            switch (l.getLinea().getNumero()+"") {
+            switch (l.getNumero()+"") {
                 case "1":
                     id_color = db.createColor(new Color(255, 255, 0, 0));
                     break;
@@ -205,14 +187,21 @@ public class RecargaBaseDatos {
                     id_color = db.createColor(new Color(255, 0, 0, 0));
                     break;
             }
-            long id_linea =db.createLinea(l.getLinea(), id_color);
+            long id_linea =db.createLinea(l, id_color);
+            l.setId((int) id_linea);
 
-            if(!l.getParadas().isEmpty())
-                for(Parada parada : l.getParadas()){
-                    db.createParada(parada, id_linea);
+            for(Parada parada : listParadas){
+                if(parada.getIdentifierLinea() == l.getIdentifier()){
+                    for(ParadaConNombre paradaConNombre : listParadasConNombre){
+                        if(parada.getNumParada() == paradaConNombre.getNumero())
+                            parada.setNombre(paradaConNombre.getParada());
+                    }
+
+                    long id_parada = db.createParada(parada, l.getId());
                 }
-
+            }
         }
+        db.closeDB();
     }
 
     private class LineaYParadas{

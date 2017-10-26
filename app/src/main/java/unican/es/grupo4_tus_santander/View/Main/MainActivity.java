@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,18 +15,24 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
+import java.util.List;
+
+import unican.es.grupo4_tus_santander.Models.BaseDatos.helper.DatabaseHelper;
+import unican.es.grupo4_tus_santander.Models.Pojos.Color;
+import unican.es.grupo4_tus_santander.Models.Pojos.Linea;
+import unican.es.grupo4_tus_santander.Models.Pojos.Parada;
 import unican.es.grupo4_tus_santander.Presenter.Main.MainPresenter;
 import unican.es.grupo4_tus_santander.Presenter.Main.RecargaBaseDatos;
 import unican.es.grupo4_tus_santander.R;
-import unican.es.grupo4_tus_santander.View.Activity;
 import unican.es.grupo4_tus_santander.View.Ajustes.AjustesActivity;
 import unican.es.grupo4_tus_santander.View.Favoritos.FavsActivity;
+import unican.es.grupo4_tus_santander.View.Interfaz.ActivityInterface;
 import unican.es.grupo4_tus_santander.View.Lineas.LineasActivity;
 import unican.es.grupo4_tus_santander.View.Paradas.ParadasActivity;
 import unican.es.grupo4_tus_santander.View.Restricciones.RestriccionesActivity;
 import unican.es.grupo4_tus_santander.View.Tarifas.TarifasActivity;
 
-public class MainActivity extends AppCompatActivity  implements Activity{
+public class MainActivity extends AppCompatActivity  implements ActivityInterface {
 
     private Context context;
     private MainPresenter mainPresenter;
@@ -77,10 +84,31 @@ public class MainActivity extends AppCompatActivity  implements Activity{
             }
         });
 
-
-
     }//onCreate
 
+    public void test(){
+        DatabaseHelper db;
+        db = new DatabaseHelper(getApplicationContext(),1);
+
+
+        // Getting all tag names
+        Log.d("Get Tags", "Getting All Tags");
+        List<Color> allColor = db.getAllColor();
+        Color c = db.getColor(1);
+
+        List<Linea> lineas = db.getAllLinea();
+        Linea l = db.getLinea(1);
+
+        List<Parada> listParadas = db.getAllParada();
+        Parada p1 = db.getParada(3);
+
+        List<Parada> paradasLinea1 = db.getParadasByLinea(4);
+        Linea lineaParada1 = db.getLineaByParada(5);
+        Color color = db.getColorByLinea(10);
+
+
+        db.closeDB();
+    }
 
     /**
      * Metodo encargado de generar el toolbar
@@ -104,6 +132,7 @@ public class MainActivity extends AppCompatActivity  implements Activity{
 
         if(item.getItemId() == R.id.toolbar_ajustes)
         {
+            test();
             Intent intent = new Intent(MainActivity.this, AjustesActivity.class);
             startActivity(intent);
             return(true);

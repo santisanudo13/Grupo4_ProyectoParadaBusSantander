@@ -2,15 +2,13 @@ package unican.es.grupo4_tus_santander.Models.WebService.DataLoaders;
 
 import android.util.JsonReader;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import unican.es.grupo4_tus_santander.Models.WebService.WSModel.LineaJSON;
-import unican.es.grupo4_tus_santander.Models.WebService.WSModel.ParadaJSON;
+import unican.es.grupo4_tus_santander.Models.Pojos.*;
 
 
 /**
@@ -26,9 +24,9 @@ public class ParserJSON{
      * @return Lista con todas las lineas
      * @throws IOException
      */
-    public static List<LineaJSON> readArrayLineasBus (InputStream in) throws IOException {
+    public static List<Linea> readArrayLineasBus (InputStream in) throws IOException {
             JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
-            List<LineaJSON> listLineasBus = new ArrayList<LineaJSON>();
+            List<Linea> listLineasBus = new ArrayList<Linea>();
             reader.beginObject(); //summary y resources
             while (reader.hasNext()){
                     String name = reader.nextName();
@@ -48,7 +46,7 @@ public class ParserJSON{
      * @return
      * @throws IOException
      */
-    private static LineaJSON readLinea (JsonReader reader) throws IOException {
+    private static Linea readLinea (JsonReader reader) throws IOException {
         reader.beginObject(); //Leemos un object
         String name ="";
         String numero="";
@@ -66,12 +64,12 @@ public class ParserJSON{
             }
         }
         reader.endObject();
-        return new LineaJSON(name,numero,identifier);
+        return new Linea(numero,numero,identifier);
     }
 
-    public static List<ParadaJSON> readArrayParadasBus (InputStream in) throws IOException {
+    public static List<Parada> readArrayParadas(InputStream in) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
-        List<ParadaJSON> listParadasJson = new ArrayList<ParadaJSON>();
+        List<Parada> listParadasJson = new ArrayList<Parada>();
         reader.beginObject(); //summary y resources
         while (reader.hasNext()){
             String name = reader.nextName();
@@ -86,33 +84,79 @@ public class ParserJSON{
         return listParadasJson;
     }
 
-    private static ParadaJSON readParada(JsonReader reader) throws IOException{
+    private static Parada readParada(JsonReader reader) throws IOException{
         reader.beginObject(); //Leemos un object
-
-
-        double  posX = 0;
-        double posY = 0;
-        int linea = 0;
-        int nParada = 0;
-        String nombreParada = "";
+        int identifierLinea = 0;
+        int identifier = 0;
+        double coordX = 0;
+        double coordY = 0;
+        double wgs64Long = 0;
+        double wgs64Lat = 0;
+        int numParada = 0;
 
         while(reader.hasNext()) {
             String n = reader.nextName();
-            if (n.equals("ayto:PosX")) {
-                posX = reader.nextDouble();
-            } else if (n.equals("ayto:PosY")) {
-                posY = reader.nextDouble();
-            } else if (n.equals("ayto:Linea")) {
-                linea = reader.nextInt();
-            } else if (n.equals("ayto:NParada")) {
-                nParada = reader.nextInt();
-            } else if (n.equals("ayto:NombreParada")) {
-                nombreParada = reader.nextString();
+            if (n.equals("wgs84_pos:long")) {
+                wgs64Long = reader.nextDouble();
+            } else if (n.equals("gn:coordY")) {
+                coordY = reader.nextDouble();
+            } else if (n.equals("gn:coordX")) {
+                coordX = reader.nextDouble();
+            }else if (n.equals("ayto:linea")) {
+                identifierLinea = reader.nextInt();
+            }else if (n.equals("wgs84_pos:lat")) {
+                wgs64Lat = reader.nextDouble();
+            }else if (n.equals("ayto:parada")) {
+                numParada = reader.nextInt();
+            }else if (n.equals("dc:identifier")) {
+                identifier = reader.nextInt();
             }else {
                 reader.skipValue();
             }
         }
         reader.endObject();
-        return new ParadaJSON(posX, posY, linea, nParada,  nombreParada);
+
+            return new Parada(identifierLinea, identifier, coordX, coordY,  wgs64Long, wgs64Lat, numParada);
+    }
+
+    public static List<ParadaConNombre> readArrayParadasConNombre (InputStream in) throws IOException {
+        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
+        List<ParadaConNombre> listParadasJson = new ArrayList<ParadaConNombre>();
+        reader.beginObject(); //summary y resources
+        while (reader.hasNext()){
+            String name = reader.nextName();
+            if(name.equals ("resources")){
+                reader.beginArray(); //cada elemento del array es un object
+                while(reader.hasNext())
+                    listParadasJson.add(readParadaConNombre(reader));
+            }else{
+                reader.skipValue();
+            }
+        }
+        return listParadasJson;
+    }
+
+    private static ParadaConNombre readParadaConNombre(JsonReader reader) throws IOException{
+        reader.beginObject(); //Leemos un object
+
+        int identifier = 0;
+        String parada = "";
+        int numero = 0;
+
+        while(reader.hasNext()) {
+            String n = reader.nextName();
+            if (n.equals("ayto:parada")) {
+                parada = reader.nextString();
+            }else if (n.equals("dc:identifier")) {
+                identifier = reader.nextInt();
+            }else if (n.equals("ayto:numero")) {
+                numero = reader.nextInt();
+            }else {
+                reader.skipValue();
+            }
+        }
+        reader.endObject();
+
+        return new ParadaConNombre(identifier, parada, numero);
     }
 }//ParserJSON

@@ -8,8 +8,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import unican.es.grupo4_tus_santander.R;
+import unican.es.grupo4_tus_santander.View.Interfaz.ActivityInterface;
 
-public class FavsActivity extends AppCompatActivity {
+public class FavsActivity extends AppCompatActivity implements ActivityInterface {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,4 +21,13 @@ public class FavsActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void showProgress(boolean b, int i) {
+
+    }
+
+    @Override
+    public void showList() {
+
+    }
 }

@@ -26,7 +26,7 @@ public class ListParadasPresenter {
     public ListParadasPresenter(Context context, IListParadasView listParadasView){
         this.listParadasView = listParadasView;
         this.context = context;
-        this.listaParadasBus =new ArrayList<>();
+        this.listaParadasBus = new ArrayList<>();
         this.ld = new DatabaseHelper(this.context,1);
     }// ListParadasPresenter
 

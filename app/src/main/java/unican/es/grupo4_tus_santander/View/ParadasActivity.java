@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel.Linea;
 import unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel.Parada;
 import unican.es.grupo4_tus_santander.Presenter.ListParadasPresenter;
 import unican.es.grupo4_tus_santander.R;

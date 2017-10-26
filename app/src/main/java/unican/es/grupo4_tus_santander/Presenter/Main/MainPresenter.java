@@ -1,9 +1,10 @@
-package unican.es.grupo4_tus_santander.Presenter;
+package unican.es.grupo4_tus_santander.Presenter.Main;
 
 import android.content.Context;
 
 import unican.es.grupo4_tus_santander.Models.WebService.DataLoaders.RemoteFetch;
 import unican.es.grupo4_tus_santander.View.Activity;
+import unican.es.grupo4_tus_santander.View.Main.MainActivity;
 
 
 public class MainPresenter {

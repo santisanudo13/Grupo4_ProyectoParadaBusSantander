@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "unican.es.grupo4_tus_santander"
         minSdkVersion 15
@@ -20,6 +20,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.android.support:design:25.4.0'
     compile group: 'com.google.android', name: 'android', version: '4.1.1.4'
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {

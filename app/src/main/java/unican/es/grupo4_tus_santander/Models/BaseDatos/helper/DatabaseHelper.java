@@ -339,7 +339,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 	public long createParada(Parada parada, long id_linea) {
 		SQLiteDatabase db = this.getWritableDatabase();
 
-		String selectQuery = "SELECT  * FROM " + TABLE_LINEA + " WHERE "
+		String selectQuery = "SELECT * FROM " + TABLE_LINEA + " WHERE "
 				+ KEY_ID + " = " + id_linea;
 
 		Log.e(LOG, selectQuery);

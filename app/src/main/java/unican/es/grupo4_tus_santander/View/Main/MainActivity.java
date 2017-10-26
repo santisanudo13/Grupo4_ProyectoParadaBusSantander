@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.View;
+package unican.es.grupo4_tus_santander.View.Main;
 
 
 import android.content.Context;
@@ -12,8 +12,9 @@ import android.widget.Toast;
 
 import unican.es.grupo4_tus_santander.Presenter.MainPresenter;
 import unican.es.grupo4_tus_santander.R;
+import unican.es.grupo4_tus_santander.View.Activity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  implements Activity{
 
     private Context context;
     private MainPresenter mainPresenter;
@@ -36,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showProgress (boolean state, int tipo){
-        //TODO se debe completar el método para que utilizando el atributo dialog nos muestre un progress dialog
         if(state)
         {
             Toast.makeText(getApplicationContext(), "Cargando datos", Toast.LENGTH_SHORT).show();

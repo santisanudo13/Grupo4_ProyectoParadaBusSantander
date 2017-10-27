@@ -8,9 +8,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel.Linea;
 import unican.es.grupo4_tus_santander.Models.BaseDatos.helper.DatabaseHelper;
-import unican.es.grupo4_tus_santander.View.*;
+import unican.es.grupo4_tus_santander.Models.BaseDatos.helper.DatabaseInterface;
+import unican.es.grupo4_tus_santander.Models.Pojos.Linea;
+import unican.es.grupo4_tus_santander.View.Lineas.IListLineasView;
 
 
 /**
@@ -21,7 +22,7 @@ public class ListLineasPresenter {
     private IListLineasView listLineasView;
     private List<Linea> listaLineasBus;
     private Context context;
-    DatabaseHelper ld;
+    DatabaseInterface ld;
 
     public ListLineasPresenter(Context context, IListLineasView listLineasView){
         this.listLineasView = listLineasView;
@@ -51,13 +52,13 @@ public class ListLineasPresenter {
 
         try {
             listaLineasBus=ld.getAllLinea();
-            ld.close();
+            ld.closeDB();
             return true;
         }catch(Exception e){
             Log.e("ERROR","Error en la obtención de las lineas de Bus: "+e.getMessage());
             e.printStackTrace();
             listLineasView.showProgress(false);
-            Toast.makeText(this.context, "Error de conexion", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.context, "Error de la base de datos, actualizala", Toast.LENGTH_SHORT).show();
             return false;
         }
     }//obtenLineas
@@ -66,24 +67,6 @@ public class ListLineasPresenter {
     public List<Linea> getListaLineasBus() {
         return listaLineasBus;
     }//getListaLineasBus
-
-
-    /**
-     * Método para obtener un cadena de texto con todas las lineas. En esta cadena
-     * se muestra unicamente el nombre de la linea
-     *  @return String con todas las gasolineras separadas por un doble salto de línea
-     */
-    public String getTextoLineas(){
-        String textoLineas="";
-        if(listaLineasBus!=null){
-            for (int i=0; i<listaLineasBus.size(); i++){
-                textoLineas=textoLineas+listaLineasBus.get(i).getNumero()+"\n\n";
-            }//for
-        }else{
-            textoLineas="Sin lineas";
-        }//if
-        return textoLineas;
-    }//getTextoLineas
 
 
     private class getLineas extends AsyncTask<Void, Void, Boolean> {

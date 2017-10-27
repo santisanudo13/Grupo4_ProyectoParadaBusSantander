@@ -10,5 +10,4 @@
         android:title="@string/refresca"
         android:icon="@android:drawable/ic_popup_sync"
         app:showAsAction="always"/>
-
 </menu>

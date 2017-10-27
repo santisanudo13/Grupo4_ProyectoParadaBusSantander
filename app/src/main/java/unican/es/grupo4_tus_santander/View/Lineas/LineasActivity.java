@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.View;
+package unican.es.grupo4_tus_santander.View.Lineas;
 
 
 import android.os.Bundle;
@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel.Linea;
+import unican.es.grupo4_tus_santander.Models.Pojos.Linea;
 import unican.es.grupo4_tus_santander.Presenter.ListLineasPresenter;
 import unican.es.grupo4_tus_santander.R;
 
@@ -30,7 +30,7 @@ public class LineasActivity extends AppCompatActivity  implements SearchView.OnQ
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lineas);
-        this.progress=(ProgressBar)findViewById(R.id.progressLineas);
+        this.progress=(ProgressBar)findViewById(R.id.progressLinea);
         this.listLineasPresenter = new ListLineasPresenter(getApplicationContext(),this);
         this.listLineasPresenter.start();
     }//onCreate
@@ -38,7 +38,6 @@ public class LineasActivity extends AppCompatActivity  implements SearchView.OnQ
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_busqueda, menu);
-
         MenuItem searchItem = menu.findItem(R.id.search);
         //SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         //searchView.setOnQueryTextListener(this);
@@ -61,17 +60,16 @@ public class LineasActivity extends AppCompatActivity  implements SearchView.OnQ
         ListLineasAdapter listLineasAdapter = new ListLineasAdapter(getApplicationContext(), lineaList);
         ListView listview = (ListView) findViewById(R.id.listLineas);
         listview.setAdapter(listLineasAdapter);
+
     }
 
     @Override
     public void showProgress(boolean state) {
         if(state){
-            progress.setMax(100);
-            progress.setProgress(0);
+
             progress.setVisibility(View.VISIBLE);
 
         }else{
-            progress.setProgress(100);
             progress.setVisibility(View.GONE);
         }
 

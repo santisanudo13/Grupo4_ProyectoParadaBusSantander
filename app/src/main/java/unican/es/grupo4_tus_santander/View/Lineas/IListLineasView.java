@@ -1,8 +1,8 @@
-package unican.es.grupo4_tus_santander.View;
+package unican.es.grupo4_tus_santander.View.Lineas;
 
 import java.util.List;
 
-import unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel.Linea;
+import unican.es.grupo4_tus_santander.Models.Pojos.Linea;
 
 
 /**

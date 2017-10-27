@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.View;
+package unican.es.grupo4_tus_santander.View.Lineas;
 
 import android.graphics.Color;
 import android.content.Context;
@@ -14,8 +14,8 @@ import android.widget.TextView;
 import java.util.List;
 
 
-import unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel.Linea;
 import unican.es.grupo4_tus_santander.Models.BaseDatos.helper.DatabaseHelper;
+import unican.es.grupo4_tus_santander.Models.Pojos.Linea;
 import unican.es.grupo4_tus_santander.R;
 
 /**
@@ -44,9 +44,9 @@ public class ListLineasAdapter extends ArrayAdapter {
         TextView textViewName = (TextView) viewRow.findViewById(R.id.textViewName);
         TextView textViewNumero = (TextView) viewRow.findViewById(R.id.textViewNumero);
         ImageView imageView = (ImageView) viewRow.findViewById(R.id.ImagenLinea);
-        textViewName.setText(lineasBus.get(position).getNombre().trim());
+        textViewName.setText(lineasBus.get(position).getName());
         textViewNumero.setText( lineasBus.get(position).getNumero()+"");
-        unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel.Color a =ld.getColorByLinea(lineasBus.get(position).getId());
+        unican.es.grupo4_tus_santander.Models.Pojos.Color a =ld.getColorByLinea(lineasBus.get(position).getId());
         textViewNumero.setTextColor(Color.argb(a.getAlpha(),a.getRed(),a.getGreen(),a.getBlue()));
 
         switch (textViewNumero.getText().toString()){

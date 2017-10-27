@@ -13,8 +13,9 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel.Linea;
-import unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel.Parada;
+
+import unican.es.grupo4_tus_santander.Models.Pojos.Linea;
+import unican.es.grupo4_tus_santander.Models.Pojos.Parada;
 import unican.es.grupo4_tus_santander.Presenter.ListParadasPresenter;
 import unican.es.grupo4_tus_santander.R;
 
@@ -22,10 +23,7 @@ import unican.es.grupo4_tus_santander.R;
  * Created by Asier on 25/10/17.
  */
 
-public class ParadasActivity extends AppCompatActivity  implements SearchView.OnQueryTextListener, IListParadasView{
-
-    private int lineaIdentifier;
-    private int paradaIdentifier;
+public class ParadasActivity extends AppCompatActivity  implements SearchView.OnQueryTextListener, IListParadasView {
     private ListParadasPresenter listParadasPresenter;
     private ProgressBar progress;
 
@@ -41,7 +39,6 @@ public class ParadasActivity extends AppCompatActivity  implements SearchView.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_busqueda, menu);
-
         MenuItem searchItem = menu.findItem(R.id.search);
         return true;
     }
@@ -57,29 +54,24 @@ public class ParadasActivity extends AppCompatActivity  implements SearchView.On
     }
 
     @Override
-    public void showList(List<Parada> paradaList) {
-        ListParadasAdapter listParadasAdapter = new  ListParadasAdapter(getApplicationContext(), paradaList);
+    public void showList(List<Parada> paradaList, List<Linea> lineasBus) {
+        ListParadasAdapter listParadasAdapter = new  ListParadasAdapter(getApplicationContext(), paradaList, lineasBus);
         ListView listview = (ListView) findViewById(R.id.listParadas);
         listview.setAdapter(listParadasAdapter);
     }
 
-    @Override
-    public void showProgress(boolean state) {
-        if(state){
-            progress.setMax(100);
-            progress.setProgress(0);
+    public void showProgress (boolean state, int tipo){
+        if(state)
+        {
+            Toast.makeText(getApplicationContext(), "Cargando datos", Toast.LENGTH_SHORT).show();
             progress.setVisibility(View.VISIBLE);
-
         }else{
-            progress.setProgress(100);
+            if(tipo == 1)
+                Toast.makeText(getApplicationContext(), "Carga de datos exitosa", Toast.LENGTH_SHORT).show();
+            if(tipo == -1)
+                Toast.makeText(getApplicationContext(), "Carga de datos fallida", Toast.LENGTH_SHORT).show();
+
             progress.setVisibility(View.GONE);
         }
-
-    }
-
-    @Override
-    public void showToast() {
-        Toast.makeText(getApplicationContext(), "Datos cargados correctamente", Toast.LENGTH_SHORT).show();
-
     }
 }// ParadasActivity

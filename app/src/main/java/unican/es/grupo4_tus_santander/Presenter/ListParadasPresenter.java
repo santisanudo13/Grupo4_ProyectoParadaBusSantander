@@ -8,8 +8,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel.Parada;
+
 import unican.es.grupo4_tus_santander.Models.BaseDatos.helper.DatabaseHelper;
+import unican.es.grupo4_tus_santander.Models.Pojos.Linea;
+import unican.es.grupo4_tus_santander.Models.Pojos.Parada;
 import unican.es.grupo4_tus_santander.View.IListParadasView;
 
 
@@ -19,71 +21,65 @@ import unican.es.grupo4_tus_santander.View.IListParadasView;
 
 public class ListParadasPresenter {
     private IListParadasView listParadasView;
-    private List<Parada> listaParadasBus;
+    private List<Parada> listaParadasBusPorLinea;
+    private List<Linea> listaLineasBus;
     private Context context;
     private DatabaseHelper ld;
 
     public ListParadasPresenter(Context context, IListParadasView listParadasView){
         this.listParadasView = listParadasView;
         this.context = context;
-        this.listaParadasBus = new ArrayList<>();
+        this.listaParadasBusPorLinea = new ArrayList<>();
+        this.listaLineasBus = new ArrayList<>();
         this.ld = new DatabaseHelper(this.context,1);
     }// ListParadasPresenter
 
     public void start(){
-        listParadasView.showProgress(true);
-        new getParadas().execute();
+        listParadasView.showProgress(true,0);
+        new getParadasPorLinea().execute();
 
     }// start
 
     public void continua(boolean result){
-
         if(result){
-            listParadasView.showList(getListaParadasBus());
-            listParadasView.showProgress(false);
-            listParadasView.showToast();
+            listParadasView.showList(getListaParadasBusPorLinea(), getListaLineasBus());
+            listParadasView.showProgress(result,0);
         }
-
     }
 
-    public boolean obtenParadas(){
-
+    public boolean obtenParadasPorLinea(){
         try {
-            listaParadasBus =ld.getAllParada();
+            for(Parada parada : getListaParadasTotal()){
+                listaParadasBusPorLinea = ld.getParadasByLinea(parada.getIdentifierLinea());
+            }
             ld.close();
             return true;
         }catch(Exception e){
-            Log.e("ERROR","Error en la obtención de las paradas de Bus: "+e.getMessage());
+            Log.e("ERROR","Error en la obtención de las paradas de la linea: "+e.getMessage());
             e.printStackTrace();
-            listParadasView.showProgress(false);
+            listParadasView.showProgress(false, -1);
             Toast.makeText(this.context, "Error de conexion", Toast.LENGTH_SHORT).show();
             return false;
         }
-    }//obtenParadas
+    }//obtenParadasPorLinea
 
 
-    public List<Parada> getListaParadasBus() {
-        return listaParadasBus;
-    }//getListaParadasBus
+    public List<Parada> getListaParadasTotal() {
+        return ld.getAllParada();
+    }//getListaParadasBusPorLinea
 
+    public List<Parada> getListaParadasBusPorLinea() {
+        return listaParadasBusPorLinea;
+    }
 
-    public String getTextoParadas(){
-        String textoParadas="";
-        if(listaParadasBus !=null){
-            for (int i = 0; i< listaParadasBus.size(); i++){
-                textoParadas=textoParadas+ listaParadasBus.get(i).getNumeroParada()+"\n\n";
-            }//for
-        }else{
-            textoParadas="Sin lineas";
-        }//if
-        return textoParadas;
-    }//getTextoParadas
+    private List<Linea> getListaLineasBus() {
+        return listaLineasBus;
+    }//getListaLineasBus
 
-
-    private class getParadas extends AsyncTask<Void, Void, Boolean> {
+    private class getParadasPorLinea extends AsyncTask<Void, Void, Boolean> {
         @Override
         protected Boolean doInBackground(Void... v) {
-                return obtenParadas();
+                return obtenParadasPorLinea();
         }
 
         @Override

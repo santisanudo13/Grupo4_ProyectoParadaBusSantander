@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel;
+package unican.es.grupo4_tus_santander.Models.Pojos;
 
 /**
  * Created by Tiago on 23/10/17.
@@ -12,10 +12,11 @@ public class Color {
     private int green;
     private int blue;
 
+
     public Color() {
     }
 
-    public Color(int alpha, int red, int green, int blue) {
+    public Color( int alpha, int red, int green, int blue) {
         this.alpha = alpha;
         this.red = red;
         this.green = green;

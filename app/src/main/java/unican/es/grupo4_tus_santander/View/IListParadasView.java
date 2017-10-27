@@ -2,7 +2,8 @@ package unican.es.grupo4_tus_santander.View;
 
 import java.util.List;
 
-import unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel.Parada;
+import unican.es.grupo4_tus_santander.Models.Pojos.Linea;
+import unican.es.grupo4_tus_santander.Models.Pojos.Parada;
 
 
 /**
@@ -10,7 +11,6 @@ import unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel.Parada;
  */
 
 public interface IListParadasView {
-    void showList(List<Parada> paradaList);
-    void showProgress(boolean state);
-    void showToast();
+    void showList(List<Parada> paradaList, List<Linea> lineasBus);
+    void showProgress(boolean state, int tipo);
 }//IListParadasView

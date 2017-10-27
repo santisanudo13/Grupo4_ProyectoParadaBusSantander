@@ -12,8 +12,10 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel.Parada;
+
 import unican.es.grupo4_tus_santander.Models.BaseDatos.helper.DatabaseHelper;
+import unican.es.grupo4_tus_santander.Models.Pojos.Linea;
+import unican.es.grupo4_tus_santander.Models.Pojos.Parada;
 import unican.es.grupo4_tus_santander.R;
 
 /**
@@ -22,13 +24,15 @@ import unican.es.grupo4_tus_santander.R;
 
 public class ListParadasAdapter extends ArrayAdapter {
     private List<Parada> paradasBus;
+    private List<Linea> lineasBus;
     private Context context;
     private DatabaseHelper ld;
 
-    public ListParadasAdapter (Context context, List<Parada> paradasBus){
+    public ListParadasAdapter (Context context, List<Parada> paradasBus, List<Linea> lineasBus){
         super(context, R.layout.custom_list_paradas_layout,paradasBus);
         this.context = context;
         this.paradasBus = paradasBus;
+        this.lineasBus = lineasBus;
         this.ld = new DatabaseHelper(this.context,1);
     }// ListLineasAdapter
 
@@ -40,10 +44,10 @@ public class ListParadasAdapter extends ArrayAdapter {
         View viewRow = layoutInflater.inflate(R.layout.custom_list_paradas_layout,null,true);
         TextView textViewName = (TextView) viewRow.findViewById(R.id.textViewName);
         TextView textViewNumero = (TextView) viewRow.findViewById(R.id.textViewNumero);
-        textViewName.setText(paradasBus.get(position).getNombreParada().trim());
-        textViewNumero.setText( paradasBus.get(position).getNumeroParada()+"");
+        textViewName.setText(paradasBus.get(position).getNombre().trim());
+        textViewNumero.setText(lineasBus.get(position).getNumero()+lineasBus.get(position).getName()+"");
 
-        unican.es.grupo4_tus_santander.Models.BaseDatos.DBModel.Color a =ld.getColorByLinea(paradasBus.get(position).getId());
+        unican.es.grupo4_tus_santander.Models.Pojos.Color a =ld.getColorByLinea(paradasBus.get(position).getIdentifierLinea());
         textViewNumero.setTextColor(Color.argb(a.getAlpha(),a.getRed(),a.getGreen(),a.getBlue()));
 
         return viewRow;

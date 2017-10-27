@@ -64,7 +64,7 @@ public class ParserJSON{
             }
         }
         reader.endObject();
-        return new Linea(numero,numero,identifier);
+        return new Linea(numero,name,identifier);
     }
 
     public static List<Parada> readArrayParadas(InputStream in) throws IOException {

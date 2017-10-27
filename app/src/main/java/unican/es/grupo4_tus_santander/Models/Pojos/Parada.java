@@ -14,6 +14,7 @@ public class Parada {
     double wgs64Long;
     double wgs64Lat;
     int numParada;
+    int favorito;
 
     String nombre;
 
@@ -109,5 +110,12 @@ public class Parada {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public int getFavorito() {
+        return favorito;
+    }
+    public void setFavorito(int favorito) {
+        this.favorito = favorito;
     }
 }

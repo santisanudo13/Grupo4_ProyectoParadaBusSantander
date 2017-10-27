@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.Presenter;
+package unican.es.grupo4_tus_santander.Presenter.Lineas;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -11,7 +11,8 @@ import java.util.List;
 import unican.es.grupo4_tus_santander.Models.BaseDatos.helper.DatabaseHelper;
 import unican.es.grupo4_tus_santander.Models.BaseDatos.helper.DatabaseInterface;
 import unican.es.grupo4_tus_santander.Models.Pojos.Linea;
-import unican.es.grupo4_tus_santander.View.Lineas.IListLineasView;
+import unican.es.grupo4_tus_santander.View.Interfaz.ActivityInterface;
+import unican.es.grupo4_tus_santander.View.Lineas.LineasActivity;
 
 
 /**
@@ -19,12 +20,12 @@ import unican.es.grupo4_tus_santander.View.Lineas.IListLineasView;
  */
 
 public class ListLineasPresenter {
-    private IListLineasView listLineasView;
+    private LineasActivity listLineasView;
     private List<Linea> listaLineasBus;
     private Context context;
-    DatabaseInterface ld;
+    DatabaseHelper ld;
 
-    public ListLineasPresenter(Context context, IListLineasView listLineasView){
+    public ListLineasPresenter(Context context, LineasActivity listLineasView){
         this.listLineasView = listLineasView;
         this.context = context;
         this.listaLineasBus=new ArrayList<>();
@@ -32,8 +33,6 @@ public class ListLineasPresenter {
     }// ListLineasPresenter
 
     public void start(){
-
-        listLineasView.showProgress(true);
         new getLineas().execute();
 
     }// start
@@ -41,9 +40,9 @@ public class ListLineasPresenter {
     public void continua(boolean result){
 
         if(result){
-            listLineasView.showList(getListaLineasBus());
-            listLineasView.showProgress(false);
-            listLineasView.showToast();
+            listLineasView.showLista(getListaLineasBus());
+        }else{
+           listLineasView.showProgress(false,-2);
         }
 
     }
@@ -53,12 +52,13 @@ public class ListLineasPresenter {
         try {
             listaLineasBus=ld.getAllLinea();
             ld.closeDB();
+            if(listaLineasBus.size()==0){
+                return false;
+            }
             return true;
         }catch(Exception e){
             Log.e("ERROR","Error en la obtención de las lineas de Bus: "+e.getMessage());
             e.printStackTrace();
-            listLineasView.showProgress(false);
-            Toast.makeText(this.context, "Error de la base de datos, actualizala", Toast.LENGTH_SHORT).show();
             return false;
         }
     }//obtenLineas

@@ -228,8 +228,13 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 
 		String selectQuery = "SELECT  * FROM " + TABLE_LINEA + " WHERE "
 				+ KEY_ID + " = " + linea_id;
+		Cursor c;
+		try{
+			c = db.rawQuery(selectQuery, null);
+		}catch(Exception e){
+			return null;
+		}
 
-		Cursor c = db.rawQuery(selectQuery, null);
 
 		if (c != null)
 			c.moveToFirst();
@@ -251,7 +256,12 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 
 
 		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor c = db.rawQuery(selectQuery, null);
+		Cursor c;
+		try{
+			c = db.rawQuery(selectQuery, null);
+		}catch(Exception e){
+			return null;
+		}
 
 		// looping through all rows and adding to list
 		if (c.moveToFirst()) {

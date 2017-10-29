@@ -12,10 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".View.Main.MainActivity"
+            android:name=".Aceptacion.Main.Main.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -30,16 +31,16 @@
             android:label="@string/title_activity_paradas" />
         <activity
             android:name=".View.Tarifas.TarifasActivity"
-            android:label="@string/title_activity_tarifas"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_activity_tarifas" />
         <activity
             android:name=".View.Restricciones.RestriccionesActivity"
-            android:label="@string/title_activity_restricciones"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_activity_restricciones" />
         <activity
             android:name=".View.Ajustes.AjustesActivity"
-            android:label="@string/title_activity_ajustes"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:label="@string/title_activity_ajustes" />
+        <activity
+            android:name=".View.ServiciosAlternativos.ServiciosAlternativosActivity"
+            android:label="TransportesAlternativosActivity" />
     </application>
 
 </manifest>

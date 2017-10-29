@@ -1,7 +1,6 @@
-package unican.es.grupo4_tus_santander.View.Main;
+package unican.es.grupo4_tus_santander.Aceptacion.Main.Main;
 
 import android.content.Context;
-import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -15,7 +14,7 @@ import unican.es.grupo4_tus_santander.R;
 
 
 public class ListFuncionesMainAdapter extends ArrayAdapter {
-    static final String[] funcionesMain = {"Mostrar Favoritos", "Mostrar Líneas", "Mostrar Paradas", "Mostrar Tarifas",  "Mostrar Restricciones", "Ajustes" };
+    static final String[] funcionesMain = {"Mostrar Favoritos", "Mostrar Líneas", "Mostrar Paradas", "Mostrar Tarifas",  "Mostrar Restricciones","Mostrar Transportes Alternativos" ,"Ajustes" };
     Context context;
 
     public ListFuncionesMainAdapter(Context context){
@@ -52,6 +51,9 @@ public class ListFuncionesMainAdapter extends ArrayAdapter {
                 imagenViewFuncion.setImageResource(R.drawable.ic_restricciones);
                 break;
             case 5:
+                imagenViewFuncion.setImageResource(R.drawable.ic_servcicios_alternativos);
+                break;
+            case 6:
                 imagenViewFuncion.setImageResource(R.drawable.ic_ajustes);
                 break;
             default:

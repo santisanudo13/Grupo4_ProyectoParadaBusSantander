@@ -23,6 +23,8 @@ public interface DatabaseInterface {
 	public long createParada(Parada parada, long id_linea);
 	public Parada getParada(long parada_id);
 	public List<Parada> getAllParada();
+	public List<Parada> getAllParadasFavoritos();
+
 
 	public Color getColorByLinea(long linea_id);
 

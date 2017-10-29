@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.Presenter.Main;
+package unican.es.grupo4_tus_santander.Presenter.Lineas;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -8,14 +8,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import unican.es.grupo4_tus_santander.Models.BaseDatos.helper.DatabaseHelper;
-import unican.es.grupo4_tus_santander.Models.Pojos.*;
+import unican.es.grupo4_tus_santander.Models.Pojos.Color;
+import unican.es.grupo4_tus_santander.Models.Pojos.Linea;
+import unican.es.grupo4_tus_santander.Models.Pojos.Parada;
+import unican.es.grupo4_tus_santander.Models.Pojos.ParadaConNombre;
 import unican.es.grupo4_tus_santander.Models.WebService.DataLoaders.ParserJSON;
 import unican.es.grupo4_tus_santander.Models.WebService.DataLoaders.RemoteFetch;
 import unican.es.grupo4_tus_santander.View.Interfaz.ActivityInterface;
+import unican.es.grupo4_tus_santander.View.Lineas.LineasActivity;
 
 
-public class RecargaBaseDatos {
-    private ActivityInterface activity;
+public class RecargaBaseDatosLineas {
+    private LineasActivity activity;
     private Context context;
 
     List<Linea> listLineas = new ArrayList<Linea>();
@@ -28,7 +32,7 @@ public class RecargaBaseDatos {
 
     DatabaseHelper db;
 
-    public RecargaBaseDatos(Context context, ActivityInterface activity){
+    public RecargaBaseDatosLineas(Context context, LineasActivity activity){
         this.activity = activity;
         this.context = context;
         this.db = new DatabaseHelper(this.context,1);
@@ -110,6 +114,7 @@ public class RecargaBaseDatos {
         @Override
         protected void onPostExecute(Boolean result) {
             activity.showProgress(false, 1);
+            activity.start();
         }
     }
 

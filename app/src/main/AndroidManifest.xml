@@ -21,16 +21,13 @@
         </activity>
         <activity
             android:name=".View.Favoritos.FavsActivity"
-            android:label="@string/title_activity_favs"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_activity_favs" />
         <activity
             android:name=".View.Lineas.LineasActivity"
-            android:label="@string/title_activity_lineas"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_activity_lineas" />
         <activity
             android:name=".View.Paradas.ParadasActivity"
-            android:label="@string/title_activity_paradas"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_activity_paradas" />
         <activity
             android:name=".View.Tarifas.TarifasActivity"
             android:label="@string/title_activity_tarifas"

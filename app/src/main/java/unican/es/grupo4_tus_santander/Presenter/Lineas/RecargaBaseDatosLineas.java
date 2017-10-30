@@ -14,7 +14,6 @@ import unican.es.grupo4_tus_santander.Models.Pojos.Parada;
 import unican.es.grupo4_tus_santander.Models.Pojos.ParadaConNombre;
 import unican.es.grupo4_tus_santander.Models.WebService.DataLoaders.ParserJSON;
 import unican.es.grupo4_tus_santander.Models.WebService.DataLoaders.RemoteFetch;
-import unican.es.grupo4_tus_santander.View.Interfaz.ActivityInterface;
 import unican.es.grupo4_tus_santander.View.Lineas.LineasActivity;
 
 
@@ -22,9 +21,9 @@ public class RecargaBaseDatosLineas {
     private LineasActivity activity;
     private Context context;
 
-    List<Linea> listLineas = new ArrayList<Linea>();
-    List<Parada> listParadas = new ArrayList<Parada>();
-    List<ParadaConNombre> listParadasConNombre = new ArrayList<ParadaConNombre>();
+    List<Linea> listLineas = new ArrayList<>();
+    List<Parada> listParadas = new ArrayList<>();
+    List<ParadaConNombre> listParadasConNombre = new ArrayList<>();
 
 
 

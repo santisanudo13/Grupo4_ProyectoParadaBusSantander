@@ -1,7 +1,6 @@
 package unican.es.grupo4_tus_santander.Presenter.Lineas;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -17,10 +16,10 @@ import unican.es.grupo4_tus_santander.View.Lineas.LineasActivity;
  */
 
 public class ListLineasPresenter {
-    private LineasActivity listLineasView;
+    public LineasActivity listLineasView;
     private List<Linea> listaLineasBus;
     private Context context;
-    DatabaseHelper ld;
+    public DatabaseHelper ld;
 
     public ListLineasPresenter(Context context, LineasActivity listLineasView){
         this.listLineasView = listLineasView;

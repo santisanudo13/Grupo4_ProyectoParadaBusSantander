@@ -56,7 +56,6 @@ public class ListLineasPresenter {
             return true;
         }catch(Exception e){
             Log.e("ERROR","Error en la obtención de las lineas de Bus: "+e.getMessage());
-            e.printStackTrace();
             return false;
         }
     }//obtenLineas

@@ -49,34 +49,34 @@ public class RecargaBaseDatosLineas {
         try {
             remoteFetch.getJSON(RemoteFetch.URL_LINEAS_BUS);
         } catch (IOException e) {
-            e.printStackTrace();
+            
         }
         try {
             listLineas = ParserJSON.readArrayLineasBus(remoteFetch.getBufferedData());
         } catch (IOException e) {
-            e.printStackTrace();
+            
         }
         //PARADAS
         try {
             remoteFetch.getJSON(RemoteFetch.URL_PARADAS);
         } catch (IOException e) {
-            e.printStackTrace();
+            
         }
         try {
             listParadas = ParserJSON.readArrayParadas(remoteFetch.getBufferedData());
         } catch (IOException e) {
-            e.printStackTrace();
+            
         }
         //PARADAS CON NOMBRE
         try {
             remoteFetch.getJSON(RemoteFetch.URL_PARADAS_NOMBRE);
         } catch (IOException e) {
-            e.printStackTrace();
+            
         }
         try {
             listParadasConNombre = ParserJSON.readArrayParadasConNombre(remoteFetch.getBufferedData());
         } catch (IOException e) {
-            e.printStackTrace();
+            
         }
 
         return !listLineas.isEmpty() && !listParadas.isEmpty();

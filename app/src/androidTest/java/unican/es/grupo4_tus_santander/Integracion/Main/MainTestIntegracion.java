@@ -39,7 +39,6 @@ public class MainTestIntegracion extends InstrumentationTestCase {
         db.reiniciarTablas();
 
         List<Linea> lineas = db.getAllLinea();
-        db.closeDB();
         assertTrue(lineas.isEmpty());
 
 
@@ -66,7 +65,6 @@ public class MainTestIntegracion extends InstrumentationTestCase {
 
 
         //Comprobamos que la base de datos se ha actualizado
-        db = new DatabaseHelper(InstrumentationRegistry.getTargetContext(), 1);
         lineas = db.getAllLinea();
         db.closeDB();
         assertTrue(!lineas.isEmpty());
@@ -86,7 +84,6 @@ public class MainTestIntegracion extends InstrumentationTestCase {
         db.reiniciarTablas();
 
         List<Linea> lineas = db.getAllLinea();
-        db.closeDB();
         assertTrue(lineas.isEmpty());
 
         // create  a signal to let us know when our task is done. y el mock de la main activity para poder crear el objeto de RecargaBaseDatosmenu
@@ -114,8 +111,8 @@ public class MainTestIntegracion extends InstrumentationTestCase {
 
 
         //Comprobamos que la base de datos se ha actualizado
-        db = new DatabaseHelper(InstrumentationRegistry.getTargetContext(), 1);
         lineas = db.getAllLinea();
+        db.closeDB();
 
         assertTrue(lineas.isEmpty());
     }

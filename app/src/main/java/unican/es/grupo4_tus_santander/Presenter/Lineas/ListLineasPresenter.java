@@ -9,9 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import unican.es.grupo4_tus_santander.Models.BaseDatos.helper.DatabaseHelper;
-import unican.es.grupo4_tus_santander.Models.BaseDatos.helper.DatabaseInterface;
 import unican.es.grupo4_tus_santander.Models.Pojos.Linea;
-import unican.es.grupo4_tus_santander.View.Interfaz.ActivityInterface;
 import unican.es.grupo4_tus_santander.View.Lineas.LineasActivity;
 
 

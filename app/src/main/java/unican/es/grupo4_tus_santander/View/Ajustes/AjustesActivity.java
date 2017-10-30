@@ -4,9 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import unican.es.grupo4_tus_santander.R;
-import unican.es.grupo4_tus_santander.View.Interfaz.ActivityInterface;
 
-public class AjustesActivity extends AppCompatActivity implements ActivityInterface {
+public class AjustesActivity extends AppCompatActivity  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,13 +14,4 @@ public class AjustesActivity extends AppCompatActivity implements ActivityInterf
 
     }
 
-    @Override
-    public void showProgress(boolean b, int i) {
-
-    }
-
-    @Override
-    public void showList() {
-
-    }
 }

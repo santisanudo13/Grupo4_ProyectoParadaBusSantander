@@ -3,6 +3,8 @@
     package="unican.es.grupo4_tus_santander">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -12,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Aceptacion.Main.Main.MainActivity"
+            android:name=".View.Main.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,7 +42,7 @@
             android:label="@string/title_activity_ajustes" />
         <activity
             android:name=".View.ServiciosAlternativos.ServiciosAlternativosActivity"
-            android:label="TransportesAlternativosActivity" />
+            android:label="@string/title_activity_serviciosAlternativos" />
     </application>
 
 </manifest>

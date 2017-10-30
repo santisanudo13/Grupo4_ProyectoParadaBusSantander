@@ -1,6 +1,7 @@
-package unican.es.grupo4_tus_santander.Aceptacion.Main.Main;
+package unican.es.grupo4_tus_santander.View.Main;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +16,6 @@ import android.widget.Toast;
 
 
 import unican.es.grupo4_tus_santander.Presenter.Main.MainPresenter;
-import unican.es.grupo4_tus_santander.Presenter.Main.RecargaBaseDatos;
 import unican.es.grupo4_tus_santander.R;
 import unican.es.grupo4_tus_santander.View.Ajustes.AjustesActivity;
 import unican.es.grupo4_tus_santander.View.Favoritos.FavsActivity;
@@ -26,7 +26,7 @@ import unican.es.grupo4_tus_santander.View.Restricciones.RestriccionesActivity;
 import unican.es.grupo4_tus_santander.View.ServiciosAlternativos.ServiciosAlternativosActivity;
 import unican.es.grupo4_tus_santander.View.Tarifas.TarifasActivity;
 
-public class MainActivity extends AppCompatActivity  implements ActivityInterface {
+public class MainActivity extends AppCompatActivity  implements ActivityInterface{
 
     private Context context;
     private MainPresenter mainPresenter;
@@ -37,11 +37,53 @@ public class MainActivity extends AppCompatActivity  implements ActivityInterfac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.context = getApplicationContext();
-        this.progressBar =(ProgressBar) findViewById(R.id.progressBarMenu);
+        this.progressBar = (ProgressBar) findViewById(R.id.progressBarMenu);
         this.mainPresenter = new MainPresenter(context, this);
         mainPresenter.start();
 
+
+    }//onCreate
+
+
+
+    /**
+     * Metodo encargado de generar el toolbar
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    /**
+     * Metodo encargado de determinar las acciones a realizar por los botones del toolbar
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId() == R.id.toolbar_ajustes)
+        {
+            Intent intent = new Intent(MainActivity.this, AjustesActivity.class);
+            startActivity(intent);
+            return(true);
+        }
+        if(item.getItemId() == R.id.toolbar_actualizar)
+        {
+            mainPresenter.recargarDatos();
+            return(true);
+        }
+        return(super.onOptionsItemSelected(item));
+    }
+
+    public void showList() {
+        ListFuncionesMainAdapter listFuncionesMainAdapter = new ListFuncionesMainAdapter(context);
         ListView listview = (ListView) findViewById(R.id.listFuncionesMenu);
+        listview.setAdapter(listFuncionesMainAdapter);
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
@@ -79,48 +121,6 @@ public class MainActivity extends AppCompatActivity  implements ActivityInterfac
                 }
             }
         });
-    }//onCreate
-
-
-
-    /**
-     * Metodo encargado de generar el toolbar
-     * @param menu
-     * @return
-     */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    /**
-     * Metodo encargado de determinar las acciones a realizar por los botones del toolbar
-     * @param item
-     * @return
-     */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        if(item.getItemId() == R.id.toolbar_ajustes)
-        {
-            Intent intent = new Intent(MainActivity.this, AjustesActivity.class);
-            startActivity(intent);
-            return(true);
-        }
-        if(item.getItemId() == R.id.toolbar_actualizar)
-        {
-            new RecargaBaseDatos(context, this);
-            return(true);
-        }
-        return(super.onOptionsItemSelected(item));
-    }
-
-    public void showList() {
-        ListFuncionesMainAdapter listFuncionesMainAdapter = new ListFuncionesMainAdapter(context);
-        ListView listview = (ListView) findViewById(R.id.listFuncionesMenu);
-        listview.setAdapter(listFuncionesMainAdapter);
 
 
     }
@@ -140,5 +140,11 @@ public class MainActivity extends AppCompatActivity  implements ActivityInterfac
         }
     }
 
+    public ProgressBar getProgressBar() {
+        return progressBar;
+    }
 
+    public void setProgressBar(ProgressBar progressBar) {
+        this.progressBar = progressBar;
+    }
 }// MainActivity

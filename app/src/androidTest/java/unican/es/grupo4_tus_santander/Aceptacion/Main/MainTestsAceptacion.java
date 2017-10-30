@@ -18,7 +18,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import unican.es.grupo4_tus_santander.R;
-import unican.es.grupo4_tus_santander.Aceptacion.Main.Main.MainActivity;
+import unican.es.grupo4_tus_santander.View.Main.MainActivity;
 
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
@@ -28,7 +28,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static junit.framework.Assert.assertTrue;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.is;
@@ -41,8 +40,12 @@ public class MainTestsAceptacion {
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
 
+    /**
+     * A1: Acceso favoritos
+     a.	Acceso válido (se muestra la pantalla con la lista de favoritos).
+     */
     @Test
-    public void a1() {
+    public void a1a() {
         DataInteraction relativeLayout = onData(anything())
                 .inAdapterView(allOf(withId(R.id.listFuncionesMenu),
                         childAtPosition(
@@ -52,7 +55,7 @@ public class MainTestsAceptacion {
         relativeLayout.perform(click());
 
         ViewInteraction textView = onView(
-                allOf(withText("FavsActivity"),
+                allOf(withText("Favoritos"),
                         childAtPosition(
                                 allOf(withId(R.id.action_bar),
                                         childAtPosition(
@@ -60,13 +63,17 @@ public class MainTestsAceptacion {
                                                 0)),
                                 0),
                         isDisplayed()));
-        textView.check(matches(withText("FavsActivity")));
+        textView.check(matches(withText("Favoritos")));
 
     }
 
 
+    /**
+     * A2: Acceso líneas
+     b.	Acceso válido (se muestra la pantalla de las líneas).
+     */
     @Test
-    public void a2() {
+    public void a2a() {
         DataInteraction relativeLayout = onData(anything())
                 .inAdapterView(allOf(withId(R.id.listFuncionesMenu),
                         childAtPosition(
@@ -76,7 +83,7 @@ public class MainTestsAceptacion {
         relativeLayout.perform(click());
 
         ViewInteraction textView = onView(
-                allOf(withText("LineasActivity"),
+                allOf(withText("Lineas"),
                         childAtPosition(
                                 allOf(withId(R.id.action_bar),
                                         childAtPosition(
@@ -84,12 +91,16 @@ public class MainTestsAceptacion {
                                                 0)),
                                 0),
                         isDisplayed()));
-        textView.check(matches(withText("LineasActivity")));
+        textView.check(matches(withText("Lineas")));
 
     }
 
+    /**
+     * A3: Paradas
+     a.	Acceso válido (se muestra la pantalla con el campo de búsqueda y todas las paradas).
+     */
     @Test
-    public void a3() {
+    public void a3a() {
         DataInteraction relativeLayout = onData(anything())
                 .inAdapterView(allOf(withId(R.id.listFuncionesMenu),
                         childAtPosition(
@@ -99,7 +110,7 @@ public class MainTestsAceptacion {
         relativeLayout.perform(click());
 
         ViewInteraction textView = onView(
-                allOf(withText("ParadasActivity"),
+                allOf(withText("Paradas"),
                         childAtPosition(
                                 allOf(withId(R.id.action_bar),
                                         childAtPosition(
@@ -107,12 +118,16 @@ public class MainTestsAceptacion {
                                                 0)),
                                 0),
                         isDisplayed()));
-        textView.check(matches(withText("ParadasActivity")));
+        textView.check(matches(withText("Paradas")));
 
     }
 
+    /**
+     * A4: Acceso tarifas
+     a.	Acceso válido (se muestra la pantalla de tarifas).
+     */
     @Test
-    public void a4() {
+    public void a4a() {
         DataInteraction relativeLayout = onData(anything())
                 .inAdapterView(allOf(withId(R.id.listFuncionesMenu),
                         childAtPosition(
@@ -122,7 +137,7 @@ public class MainTestsAceptacion {
         relativeLayout.perform(click());
 
         ViewInteraction textView = onView(
-                allOf(withText("TarifasActivity"),
+                allOf(withText("Tarifas"),
                         childAtPosition(
                                 allOf(withId(R.id.action_bar),
                                         childAtPosition(
@@ -130,12 +145,15 @@ public class MainTestsAceptacion {
                                                 0)),
                                 0),
                         isDisplayed()));
-        textView.check(matches(withText("TarifasActivity")));
-
+        textView.check(matches(withText("Tarifas")));
     }
 
+    /**
+     * A5: Acceso restricciones
+     a.	Acceso válido (se muestra la pantalla de las restricciones).
+     */
     @Test
-    public void a5() {
+    public void a5a() {
         DataInteraction relativeLayout = onData(anything())
                 .inAdapterView(allOf(withId(R.id.listFuncionesMenu),
                         childAtPosition(
@@ -145,7 +163,7 @@ public class MainTestsAceptacion {
         relativeLayout.perform(click());
 
         ViewInteraction textView = onView(
-                allOf(withText("RestriccionesActivity"),
+                allOf(withText("Restricciones"),
                         childAtPosition(
                                 allOf(withId(R.id.action_bar),
                                         childAtPosition(
@@ -153,11 +171,15 @@ public class MainTestsAceptacion {
                                                 0)),
                                 0),
                         isDisplayed()));
-        textView.check(matches(withText("RestriccionesActivity")));
+        textView.check(matches(withText("Restricciones")));
     }
 
+    /**
+     * A6: Acceso servicios alternativos
+     a.	Acceso válido (se muestra la pantalla de las líneas).
+     */
     @Test
-    public void a6() {
+    public void a6a() {
         DataInteraction relativeLayout = onData(anything())
                 .inAdapterView(allOf(withId(R.id.listFuncionesMenu),
                         childAtPosition(
@@ -167,7 +189,7 @@ public class MainTestsAceptacion {
         relativeLayout.perform(click());
 
         ViewInteraction textView = onView(
-                allOf(withText("TransportesAlternativosActivity"),
+                allOf(withText("Transportes Alternativos"),
                         childAtPosition(
                                 allOf(withId(R.id.action_bar),
                                         childAtPosition(
@@ -175,9 +197,13 @@ public class MainTestsAceptacion {
                                                 0)),
                                 0),
                         isDisplayed()));
-        textView.check(matches(withText("TransportesAlternativosActivity")));
+        textView.check(matches(withText("Transportes Alternativos")));
     }
 
+    /**
+     * A7: Acceso ajustes
+     a.	Acceso válido (se muestra la pantalla de los ajustes).
+     */
     @Test
     public void a7() {
         DataInteraction relativeLayout = onData(anything())
@@ -189,7 +215,7 @@ public class MainTestsAceptacion {
         relativeLayout.perform(click());
 
         ViewInteraction textView = onView(
-                allOf(withText("AjustesActivity"),
+                allOf(withText("Ajustes"),
                         childAtPosition(
                                 allOf(withId(R.id.action_bar),
                                         childAtPosition(
@@ -197,7 +223,7 @@ public class MainTestsAceptacion {
                                                 0)),
                                 0),
                         isDisplayed()));
-        textView.check(matches(withText("AjustesActivity")));
+        textView.check(matches(withText("Ajustes")));
     }
 
     private static Matcher<View> childAtPosition(

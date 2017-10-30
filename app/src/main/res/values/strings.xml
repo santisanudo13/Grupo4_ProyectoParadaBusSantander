@@ -3,11 +3,12 @@
     <string name="waitData">Obteniendo datos</string>
     <string name="hint_search">Buscar...</string>
     <string name="refresca">Actualizar</string>
-    <string name="title_activity_favoritos">FavoritosActivity</string>
-    <string name="title_activity_favs">FavsActivity</string>
-    <string name="title_activity_lineas">LineasActivity</string>
-    <string name="title_activity_paradas">ParadasActivity</string>
-    <string name="title_activity_tarifas">TarifasActivity</string>
-    <string name="title_activity_restricciones">RestriccionesActivity</string>
-    <string name="title_activity_ajustes">AjustesActivity</string>
+    <string name="title_activity_favoritos">Favoritos</string>
+    <string name="title_activity_favs">Favoritos</string>
+    <string name="title_activity_lineas">Lineas</string>
+    <string name="title_activity_paradas">Paradas</string>
+    <string name="title_activity_tarifas">Tarifas</string>
+    <string name="title_activity_restricciones">Restricciones</string>
+    <string name="title_activity_ajustes">Ajustes</string>
+    <string name="title_activity_serviciosAlternativos">Transportes Alternativos</string>
 </resources>

@@ -21,11 +21,9 @@ public class RecargaBaseDatosLineas {
     private LineasActivity activity;
     private Context context;
 
-    List<Linea> listLineas = new ArrayList<>();
-    List<Parada> listParadas = new ArrayList<>();
-    List<ParadaConNombre> listParadasConNombre = new ArrayList<>();
-
-
+    List<Linea> listLineas = new ArrayList<Linea>();
+    List<Parada> listParadas = new ArrayList<Parada>();
+    List<ParadaConNombre> listParadasConNombre = new ArrayList<ParadaConNombre>();
 
     private  RemoteFetch remoteFetch = new RemoteFetch();
 

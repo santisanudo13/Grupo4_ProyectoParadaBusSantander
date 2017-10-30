@@ -14,7 +14,6 @@ import unican.es.grupo4_tus_santander.Models.Pojos.Parada;
 import unican.es.grupo4_tus_santander.Models.Pojos.ParadaConNombre;
 import unican.es.grupo4_tus_santander.Models.WebService.DataLoaders.ParserJSON;
 import unican.es.grupo4_tus_santander.Models.WebService.DataLoaders.RemoteFetch;
-import unican.es.grupo4_tus_santander.View.Interfaz.ActivityInterface;
 import unican.es.grupo4_tus_santander.View.Lineas.LineasActivity;
 
 
@@ -56,7 +55,7 @@ public class RecargaBaseDatosLineas {
         }
         try {
             listLineas = ParserJSON.readArrayLineasBus(remoteFetch.getBufferedData());
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         //PARADAS
@@ -67,7 +66,7 @@ public class RecargaBaseDatosLineas {
         }
         try {
             listParadas = ParserJSON.readArrayParadas(remoteFetch.getBufferedData());
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         //PARADAS CON NOMBRE
@@ -78,7 +77,7 @@ public class RecargaBaseDatosLineas {
         }
         try {
             listParadasConNombre = ParserJSON.readArrayParadasConNombre(remoteFetch.getBufferedData());
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -200,6 +199,7 @@ public class RecargaBaseDatosLineas {
                     for(ParadaConNombre paradaConNombre : listParadasConNombre){
                         if(parada.getNumParada() == paradaConNombre.getNumero())
                             parada.setNombre(paradaConNombre.getParada());
+                            parada.setFavorito(0);
                     }
 
                     long id_parada = db.createParada(parada, l.getId());

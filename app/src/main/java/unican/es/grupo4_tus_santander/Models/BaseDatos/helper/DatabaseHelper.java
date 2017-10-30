@@ -51,6 +51,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 	private static final String KEY_PARADA_LINEA_IDENTIFIER = "lineaIdentifier";
 	private static final String KEY_PARADA_NOMBRE = "nombre";
 	private static final String KEY_PARADA_LINEA_ID = "lineaId";
+	private static final String KEY_PARADA_FAVORITO = "favorito";
+
 
 	// Table Create Statements
 	// COLOR table create statement
@@ -85,7 +87,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 			+ KEY_PARADA_COORDX + " REAL,"
 			+ KEY_PARADA_COORDY + " REAL,"
 			+ KEY_PARADA_NOMBRE + " TEXT,"
-			+ KEY_PARADA_LINEA_ID + " INTEGER"
+			+ KEY_PARADA_LINEA_ID + " INTEGER,"
+			+ KEY_PARADA_FAVORITO + " INTEGER"
 			+ ")";
 
 	public DatabaseHelper(Context context, int dBVersion) {
@@ -130,6 +133,14 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 	 * Creating a color
 	 */
 	public long createColor(Color color) {
+
+		if(color.getAlpha()<0||color.getAlpha()>255 ||
+				color.getRed()<0||color.getRed()>255 ||
+				color.getGreen()<0||color.getGreen()>255 ||
+				color.getBlue()<0||color.getBlue()>255){
+			return -1;
+		}
+
 		SQLiteDatabase db = this.getWritableDatabase();
 
 		ContentValues values = new ContentValues();
@@ -314,6 +325,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 			values.put(KEY_PARADA_WGS84LONG, parada.getWgs64Long());
 			values.put(KEY_PARADA_NOMBRE, parada.getNombre());
 			values.put(KEY_PARADA_LINEA_ID, id_linea);
+			values.put(KEY_PARADA_FAVORITO, 0);
+
 
 			// insert row
 			long linea_id = db.insert(TABLE_PARADA, null, values);
@@ -345,6 +358,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 		parada.setCoordY((c.getDouble(c.getColumnIndex(KEY_PARADA_COORDY))));
 		parada.setNombre((c.getString(c.getColumnIndex(KEY_PARADA_NOMBRE))));
 		parada.setIdLinea((c.getInt(c.getColumnIndex(KEY_PARADA_LINEA_ID))));
+		parada.setFavorito((c.getInt(c.getColumnIndex(KEY_PARADA_FAVORITO))));
+
 
 		return parada;
 	}
@@ -373,6 +388,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 				parada.setCoordY((c.getDouble(c.getColumnIndex(KEY_PARADA_COORDY))));
 				parada.setNombre((c.getString(c.getColumnIndex(KEY_PARADA_NOMBRE))));
 				parada.setIdLinea((c.getInt(c.getColumnIndex(KEY_PARADA_LINEA_ID))));
+				parada.setFavorito((c.getInt(c.getColumnIndex(KEY_PARADA_FAVORITO))));
+
 
 				paradas.add(parada);
 			} while (c.moveToNext());
@@ -381,6 +398,39 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 		return paradas;
 	}
 
+	/**
+	 * getting all paradas
+	 * */
+	public List<Parada> getAllParadasFavoritos() {
+		List<Parada> paradas = new ArrayList<Parada>();
+		String selectQuery = "SELECT  * FROM " + TABLE_PARADA + " WHERE favorito == 1";
+
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor c = db.rawQuery(selectQuery, null);
+
+		// looping through all rows and adding to list
+		if (c.moveToFirst()) {
+			do {
+				Parada parada = new Parada();
+				parada.setId(c.getInt(c.getColumnIndex(KEY_ID)));
+				parada.setIdentifier(c.getInt(c.getColumnIndex(KEY_IDENTIFIER)));
+				parada.setIdentifierLinea(c.getInt(c.getColumnIndex(KEY_PARADA_LINEA_IDENTIFIER)));
+				parada.setNumParada(c.getInt(c.getColumnIndex(KEY_PARADA_NUMPARADA)));
+				parada.setWgs64Lat((c.getDouble(c.getColumnIndex(KEY_PARADA_WGS84LAT))));
+				parada.setWgs64Long((c.getDouble(c.getColumnIndex(KEY_PARADA_WGS84LONG))));
+				parada.setCoordX((c.getDouble(c.getColumnIndex(KEY_PARADA_COORDX))));
+				parada.setCoordY((c.getDouble(c.getColumnIndex(KEY_PARADA_COORDY))));
+				parada.setNombre((c.getString(c.getColumnIndex(KEY_PARADA_NOMBRE))));
+				parada.setIdLinea((c.getInt(c.getColumnIndex(KEY_PARADA_LINEA_ID))));
+				parada.setFavorito((c.getInt(c.getColumnIndex(KEY_PARADA_FAVORITO))));
+
+
+				paradas.add(parada);
+			} while (c.moveToNext());
+		}
+
+		return paradas;
+	}
 
 	public Color getColorByLinea(long linea_id){
 		Linea linea = null;

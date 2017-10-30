@@ -66,12 +66,7 @@ public class MainActivity extends AppCompatActivity  implements ActivityInterfac
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(item.getItemId() == R.id.toolbar_ajustes)
-        {
-            Intent intent = new Intent(MainActivity.this, AjustesActivity.class);
-            startActivity(intent);
-            return(true);
-        }
+
         if(item.getItemId() == R.id.toolbar_actualizar)
         {
             mainPresenter.recargarDatos();

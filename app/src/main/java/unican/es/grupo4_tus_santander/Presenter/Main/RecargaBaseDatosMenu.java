@@ -165,7 +165,7 @@ public class RecargaBaseDatosMenu {
                     id_color = db.createColor(new Color(255, 0, 0, 0));
                     break;
             }
-            long id_linea =db.createLinea(l, id_color);
+            long id_linea = db.createLinea(l, id_color);
             l.setId((int) id_linea);
 
             for(Parada parada : listParadas){
@@ -205,5 +205,17 @@ public class RecargaBaseDatosMenu {
 
     public void setCm(ConnectivityManager cm) {
         this.cm = cm;
+    }
+
+    public List<Linea> getListLineas() {
+        return listLineas;
+    }
+
+    public List<Parada> getListParadas() {
+        return listParadas;
+    }
+
+    public List<ParadaConNombre> getListParadasConNombre() {
+        return listParadasConNombre;
     }
 }

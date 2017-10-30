@@ -3,12 +3,15 @@ package unican.es.grupo4_tus_santander.Aceptacion.Main;
 
 import android.support.test.espresso.DataInteraction;
 import android.support.test.espresso.ViewInteraction;
+import android.support.test.espresso.assertion.ViewAssertions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -23,6 +26,7 @@ import unican.es.grupo4_tus_santander.View.Main.MainActivity;
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
@@ -205,7 +209,7 @@ public class MainTestsAceptacion {
      a.	Acceso válido (se muestra la pantalla de los ajustes).
      */
     @Test
-    public void a7() {
+    public void a7a() {
         DataInteraction relativeLayout = onData(anything())
                 .inAdapterView(allOf(withId(R.id.listFuncionesMenu),
                         childAtPosition(
@@ -225,6 +229,36 @@ public class MainTestsAceptacion {
                         isDisplayed()));
         textView.check(matches(withText("Ajustes")));
     }
+
+    /**
+     * Comprobamos que el progress bar se retira correctamente al terminar la operacion de actualizar
+     */
+    @Test
+    public void a8a() {
+        onView(withId(R.id.toolbar_actualizar)).perform(click());
+        onView(withId(R.id.progressBarMenu)).check(ViewAssertions.matches(progressBarStatus(false)));
+    }
+
+
+    public static Matcher<View> progressBarStatus (final boolean estado){
+        return new TypeSafeMatcher<View>() {
+            @Override
+            protected boolean matchesSafely(View item) {
+                // Comprueba que el el progressBar se muestra
+                ProgressBar progressBar = (ProgressBar) item;
+
+                return (estado == progressBar.isShown());
+            }
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("El estado no coincide");
+            }
+        };
+    }
+
+
+
 
     private static Matcher<View> childAtPosition(
             final Matcher<View> parentMatcher, final int position) {

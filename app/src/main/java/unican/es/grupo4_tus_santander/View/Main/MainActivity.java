@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,24 +14,17 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
-import java.util.List;
-
-import unican.es.grupo4_tus_santander.Models.BaseDatos.helper.DatabaseHelper;
-import unican.es.grupo4_tus_santander.Models.Pojos.Color;
-import unican.es.grupo4_tus_santander.Models.Pojos.Linea;
-import unican.es.grupo4_tus_santander.Models.Pojos.Parada;
 import unican.es.grupo4_tus_santander.Presenter.Main.MainPresenter;
-import unican.es.grupo4_tus_santander.Presenter.Main.RecargaBaseDatos;
 import unican.es.grupo4_tus_santander.R;
 import unican.es.grupo4_tus_santander.View.Ajustes.AjustesActivity;
 import unican.es.grupo4_tus_santander.View.Favoritos.FavsActivity;
 import unican.es.grupo4_tus_santander.View.Interfaz.ActivityInterface;
 import unican.es.grupo4_tus_santander.View.Lineas.LineasActivity;
-import unican.es.grupo4_tus_santander.View.Paradas.ParadasActivity;
 import unican.es.grupo4_tus_santander.View.Restricciones.RestriccionesActivity;
+import unican.es.grupo4_tus_santander.View.ServiciosAlternativos.ServiciosAlternativosActivity;
 import unican.es.grupo4_tus_santander.View.Tarifas.TarifasActivity;
 
-public class MainActivity extends AppCompatActivity  implements ActivityInterface {
+public class MainActivity extends AppCompatActivity  implements ActivityInterface{
 
     private Context context;
     private MainPresenter mainPresenter;
@@ -43,72 +35,14 @@ public class MainActivity extends AppCompatActivity  implements ActivityInterfac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.context = getApplicationContext();
-        this.progressBar =(ProgressBar) findViewById(R.id.progressBar);
+        this.progressBar = (ProgressBar) findViewById(R.id.progressBarMenu);
         this.mainPresenter = new MainPresenter(context, this);
         mainPresenter.start();
 
 
-        ListView listview = (ListView) findViewById(R.id.listLineas);
-
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                    long id) {
-                Intent intent;
-                switch (position){
-                    case 0:
-                        intent = new Intent(MainActivity.this, FavsActivity.class);
-                        startActivity(intent);
-                        break;
-                    case 1:
-                        intent = new Intent(MainActivity.this, LineasActivity.class);
-                        startActivity(intent);
-                        break;
-                    case 2:
-                        intent = new Intent(MainActivity.this, ParadasActivity.class);
-                        startActivity(intent);
-                        break;
-                    case 3:
-                        intent = new Intent(MainActivity.this, TarifasActivity.class);
-                        startActivity(intent);
-                        break;
-                    case 4:
-                        intent = new Intent(MainActivity.this, RestriccionesActivity.class);
-                        startActivity(intent);
-                        break;
-                    case 5:
-                        intent = new Intent(MainActivity.this, AjustesActivity.class);
-                        startActivity(intent);
-                        break;
-                }
-            }
-        });
-
     }//onCreate
 
-    public void test(){
-        DatabaseHelper db;
-        db = new DatabaseHelper(getApplicationContext(),1);
 
-
-        // Getting all tag names
-        Log.d("Get Tags", "Getting All Tags");
-        List<Color> allColor = db.getAllColor();
-        Color c = db.getColor(1);
-
-        List<Linea> lineas = db.getAllLinea();
-        Linea l = db.getLinea(1);
-
-        List<Parada> listParadas = db.getAllParada();
-        Parada p1 = db.getParada(3);
-
-        List<Parada> paradasLinea1 = db.getParadasByLinea(4);
-        Linea lineaParada1 = db.getLineaByParada(5);
-        Color color = db.getColorByLinea(10);
-
-
-        db.closeDB();
-    }
 
     /**
      * Metodo encargado de generar el toolbar
@@ -130,16 +64,10 @@ public class MainActivity extends AppCompatActivity  implements ActivityInterfac
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(item.getItemId() == R.id.toolbar_ajustes)
-        {
-            test();
-            Intent intent = new Intent(MainActivity.this, AjustesActivity.class);
-            startActivity(intent);
-            return(true);
-        }
+
         if(item.getItemId() == R.id.toolbar_actualizar)
         {
-            new RecargaBaseDatos(context, this);
+            mainPresenter.recargarDatos();
             return(true);
         }
         return(super.onOptionsItemSelected(item));
@@ -147,8 +75,45 @@ public class MainActivity extends AppCompatActivity  implements ActivityInterfac
 
     public void showList() {
         ListFuncionesMainAdapter listFuncionesMainAdapter = new ListFuncionesMainAdapter(context);
-        ListView listview = (ListView) findViewById(R.id.listLineas);
+        ListView listview = (ListView) findViewById(R.id.listFuncionesMenu);
         listview.setAdapter(listFuncionesMainAdapter);
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+                Intent intent;
+                switch (position){
+                    case 0:
+                        intent = new Intent(MainActivity.this, FavsActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 1:
+                        intent = new Intent(MainActivity.this, LineasActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 2:
+                        intent = new Intent(MainActivity.this, unican.es.grupo4_tus_santander.View.Paradas.ParadasActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 3:
+                        intent = new Intent(MainActivity.this, TarifasActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 4:
+                        intent = new Intent(MainActivity.this, RestriccionesActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 5:
+                        intent = new Intent(MainActivity.this, ServiciosAlternativosActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 6:
+                        intent = new Intent(MainActivity.this, AjustesActivity.class);
+                        startActivity(intent);
+                        break;
+                }
+            }
+        });
 
 
     }
@@ -168,5 +133,11 @@ public class MainActivity extends AppCompatActivity  implements ActivityInterfac
         }
     }
 
+    public ProgressBar getProgressBar() {
+        return progressBar;
+    }
 
+    public void setProgressBar(ProgressBar progressBar) {
+        this.progressBar = progressBar;
+    }
 }// MainActivity

@@ -1,11 +1,10 @@
 package unican.es.grupo4_tus_santander.Presenter.Paradas;
 
 import android.content.Context;
-import android.os.AsyncTask;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 import unican.es.grupo4_tus_santander.Models.BaseDatos.helper.DatabaseHelper;
 import unican.es.grupo4_tus_santander.Models.Pojos.Parada;
@@ -31,9 +30,25 @@ public class ListParadasPresenter {
     }// ListParadasPresenter
 
     public void start(){
-        new getParadasPorLinea().execute();
+        new getParadasPorLinea().execute(this);
     }// start
 
+    public void continua(boolean result){
+        if(result){
+            paradasActivity.showList(getListaParadasBusPorLinea());
+        }else{
+            paradasActivity.showProgress(false,-2);
+        }
+    }
+
+    public Boolean obtenParadasPorLinea() {
+        if(idLinea == -1){
+            listaParadasBusPorLinea = ld.getAllParada();
+        }else{
+            listaParadasBusPorLinea = ld.getParadasByLinea(getIdLinea());
+        }
+        return !listaParadasBusPorLinea.isEmpty();
+    }
 
     public int getIdLinea() {
         return idLinea;
@@ -43,29 +58,12 @@ public class ListParadasPresenter {
         this.idLinea = idLinea;
     }
 
-    private class getParadasPorLinea extends AsyncTask<Void, Void, Boolean> {
-        @Override
-        protected Boolean doInBackground(Void... v) {
-                return obtenParadasPorLinea();
-        }
+    public List<Parada> getListaParadasBusPorLinea() {
+        return listaParadasBusPorLinea;
+    }//getListaParadasBusPorLinea
 
-        @Override
-        protected void onPostExecute(Boolean result){
-            if(result){
-                paradasActivity.showList(listaParadasBusPorLinea);
-            }else{
-                paradasActivity.showToastEmptyParadas();
-            }
-        }
+    public void showToastEmptyParadas() {
+        Toast.makeText(context, "No existen paradas asociadas a esta linea", Toast.LENGTH_SHORT).show();
+
     }
-
-    private Boolean obtenParadasPorLinea() {
-        if(idLinea == -1){
-            listaParadasBusPorLinea = ld.getAllParada();
-        }else{
-            listaParadasBusPorLinea = ld.getParadasByLinea(idLinea);
-        }
-        return !listaParadasBusPorLinea.isEmpty();
-    }
-
 }// ListParadasPresenter

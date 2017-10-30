@@ -1,0 +1,49 @@
+{
+  "summary": {
+    "items": 443,
+    "items_per_page": 443,
+    "pages": 1,
+    "current_page": 1
+  },
+  "resources": [
+    {
+      "wgs84_pos:long": "-3.866588480444409",
+      "ayto:numero": "499",
+      "gn:coordY": "4811045.72",
+      "gn:coordX": "429986.36",
+      "ayto:sentido": "Centro",
+      "vivo:address1": "Avda severo Ochoa",
+      "dc:modified": "2017-10-29T23:20:03.158Z",
+      "wgs84_pos:lat": "43.44716242117678",
+      "ayto:parada": "Camarreal Peñacastillo",
+      "dc:identifier": "42063",
+      "uri": "http://datos.santander.es/api/datos/paradas_bus/42063.json"
+    },
+    {
+      "wgs84_pos:long": "-3.8571753633683796",
+      "ayto:numero": "500",
+      "gn:coordY": "4810658.9",
+      "gn:coordX": "430744.13",
+      "ayto:sentido": "Centro",
+      "vivo:address1": "Ortega y Gasset.28",
+      "dc:modified": "2017-10-29T23:20:03.158Z",
+      "wgs84_pos:lat": "43.44375026592359",
+      "ayto:parada": "Ortega y Gasset.28",
+      "dc:identifier": "42064",
+      "uri": "http://datos.santander.es/api/datos/paradas_bus/42064.json"
+    },
+    {
+      "wgs84_pos:long": "-3.8062240806383896",
+      "ayto:numero": "505",
+      "gn:coordY": "4814192.02",
+      "gn:coordX": "434901.67",
+      "ayto:sentido": "Puertochico",
+      "vivo:address1": "Avenida de Cantabria nº 35",
+      "dc:modified": "2017-10-29T23:20:03.158Z",
+      "wgs84_pos:lat": "43.47593386282703",
+      "ayto:parada": "Avenida de Cantabria nº 35",
+      "dc:identifier": "50693",
+      "uri": "http://datos.santander.es/api/datos/paradas_bus/50693.json"
+    }
+  ]
+}

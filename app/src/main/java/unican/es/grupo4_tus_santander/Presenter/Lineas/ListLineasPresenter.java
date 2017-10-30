@@ -1,17 +1,13 @@
 package unican.es.grupo4_tus_santander.Presenter.Lineas;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import unican.es.grupo4_tus_santander.Models.BaseDatos.helper.DatabaseHelper;
-import unican.es.grupo4_tus_santander.Models.BaseDatos.helper.DatabaseInterface;
 import unican.es.grupo4_tus_santander.Models.Pojos.Linea;
-import unican.es.grupo4_tus_santander.View.Interfaz.ActivityInterface;
 import unican.es.grupo4_tus_santander.View.Lineas.LineasActivity;
 
 
@@ -33,7 +29,7 @@ public class ListLineasPresenter {
     }// ListLineasPresenter
 
     public void start(){
-        new getLineas().execute();
+        new getLineas().execute(this);
 
     }// start
 
@@ -68,17 +64,5 @@ public class ListLineasPresenter {
         return listaLineasBus;
     }//getListaLineasBus
 
-
-    private class getLineas extends AsyncTask<Void, Void, Boolean> {
-        @Override
-        protected Boolean doInBackground(Void... v) {
-                return obtenLineas();
-        }
-
-        @Override
-        protected void onPostExecute(Boolean result){
-            continua(result);
-        }
-    }
 
 }// ListLineasPresenter

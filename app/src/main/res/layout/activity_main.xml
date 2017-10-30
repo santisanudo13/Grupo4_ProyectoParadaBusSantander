@@ -6,7 +6,7 @@
     android:orientation="vertical" >
 
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/progressBarMenu"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
 
 
     <ListView
-        android:id="@+id/listLineas"
+        android:id="@+id/listFuncionesMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
     </ListView>

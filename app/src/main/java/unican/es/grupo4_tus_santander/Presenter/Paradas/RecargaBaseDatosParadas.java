@@ -1,7 +1,7 @@
-package unican.es.grupo4_tus_santander.Presenter.Main;
+package unican.es.grupo4_tus_santander.Presenter.Paradas;
 
 import android.content.Context;
-import android.os.AsyncTask;
+import android.net.ConnectivityManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,39 +11,45 @@ import unican.es.grupo4_tus_santander.Models.BaseDatos.helper.DatabaseHelper;
 import unican.es.grupo4_tus_santander.Models.Pojos.*;
 import unican.es.grupo4_tus_santander.Models.WebService.DataLoaders.ParserJSON;
 import unican.es.grupo4_tus_santander.Models.WebService.DataLoaders.RemoteFetch;
-import unican.es.grupo4_tus_santander.View.Interfaz.ActivityInterface;
+import unican.es.grupo4_tus_santander.Presenter.Paradas.AsyncTasks.GetDataServicio;
+import unican.es.grupo4_tus_santander.View.Paradas.ParadasActivity;
 
-
-public class RecargaBaseDatos {
-    private ActivityInterface activity;
+public class RecargaBaseDatosParadas {
+    public ParadasActivity activity;
     private Context context;
 
     List<Linea> listLineas = new ArrayList<Linea>();
     List<Parada> listParadas = new ArrayList<Parada>();
     List<ParadaConNombre> listParadasConNombre = new ArrayList<ParadaConNombre>();
 
+    ServicioListener listener;
+
+    ConnectivityManager cm = null;
 
 
     private  RemoteFetch remoteFetch = new RemoteFetch();
 
     DatabaseHelper db;
 
-    public RecargaBaseDatos(Context context, ActivityInterface activity){
+    public RecargaBaseDatosParadas(Context context, ParadasActivity activity){
         this.activity = activity;
         this.context = context;
-        this.db = new DatabaseHelper(this.context,1);
-        db.reiniciarTablas();
-        start();
-        
+        this.cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
     }// MainPresenter
+
 
     public void start(){
         activity.showProgress(true, 0);
-        new getDataServicio().execute();
+        new GetDataServicio(this).execute();
     }// start
 
 
     public boolean obtenData(){
+
+        //SI NO TIENE INTERNET DEVUELVE FALSE
+        if(cm == null)
+            return false;
+
         //LINEAS
         try {
             remoteFetch.getJSON(RemoteFetch.URL_LINEAS_BUS);
@@ -83,38 +89,9 @@ public class RecargaBaseDatos {
 
 
 
-    private class getDataServicio extends AsyncTask<Void, Void, Boolean> {
-        @Override
-        protected Boolean doInBackground(Void... v) {
-            return obtenData();
-        }
-
-        @Override
-        protected void onPostExecute(Boolean result) {
-            if (result) {
-                new getSaveDataIntoDataBase().execute();
-            } else {
-                activity.showProgress(false, -1);
-            }
-
-        }
-    }
-
-    private class getSaveDataIntoDataBase extends AsyncTask<Void, Void, Boolean> {
-        @Override
-        protected Boolean doInBackground(Void... v) {
-            guardaDataEnBaseDatos();
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean result) {
-            activity.showProgress(false, 1);
-        }
-    }
-
-
-    private void guardaDataEnBaseDatos() {
+    public void guardaDataEnBaseDatos() {
+        db = new DatabaseHelper(this.context,1);
+        db.reiniciarTablas();
 
         for(Linea l: listLineas) {
             long id_color = -1;
@@ -187,7 +164,7 @@ public class RecargaBaseDatos {
                     id_color = db.createColor(new Color(255, 0, 0, 0));
                     break;
             }
-            long id_linea =db.createLinea(l, id_color);
+            long id_linea = db.createLinea(l, id_color);
             l.setId((int) id_linea);
 
             for(Parada parada : listParadas){
@@ -195,7 +172,7 @@ public class RecargaBaseDatos {
                     for(ParadaConNombre paradaConNombre : listParadasConNombre){
                         if(parada.getNumParada() == paradaConNombre.getNumero())
                             parada.setNombre(paradaConNombre.getParada());
-                            parada.setFavorito(0);
+                        parada.setFavorito(0);
                     }
 
                     long id_parada = db.createParada(parada, l.getId());
@@ -205,31 +182,39 @@ public class RecargaBaseDatos {
         db.closeDB();
     }
 
-    private class LineaYParadas{
-        private Linea linea;
-        private List<Parada> paradas;
 
-        public LineaYParadas(Linea linea, List<Parada> paradas){
-            this.linea = linea;
-            this.paradas = paradas;
-        }
-
-        public Linea getLinea() {
-            return linea;
-        }
-
-        public void setLinea(Linea linea) {
-            this.linea = linea;
-        }
-
-        public List<Parada> getParadas() {
-            return paradas;
-        }
-
-        public void setParadas(List<Parada> paradas) {
-            this.paradas = paradas;
-        }
+    public static interface ServicioListener {
+        public void onComplete();
     }
 
 
+
+    public ServicioListener getListener() {
+        return listener;
+    }
+
+    public void setListener(ServicioListener listener) {
+        this.listener = listener;
+    }
+
+
+    public ConnectivityManager getCm() {
+        return cm;
+    }
+
+    public void setCm(ConnectivityManager cm) {
+        this.cm = cm;
+    }
+
+    public List<Linea> getListLineas() {
+        return listLineas;
+    }
+
+    public List<Parada> getListParadas() {
+        return listParadas;
+    }
+
+    public List<ParadaConNombre> getListParadasConNombre() {
+        return listParadasConNombre;
+    }
 }

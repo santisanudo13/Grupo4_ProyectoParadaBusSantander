@@ -3,6 +3,8 @@
     package="unican.es.grupo4_tus_santander">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -16,6 +18,7 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -30,16 +33,16 @@
             android:label="@string/title_activity_paradas" />
         <activity
             android:name=".View.Tarifas.TarifasActivity"
-            android:label="@string/title_activity_tarifas"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_activity_tarifas" />
         <activity
             android:name=".View.Restricciones.RestriccionesActivity"
-            android:label="@string/title_activity_restricciones"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_activity_restricciones" />
         <activity
             android:name=".View.Ajustes.AjustesActivity"
-            android:label="@string/title_activity_ajustes"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:label="@string/title_activity_ajustes" />
+        <activity
+            android:name=".View.ServiciosAlternativos.ServiciosAlternativosActivity"
+            android:label="@string/title_activity_serviciosAlternativos" />
     </application>
 
 </manifest>

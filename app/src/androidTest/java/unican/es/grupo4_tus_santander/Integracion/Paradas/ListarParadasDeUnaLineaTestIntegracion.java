@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.PruebasUnitarias;
+package unican.es.grupo4_tus_santander.Integracion.Paradas;
 
 import android.support.test.runner.AndroidJUnit4;
 
@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 @RunWith(AndroidJUnit4.class)
-public class ListarParadasDeUnaLineaTestPruebasUnitarias {
+public class ListarParadasDeUnaLineaTestIntegracion {
 
     /**
      * A1: Mostrar conjunto de opciones (se muestran las diferentes opciones en formato lista).

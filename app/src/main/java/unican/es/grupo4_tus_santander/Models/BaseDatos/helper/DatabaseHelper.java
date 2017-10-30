@@ -154,17 +154,21 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 				+ KEY_ID + " = " + color_id;
 
 		Cursor c = db.rawQuery(selectQuery, null);
-		if (c != null)
+		if (c == null){
+			System.out.println("Cursor nulo al obtener color");
+			return null;
+		} else {
 			c.moveToFirst();
 
-		Color color = new Color();
-		color.setId(c.getInt(c.getColumnIndex(KEY_ID)));
-		color.setAlpha((c.getInt(c.getColumnIndex(KEY_COLOR_ALPHA))));
-		color.setRed((c.getInt(c.getColumnIndex(KEY_COLOR_RED))));
-		color.setGreen((c.getInt(c.getColumnIndex(KEY_COLOR_GREEN))));
-		color.setBlue((c.getInt(c.getColumnIndex(KEY_COLOR_BLUE))));
+			Color color = new Color();
+			color.setId(c.getInt(c.getColumnIndex(KEY_ID)));
+			color.setAlpha((c.getInt(c.getColumnIndex(KEY_COLOR_ALPHA))));
+			color.setRed((c.getInt(c.getColumnIndex(KEY_COLOR_RED))));
+			color.setGreen((c.getInt(c.getColumnIndex(KEY_COLOR_GREEN))));
+			color.setBlue((c.getInt(c.getColumnIndex(KEY_COLOR_BLUE))));
 
-		return color;
+			return color;
+		}
 	}
 
 	/**
@@ -239,16 +243,20 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 		}
 
 
-		if (c != null)
+		if (c == null){
+			System.out.println("Cursor nulo al obtener línea");
+			return null;
+		} else {
 			c.moveToFirst();
 
-		Linea linea = new Linea();
-		linea.setId(c.getInt((c.getColumnIndex(KEY_ID))));
-		linea.setIdentifier(c.getInt((c.getColumnIndex(KEY_IDENTIFIER))));
-		linea.setName(c.getString(c.getColumnIndex(KEY_LINEA_NAME)));
-		linea.setNumero(c.getString(c.getColumnIndex(KEY_LINEA_NUMERO)));
-		linea.setIdColor(c.getInt((c.getColumnIndex(KEY_LINEA_COLORID))));
-		return linea;
+			Linea linea = new Linea();
+			linea.setId(c.getInt((c.getColumnIndex(KEY_ID))));
+			linea.setIdentifier(c.getInt((c.getColumnIndex(KEY_IDENTIFIER))));
+			linea.setName(c.getString(c.getColumnIndex(KEY_LINEA_NAME)));
+			linea.setNumero(c.getString(c.getColumnIndex(KEY_LINEA_NUMERO)));
+			linea.setIdColor(c.getInt((c.getColumnIndex(KEY_LINEA_COLORID))));
+			return linea;
+		}
 	}
 	/**
 	 * getting all linea
@@ -336,7 +344,10 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 
 		Cursor c = db.rawQuery(selectQuery, null);
 
-		if (c != null)
+		if (c == null){
+			System.out.println("Cursor nulo al obtener parada");
+			return null;
+		}
 			c.moveToFirst();
 
 		Parada parada = new Parada();

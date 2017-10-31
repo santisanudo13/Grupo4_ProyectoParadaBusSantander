@@ -19,7 +19,12 @@ import unican.es.grupo4_tus_santander.View.Lineas.LineasActivity;
 
 
 public class RecargaBaseDatosLineas {
-    public LineasActivity activity;
+
+    public LineasActivity getActivity() {
+        return activity;
+    }
+
+    LineasActivity activity;
     private Context context;
 
     List<Linea> listLineas = new ArrayList<Linea>();

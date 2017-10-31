@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import unican.es.grupo4_tus_santander.Models.BaseDatos.helper.DatabaseHelper;
+import unican.es.grupo4_tus_santander.Models.Pojos.Color;
 import unican.es.grupo4_tus_santander.Models.Pojos.Linea;
 import unican.es.grupo4_tus_santander.Presenter.Lineas.ListLineasPresenter;
 import unican.es.grupo4_tus_santander.View.Lineas.LineasActivity;
@@ -45,9 +46,15 @@ public class LineasPresenterTest {
 
     @Test
     public void obtenLineasCorrecto(){
+        Color c= new Color(1,1,1,1);
+        long id=db.createColor(c);
+        for(Linea a:l){
+            db.createLinea(a,id);
+        }
+        db.closeDB();
         LineasActivity la = mock(LineasActivity.class);
         ListLineasPresenter p =new ListLineasPresenter(InstrumentationRegistry.getTargetContext(),la);
-        p.ld=db;
+        p.setLd(db);
         assertTrue(p.obtenLineas());
     }
 

@@ -14,10 +14,15 @@ import unican.es.grupo4_tus_santander.View.Lineas.LineasActivity;
 
 
 public class ListLineasPresenter {
-    public LineasActivity listLineasView;
+    LineasActivity listLineasView;
     private List<Linea> listaLineasBus;
     private Context context;
-    public DatabaseHelper ld;
+
+    public void setLd(DatabaseHelper ld) {
+        this.ld = ld;
+    }
+
+    DatabaseHelper ld;
 
     public ListLineasPresenter(Context context, LineasActivity listLineasView){
         this.listLineasView = listLineasView;

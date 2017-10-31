@@ -51,7 +51,7 @@ public class LineasPresenterTest {
         when(db.getAllLinea()).thenReturn(l);
         LineasActivity la = mock(LineasActivity.class);
         ListLineasPresenter p =new ListLineasPresenter(InstrumentationRegistry.getTargetContext(),la);
-        p.ld=db;
+        p.setLd(db);
         assertTrue(p.obtenLineas());
     }
 
@@ -59,6 +59,7 @@ public class LineasPresenterTest {
     public void obtenLineasError(){
         LineasActivity la = mock(LineasActivity.class);
         ListLineasPresenter p =new ListLineasPresenter(InstrumentationRegistry.getTargetContext(),la);
+        p.setLd(null);
         assertFalse(p.obtenLineas());
 
     }

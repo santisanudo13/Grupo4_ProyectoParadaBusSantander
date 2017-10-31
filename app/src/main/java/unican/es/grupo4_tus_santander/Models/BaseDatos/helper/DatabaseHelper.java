@@ -133,6 +133,14 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 	 * Creating a color
 	 */
 	public long createColor(Color color) {
+
+		if(color.getAlpha()<0||color.getAlpha()>255 ||
+				color.getRed()<0||color.getRed()>255 ||
+				color.getGreen()<0||color.getGreen()>255 ||
+				color.getBlue()<0||color.getBlue()>255){
+			return -1;
+		}
+
 		SQLiteDatabase db = this.getWritableDatabase();
 
 		ContentValues values = new ContentValues();

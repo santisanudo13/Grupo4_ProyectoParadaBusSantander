@@ -19,13 +19,13 @@ public class RecargaBaseDatosMenu {
     private MainActivity activity;
     private Context context;
 
-    List<Linea> listLineas = new ArrayList<Linea>();
-    List<Parada> listParadas = new ArrayList<Parada>();
-    List<ParadaConNombre> listParadasConNombre = new ArrayList<ParadaConNombre>();
+    private List<Linea> listLineas = new ArrayList<Linea>();
+    private List<Parada> listParadas = new ArrayList<Parada>();
+    private List<ParadaConNombre> listParadasConNombre = new ArrayList<ParadaConNombre>();
 
-    ServicioListener listener;
+    private ServicioListener listener;
 
-    ConnectivityManager cm = null;
+    private ConnectivityManager cm = null;
 
 
     private  RemoteFetch remoteFetch = new RemoteFetch();

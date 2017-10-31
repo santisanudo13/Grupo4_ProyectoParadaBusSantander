@@ -4,13 +4,9 @@
 
     <item
         android:id="@+id/toolbar_actualizar"
-        android:icon="@drawable/ic_actualizar"
+        android:icon="@android:drawable/ic_popup_sync"
         app:showAsAction="always"
         />
-    <item
-        android:id="@+id/toolbar_ajustes"
-        android:icon="@drawable/ic_ajustes"
-        app:showAsAction="always"
-        />
+
 
 </menu>

@@ -1,7 +1,9 @@
 package unican.es.grupo4_tus_santander.Presenter.Lineas;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,7 +17,6 @@ import unican.es.grupo4_tus_santander.Models.Pojos.ParadaConNombre;
 import unican.es.grupo4_tus_santander.Models.WebService.DataLoaders.ParserJSON;
 import unican.es.grupo4_tus_santander.Models.WebService.DataLoaders.RemoteFetch;
 import unican.es.grupo4_tus_santander.Presenter.Lineas.AsyncTasks.GetDataServicio;
-import unican.es.grupo4_tus_santander.Presenter.Main.RecargaBaseDatosMenu;
 import unican.es.grupo4_tus_santander.View.Lineas.LineasActivity;
 
 
@@ -27,7 +28,17 @@ public class RecargaBaseDatosLineas {
     List<Parada> listParadas = new ArrayList<Parada>();
     List<ParadaConNombre> listParadasConNombre = new ArrayList<ParadaConNombre>();
 
-    RecargaBaseDatosMenu.ServicioListener listener;
+    public void setListener(ServicioListener listener) {
+        this.listener = listener;
+    }
+
+    ServicioListener listener;
+
+    public void setCm(ConnectivityManager cm) {
+        this.cm = cm;
+    }
+
+    ConnectivityManager cm = null;
 
     private  RemoteFetch remoteFetch = new RemoteFetch();
 
@@ -36,9 +47,7 @@ public class RecargaBaseDatosLineas {
     public RecargaBaseDatosLineas(Context context, LineasActivity activity){
         this.activity = activity;
         this.context = context;
-        this.db = new DatabaseHelper(this.context,1);
-        db.reiniciarTablas();
-        start();
+        this.cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         
     }// MainPresenter
 
@@ -49,49 +58,56 @@ public class RecargaBaseDatosLineas {
 
 
     public boolean obtenData(){
+
+        //SI NO TIENE INTERNET DEVUELVE FALSE
+        if(cm == null)
+            return false;
+
         //LINEAS
         try {
             remoteFetch.getJSON(RemoteFetch.URL_LINEAS_BUS);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Log.e("ERROR","Error : "+e.getMessage());
         }
         try {
             listLineas = ParserJSON.readArrayLineasBus(remoteFetch.getBufferedData());
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("ERROR","Error : "+e.getMessage());
         }
         //PARADAS
         try {
             remoteFetch.getJSON(RemoteFetch.URL_PARADAS);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Log.e("ERROR","Error : "+e.getMessage());
         }
         try {
             listParadas = ParserJSON.readArrayParadas(remoteFetch.getBufferedData());
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("ERROR","Error : "+e.getMessage());
         }
         //PARADAS CON NOMBRE
         try {
             remoteFetch.getJSON(RemoteFetch.URL_PARADAS_NOMBRE);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Log.e("ERROR","Error : "+e.getMessage());
         }
         try {
             listParadasConNombre = ParserJSON.readArrayParadasConNombre(remoteFetch.getBufferedData());
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("ERROR","Error : "+e.getMessage());
         }
 
         return !listLineas.isEmpty() && !listParadas.isEmpty();
     }
 
-    public RecargaBaseDatosMenu.ServicioListener getListener() {
+    public ServicioListener getListener() {
         return listener;
     }
 
 
     public void guardaDataEnBaseDatos() {
+        this.db = new DatabaseHelper(this.context,1);
+        db.reiniciarTablas();
 
         for(Linea l: listLineas) {
             long id_color = -1;
@@ -180,6 +196,10 @@ public class RecargaBaseDatosLineas {
             }
         }
         db.closeDB();
+    }
+
+    public static interface ServicioListener {
+        public void onComplete();
     }
 
     private class LineaYParadas{

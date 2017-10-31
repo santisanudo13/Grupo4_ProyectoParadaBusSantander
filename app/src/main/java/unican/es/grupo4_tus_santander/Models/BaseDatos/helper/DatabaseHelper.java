@@ -15,7 +15,7 @@ import unican.es.grupo4_tus_santander.Models.Pojos.*;
 
 public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterface {
 
-	
+
 
 	// Database Name
 	private static final String DATABASE_NAME = "TUSSantander";
@@ -133,14 +133,12 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 	 * Creating a color
 	 */
 	public long createColor(Color color) {
-
 		if(color.getAlpha()<0||color.getAlpha()>255 ||
 				color.getRed()<0||color.getRed()>255 ||
 				color.getGreen()<0||color.getGreen()>255 ||
 				color.getBlue()<0||color.getBlue()>255){
 			return -1;
 		}
-
 		SQLiteDatabase db = this.getWritableDatabase();
 
 		ContentValues values = new ContentValues();
@@ -161,18 +159,24 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 		String selectQuery = "SELECT  * FROM " + TABLE_COLOR + " WHERE "
 				+ KEY_ID + " = " + color_id;
 
-		Cursor c = db.rawQuery(selectQuery, null);
-		if (c != null)
+		Cursor c;
+		try{
+			c = db.rawQuery(selectQuery, null);
+
 			c.moveToFirst();
 
-		Color color = new Color();
-		color.setId(c.getInt(c.getColumnIndex(KEY_ID)));
-		color.setAlpha((c.getInt(c.getColumnIndex(KEY_COLOR_ALPHA))));
-		color.setRed((c.getInt(c.getColumnIndex(KEY_COLOR_RED))));
-		color.setGreen((c.getInt(c.getColumnIndex(KEY_COLOR_GREEN))));
-		color.setBlue((c.getInt(c.getColumnIndex(KEY_COLOR_BLUE))));
-
-		return color;
+			Color color = new Color();
+			color.setId(c.getInt(c.getColumnIndex(KEY_ID)));
+			color.setAlpha((c.getInt(c.getColumnIndex(KEY_COLOR_ALPHA))));
+			color.setRed((c.getInt(c.getColumnIndex(KEY_COLOR_RED))));
+			color.setGreen((c.getInt(c.getColumnIndex(KEY_COLOR_GREEN))));
+			color.setBlue((c.getInt(c.getColumnIndex(KEY_COLOR_BLUE))));
+			if(c != null)
+				c.close();
+			return color;
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	/**
@@ -183,7 +187,12 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 		String selectQuery = "SELECT  * FROM " + TABLE_COLOR;
 
 		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor c = db.rawQuery(selectQuery, null);
+		Cursor c = null;
+		try{
+			c = db.rawQuery(selectQuery, null);
+		}catch(Exception e){
+			return null;
+		}
 
 		// looping through all rows and adding to list
 		if (c.moveToFirst()) {
@@ -198,6 +207,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 				colores.add(color);
 			} while (c.moveToNext());
 		}
+		if(c != null)
+				c.close();
 		return colores;
 	}
 
@@ -242,21 +253,22 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 		Cursor c;
 		try{
 			c = db.rawQuery(selectQuery, null);
+
+
+			c.moveToFirst();
+
+			Linea linea = new Linea();
+			linea.setId(c.getInt((c.getColumnIndex(KEY_ID))));
+			linea.setIdentifier(c.getInt((c.getColumnIndex(KEY_IDENTIFIER))));
+			linea.setName(c.getString(c.getColumnIndex(KEY_LINEA_NAME)));
+			linea.setNumero(c.getString(c.getColumnIndex(KEY_LINEA_NUMERO)));
+			linea.setIdColor(c.getInt((c.getColumnIndex(KEY_LINEA_COLORID))));
+			if(c != null)
+				c.close();
+			return linea;
 		}catch(Exception e){
 			return null;
 		}
-
-
-		if (c != null)
-			c.moveToFirst();
-
-		Linea linea = new Linea();
-		linea.setId(c.getInt((c.getColumnIndex(KEY_ID))));
-		linea.setIdentifier(c.getInt((c.getColumnIndex(KEY_IDENTIFIER))));
-		linea.setName(c.getString(c.getColumnIndex(KEY_LINEA_NAME)));
-		linea.setNumero(c.getString(c.getColumnIndex(KEY_LINEA_NUMERO)));
-		linea.setIdColor(c.getInt((c.getColumnIndex(KEY_LINEA_COLORID))));
-		return linea;
 	}
 	/**
 	 * getting all linea
@@ -267,7 +279,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 
 
 		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor c;
+		Cursor c = null;
 		try{
 			c = db.rawQuery(selectQuery, null);
 		}catch(Exception e){
@@ -275,6 +287,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 		}
 
 		// looping through all rows and adding to list
+
 		if (c.moveToFirst()) {
 			do {
 				Linea linea = new Linea();
@@ -288,6 +301,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 				lineas.add(linea);
 			} while (c.moveToNext());
 		}
+		if(c != null)
+				c.close();
 		return lineas;
 	}
 
@@ -342,26 +357,33 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 		String selectQuery = "SELECT  * FROM " + TABLE_PARADA + " WHERE "
 				+ KEY_ID + " = " + parada_id;
 
-		Cursor c = db.rawQuery(selectQuery, null);
+		Cursor c = null;
+		try{
+			c = db.rawQuery(selectQuery, null);
 
-		if (c != null)
+
 			c.moveToFirst();
 
-		Parada parada = new Parada();
-		parada.setId(c.getInt(c.getColumnIndex(KEY_ID)));
-		parada.setIdentifier(c.getInt(c.getColumnIndex(KEY_IDENTIFIER)));
-		parada.setIdentifierLinea(c.getInt(c.getColumnIndex(KEY_PARADA_LINEA_IDENTIFIER)));
-		parada.setNumParada(c.getInt(c.getColumnIndex(KEY_PARADA_NUMPARADA)));
-		parada.setWgs64Lat((c.getDouble(c.getColumnIndex(KEY_PARADA_WGS84LAT))));
-		parada.setWgs64Long((c.getDouble(c.getColumnIndex(KEY_PARADA_WGS84LONG))));
-		parada.setCoordX((c.getDouble(c.getColumnIndex(KEY_PARADA_COORDX))));
-		parada.setCoordY((c.getDouble(c.getColumnIndex(KEY_PARADA_COORDY))));
-		parada.setNombre((c.getString(c.getColumnIndex(KEY_PARADA_NOMBRE))));
-		parada.setIdLinea((c.getInt(c.getColumnIndex(KEY_PARADA_LINEA_ID))));
-		parada.setFavorito((c.getInt(c.getColumnIndex(KEY_PARADA_FAVORITO))));
+			Parada parada = new Parada();
+			parada.setId(c.getInt(c.getColumnIndex(KEY_ID)));
+			parada.setIdentifier(c.getInt(c.getColumnIndex(KEY_IDENTIFIER)));
+			parada.setIdentifierLinea(c.getInt(c.getColumnIndex(KEY_PARADA_LINEA_IDENTIFIER)));
+			parada.setNumParada(c.getInt(c.getColumnIndex(KEY_PARADA_NUMPARADA)));
+			parada.setWgs64Lat((c.getDouble(c.getColumnIndex(KEY_PARADA_WGS84LAT))));
+			parada.setWgs64Long((c.getDouble(c.getColumnIndex(KEY_PARADA_WGS84LONG))));
+			parada.setCoordX((c.getDouble(c.getColumnIndex(KEY_PARADA_COORDX))));
+			parada.setCoordY((c.getDouble(c.getColumnIndex(KEY_PARADA_COORDY))));
+			parada.setNombre((c.getString(c.getColumnIndex(KEY_PARADA_NOMBRE))));
+			parada.setIdLinea((c.getInt(c.getColumnIndex(KEY_PARADA_LINEA_ID))));
+			parada.setFavorito((c.getInt(c.getColumnIndex(KEY_PARADA_FAVORITO))));
 
+			if(c != null)
+				c.close();
+			return parada;
+		}catch(Exception e){
+			return null;
+		}
 
-		return parada;
 	}
 
 	/**
@@ -372,7 +394,12 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 		String selectQuery = "SELECT  * FROM " + TABLE_PARADA;
 
 		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor c = db.rawQuery(selectQuery, null);
+		Cursor c = null;
+		try{
+			c = db.rawQuery(selectQuery, null);
+		}catch(Exception e){
+			return null;
+		}
 
 		// looping through all rows and adding to list
 		if (c.moveToFirst()) {
@@ -394,7 +421,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 				paradas.add(parada);
 			} while (c.moveToNext());
 		}
-
+		if(c != null)
+				c.close();
 		return paradas;
 	}
 
@@ -406,7 +434,12 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 		String selectQuery = "SELECT  * FROM " + TABLE_PARADA + " WHERE favorito == 1";
 
 		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor c = db.rawQuery(selectQuery, null);
+		Cursor c = null;
+		try{
+			c = db.rawQuery(selectQuery, null);
+		}catch(Exception e){
+			return null;
+		}
 
 		// looping through all rows and adding to list
 		if (c.moveToFirst()) {
@@ -428,7 +461,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 				paradas.add(parada);
 			} while (c.moveToNext());
 		}
-
+		if(c != null)
+				c.close();
 		return paradas;
 	}
 

@@ -16,10 +16,7 @@ public class getLineas extends AsyncTask<ListLineasPresenter, Void, Boolean> {
 
     @Override
     protected void onPostExecute(Boolean result){
-        if(result) {
             p.continua(result);
-        }else{
 
-        }
     }
 }

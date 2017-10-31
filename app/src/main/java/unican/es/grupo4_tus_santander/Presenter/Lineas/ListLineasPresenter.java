@@ -26,6 +26,7 @@ public class ListLineasPresenter {
         this.context = context;
         this.listaLineasBus=new ArrayList<>();
         this.ld = new DatabaseHelper(this.context,1);
+        start();
     }// ListLineasPresenter
 
     public void start(){
@@ -48,13 +49,12 @@ public class ListLineasPresenter {
         try {
             listaLineasBus=ld.getAllLinea();
             ld.closeDB();
-            if(listaLineasBus.size()==0){
+            if( listaLineasBus==null ||listaLineasBus.size()==0){
                 return false;
             }
             return true;
         }catch(Exception e){
             Log.e("ERROR","Error en la obtención de las lineas de Bus: "+e.getMessage());
-            e.printStackTrace();
             return false;
         }
     }//obtenLineas

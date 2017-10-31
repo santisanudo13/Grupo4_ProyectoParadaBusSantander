@@ -40,7 +40,7 @@ public class LineasActivity extends AppCompatActivity  implements SearchView.OnQ
         setContentView(R.layout.activity_lineas);
         this.progressBar=(ProgressBar)findViewById(R.id.progressLinea);
         this.listLineasPresenter = new ListLineasPresenter(getApplicationContext(),this);
-        this.listLineasPresenter.start();
+        //this.listLineasPresenter.start();
     }//onCreate
 
     @Override
@@ -90,7 +90,8 @@ public class LineasActivity extends AppCompatActivity  implements SearchView.OnQ
 
         if(item.getItemId() == R.id.refresh)
         {
-            new RecargaBaseDatosLineas(getApplicationContext(), this);
+            RecargaBaseDatosLineas r =new RecargaBaseDatosLineas(getApplicationContext(), this);
+            r.start();
             return(true);
         }
         return(super.onOptionsItemSelected(item));

@@ -15,7 +15,7 @@ import unican.es.grupo4_tus_santander.Models.Pojos.*;
 
 public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterface {
 
-	
+
 
 	// Database Name
 	private static final String DATABASE_NAME = "TUSSantander";
@@ -134,6 +134,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 	 */
 	public long createColor(Color color) {
 
+
 		if(color.getAlpha()<0||color.getAlpha()>255 ||
 				color.getRed()<0||color.getRed()>255 ||
 				color.getGreen()<0||color.getGreen()>255 ||
@@ -210,7 +211,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 			} while (c.moveToNext());
 		}
 		if(c != null)
-				c.close();
+			c.close();
 		return colores;
 	}
 
@@ -302,9 +303,9 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 				// adding to Lineas list
 				lineas.add(linea);
 			} while (c.moveToNext());
-		}		
+		}
 		if(c != null)
-				c.close();
+			c.close();
 		return lineas;
 	}
 
@@ -424,7 +425,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 			} while (c.moveToNext());
 		}
 		if(c != null)
-				c.close();
+			c.close();
 		return paradas;
 	}
 
@@ -464,7 +465,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 			} while (c.moveToNext());
 		}
 		if(c != null)
-				c.close();
+			c.close();
 		return paradas;
 	}
 

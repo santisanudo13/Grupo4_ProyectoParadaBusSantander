@@ -109,7 +109,7 @@ public class LneasAceptacion {
         relativeLayout2.perform(click());
 
         ViewInteraction textView3 = onView(
-                allOf(withText("ParadasActivity"),
+                allOf(withText("Paradas"),
                         childAtPosition(
                                 allOf(withId(R.id.action_bar),
                                         childAtPosition(

@@ -1,0 +1,43 @@
+{
+  "summary": {
+    "items": 1444,
+    "items_per_page": 500000,
+    "pages": 1,
+    "current_page": 1
+  },
+  "resources": [
+    {
+      "wgs84_pos:long": "-3.8700401309569807",
+      "gn:coordY": "4811697.5",
+      "gn:coordX": "429713.84",
+      "ayto:linea": "19",
+      "dc:modified": "2017-10-30T02:40:01.616Z",
+      "wgs84_pos:lat": "43.45300506221107",
+      "ayto:parada": "489",
+      "dc:identifier": "75",
+      "uri": "http://datos.santander.es/api/datos/lineas_bus_paradas/75.json"
+    },
+    {
+      "wgs84_pos:long": "-3.788291427047982",
+      "gn:coordY": "4812815.5",
+      "gn:coordX": "436339.12",
+      "ayto:linea": "19",
+      "dc:modified": "2017-10-30T02:40:01.615Z",
+      "wgs84_pos:lat": "43.46366420538056",
+      "ayto:parada": "36",
+      "dc:identifier": "34",
+      "uri": "http://datos.santander.es/api/datos/lineas_bus_paradas/34.json"
+    },
+    {
+      "wgs84_pos:long": "-3.7930615771148126",
+      "gn:coordY": "4812737.5",
+      "gn:coordX": "435952.47",
+      "ayto:linea": "20",
+      "dc:modified": "2017-10-30T02:40:01.615Z",
+      "wgs84_pos:lat": "43.46292891213499",
+      "ayto:parada": "37",
+      "dc:identifier": "35",
+      "uri": "http://datos.santander.es/api/datos/lineas_bus_paradas/35.json"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+public probandoDB(){
+//Parte BBDD
+        DatabaseHelper db;
+        db = new DatabaseHelper(getApplicationContext(),1);
+        db.reiniciarTablas();
+
+
+        Color c = new Color(100, 155, 155, 0);
+
+        long color_id1 = db.createColor(c);
+
+        // Getting all tag names
+        Log.d("Get Tags", "Getting All Tags");
+        List<Color> allColor = db.getAllColor();
+
+
+        Linea l = new Linea( 1, "Universidades");
+        Linea l2 = new Linea(2, "Sardinero");
+
+        long linea_id1 = db.createLinea(l, color_id1);
+        long linea_id2 = db.createLinea(l2, color_id1);
+
+        Color c2 = db.getColorByLinea(linea_id1);
+
+        List<Linea> lineas = db.getAllLinea();
+        l = db.getLinea(1);
+
+        Parada parada1 = new Parada("PARADA PEPE", 123, "OJAIZ O QUE DIR", 20, 1, 3, 15);
+        Parada parada2 = new Parada("PUERTO CHICO", 25, "Sardi DIR",  20, 1, 3, 15);
+        Parada parada3 = new Parada("A", 25, "A",  20, 1, 3, 15);
+
+
+        long parada_id1 = db.createParada(parada1, linea_id1);
+        long parada2_id2 = db.createParada(parada2, linea_id2);
+        long parada2_id3 = db.createParada(parada3, linea_id1);
+
+
+        List<Parada> paradasLinea1 = db.getParadasByLinea(linea_id1);
+        Linea lineaParada1 = db.getLineaByParada(parada2_id2);
+
+        List<Parada> paradas = db.getAllParada();
+
+        Parada p = db.getParada(2);
+
+        l = db.getLinea(3);
+
+        db.closeDB();
+}

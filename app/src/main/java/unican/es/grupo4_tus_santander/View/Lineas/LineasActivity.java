@@ -2,6 +2,7 @@ package unican.es.grupo4_tus_santander.View.Lineas;
 
 
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,9 +33,11 @@ public class LineasActivity extends AppCompatActivity  implements SearchView.OnQ
     private Context context;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         this.context = getApplicationContext();
         setContentView(R.layout.activity_lineas);
         this.progressBar=(ProgressBar)findViewById(R.id.progressLinea);
@@ -124,3 +127,4 @@ public class LineasActivity extends AppCompatActivity  implements SearchView.OnQ
     }
 
 }// MainActivity
+

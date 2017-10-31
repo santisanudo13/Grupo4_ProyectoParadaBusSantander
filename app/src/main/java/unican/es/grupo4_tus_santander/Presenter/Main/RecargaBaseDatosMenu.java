@@ -54,34 +54,34 @@ public class RecargaBaseDatosMenu {
         //LINEAS
         try {
             remoteFetch.getJSON(RemoteFetch.URL_LINEAS_BUS);
-        } catch (IOException e) {
+        } catch (Exception e) {
             
         }
         try {
             listLineas = ParserJSON.readArrayLineasBus(remoteFetch.getBufferedData());
-        } catch (IOException e) {
+        } catch (Exception e) {
             
         }
         //PARADAS
         try {
             remoteFetch.getJSON(RemoteFetch.URL_PARADAS);
-        } catch (IOException e) {
+        } catch (Exception e) {
             
         }
         try {
             listParadas = ParserJSON.readArrayParadas(remoteFetch.getBufferedData());
-        } catch (IOException e) {
+        } catch (Exception e) {
             
         }
         //PARADAS CON NOMBRE
         try {
             remoteFetch.getJSON(RemoteFetch.URL_PARADAS_NOMBRE);
-        } catch (IOException e) {
+        } catch (Exception e) {
             
         }
         try {
             listParadasConNombre = ParserJSON.readArrayParadasConNombre(remoteFetch.getBufferedData());
-        } catch (IOException e) {
+        } catch (Exception e) {
             
         }
 

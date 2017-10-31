@@ -2,10 +2,8 @@ package unican.es.grupo4_tus_santander.Presenter.Lineas;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
-import android.os.AsyncTask;
 import android.util.Log;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 

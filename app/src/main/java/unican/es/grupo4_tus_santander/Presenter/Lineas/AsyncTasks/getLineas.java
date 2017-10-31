@@ -1,6 +1,8 @@
-package unican.es.grupo4_tus_santander.Presenter.Lineas;
+package unican.es.grupo4_tus_santander.Presenter.Lineas.AsyncTasks;
 
 import android.os.AsyncTask;
+
+import unican.es.grupo4_tus_santander.Presenter.Lineas.ListLineasPresenter;
 
 /**
  * Created by Luis on 30/10/17.

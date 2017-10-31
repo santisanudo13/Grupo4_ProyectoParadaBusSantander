@@ -8,12 +8,10 @@ import java.util.List;
 
 import unican.es.grupo4_tus_santander.Models.BaseDatos.helper.DatabaseHelper;
 import unican.es.grupo4_tus_santander.Models.Pojos.Linea;
+import unican.es.grupo4_tus_santander.Presenter.Lineas.AsyncTasks.getLineas;
 import unican.es.grupo4_tus_santander.View.Lineas.LineasActivity;
 
 
-/**
- * Created by alejandro on 11/10/17.
- */
 
 public class ListLineasPresenter {
     public LineasActivity listLineasView;

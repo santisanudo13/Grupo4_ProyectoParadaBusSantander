@@ -18,13 +18,13 @@ import unican.es.grupo4_tus_santander.Presenter.Main.MainPresenter;
 import unican.es.grupo4_tus_santander.R;
 import unican.es.grupo4_tus_santander.View.Ajustes.AjustesActivity;
 import unican.es.grupo4_tus_santander.View.Favoritos.FavsActivity;
-import unican.es.grupo4_tus_santander.View.Interfaz.ActivityInterface;
 import unican.es.grupo4_tus_santander.View.Lineas.LineasActivity;
+import unican.es.grupo4_tus_santander.View.Paradas.ParadasActivity;
 import unican.es.grupo4_tus_santander.View.Restricciones.RestriccionesActivity;
 import unican.es.grupo4_tus_santander.View.ServiciosAlternativos.ServiciosAlternativosActivity;
 import unican.es.grupo4_tus_santander.View.Tarifas.TarifasActivity;
 
-public class MainActivity extends AppCompatActivity  implements ActivityInterface{
+public class MainActivity extends AppCompatActivity {
 
     private Context context;
     private MainPresenter mainPresenter;
@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity  implements ActivityInterfac
                         startActivity(intent);
                         break;
                     case 2:
-                        intent = new Intent(MainActivity.this, unican.es.grupo4_tus_santander.View.Paradas.ParadasActivity.class);
+                        intent = new Intent(MainActivity.this, ParadasActivity.class);
                         startActivity(intent);
                         break;
                     case 3:

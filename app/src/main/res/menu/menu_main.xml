@@ -6,7 +6,7 @@
         android:id="@+id/toolbar_actualizar"
         android:icon="@android:drawable/ic_popup_sync"
         app:showAsAction="always"
-        android:title="" />
+        />
 
 
 </menu>

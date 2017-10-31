@@ -14,8 +14,8 @@ import unican.es.grupo4_tus_santander.R;
 
 
 public class ListFuncionesMainAdapter extends ArrayAdapter {
-    static final String[] funcionesMain = {"Mostrar Favoritos", "Mostrar Líneas", "Mostrar Paradas", "Mostrar Tarifas",  "Mostrar Restricciones","Mostrar Transportes Alternativos" ,"Ajustes" };
-    Context context;
+    private static final String[] funcionesMain = {"Mostrar Favoritos", "Mostrar Líneas", "Mostrar Paradas", "Mostrar Tarifas",  "Mostrar Restricciones","Mostrar Transportes Alternativos" ,"Ajustes" };
+    private Context context;
 
     public ListFuncionesMainAdapter(Context context){
         super(context, R.layout.custom_list_funciones_main_layout,funcionesMain);

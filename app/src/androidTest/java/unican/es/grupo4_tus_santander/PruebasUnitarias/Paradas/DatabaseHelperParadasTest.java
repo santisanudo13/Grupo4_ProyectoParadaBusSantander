@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.Unitarias.Paradas;
+package unican.es.grupo4_tus_santander.PruebasUnitarias.Paradas;
 
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;

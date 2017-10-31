@@ -15,7 +15,7 @@ import unican.es.grupo4_tus_santander.Models.Pojos.*;
 
 public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterface {
 
-
+	
 
 	// Database Name
 	private static final String DATABASE_NAME = "TUSSantander";
@@ -44,8 +44,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 
 	// PARADA Table - column names
 	private static final String KEY_PARADA_NUMPARADA = "numeroParada";
-	private static final String KEY_PARADA_WGS84LONG = "wgs84Long";
-	private static final String KEY_PARADA_WGS84LAT = "wgs84Lat";
+	private static final String KEY_PARADA_WGS64LONG = "wgs84Long";
+	private static final String KEY_PARADA_WGS64LAT = "wgs84Lat";
 	private static final String KEY_PARADA_COORDX = "coordX";
 	private static final String KEY_PARADA_COORDY = "coordY";
 	private static final String KEY_PARADA_LINEA_IDENTIFIER = "lineaIdentifier";
@@ -82,8 +82,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 			+ KEY_IDENTIFIER + " INTEGER,"
 			+ KEY_PARADA_LINEA_IDENTIFIER + " INTEGER,"
 			+ KEY_PARADA_NUMPARADA + " INTEGER,"
-			+ KEY_PARADA_WGS84LAT + " REAL,"
-			+ KEY_PARADA_WGS84LONG + " REAL,"
+			+ KEY_PARADA_WGS64LAT + " REAL,"
+			+ KEY_PARADA_WGS64LONG + " REAL,"
 			+ KEY_PARADA_COORDX + " REAL,"
 			+ KEY_PARADA_COORDY + " REAL,"
 			+ KEY_PARADA_NOMBRE + " TEXT,"
@@ -133,12 +133,6 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 	 * Creating a color
 	 */
 	public long createColor(Color color) {
-		if(color.getAlpha()<0||color.getAlpha()>255 ||
-				color.getRed()<0||color.getRed()>255 ||
-				color.getGreen()<0||color.getGreen()>255 ||
-				color.getBlue()<0||color.getBlue()>255){
-			return -1;
-		}
 		SQLiteDatabase db = this.getWritableDatabase();
 
 		ContentValues values = new ContentValues();
@@ -208,7 +202,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 			} while (c.moveToNext());
 		}
 		if(c != null)
-			c.close();
+				c.close();
 		return colores;
 	}
 
@@ -300,9 +294,9 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 				// adding to Lineas list
 				lineas.add(linea);
 			} while (c.moveToNext());
-		}
+		}		
 		if(c != null)
-			c.close();
+				c.close();
 		return lineas;
 	}
 
@@ -336,8 +330,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 			values.put(KEY_PARADA_NUMPARADA, parada.getNumParada());
 			values.put(KEY_PARADA_COORDX, parada.getCoordX());
 			values.put(KEY_PARADA_COORDY, parada.getCoordY());
-			values.put(KEY_PARADA_WGS84LAT, parada.getWgs64Lat());
-			values.put(KEY_PARADA_WGS84LONG, parada.getWgs64Long());
+			values.put(KEY_PARADA_WGS64LAT, parada.getWgs64Lat());
+			values.put(KEY_PARADA_WGS64LONG, parada.getWgs64Long());
 			values.put(KEY_PARADA_NOMBRE, parada.getNombre());
 			values.put(KEY_PARADA_LINEA_ID, id_linea);
 			values.put(KEY_PARADA_FAVORITO, 0);
@@ -369,8 +363,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 			parada.setIdentifier(c.getInt(c.getColumnIndex(KEY_IDENTIFIER)));
 			parada.setIdentifierLinea(c.getInt(c.getColumnIndex(KEY_PARADA_LINEA_IDENTIFIER)));
 			parada.setNumParada(c.getInt(c.getColumnIndex(KEY_PARADA_NUMPARADA)));
-			parada.setWgs64Lat((c.getDouble(c.getColumnIndex(KEY_PARADA_WGS84LAT))));
-			parada.setWgs64Long((c.getDouble(c.getColumnIndex(KEY_PARADA_WGS84LONG))));
+			parada.setWgs64Lat((c.getDouble(c.getColumnIndex(KEY_PARADA_WGS64LAT))));
+			parada.setWgs64Long((c.getDouble(c.getColumnIndex(KEY_PARADA_WGS64LONG))));
 			parada.setCoordX((c.getDouble(c.getColumnIndex(KEY_PARADA_COORDX))));
 			parada.setCoordY((c.getDouble(c.getColumnIndex(KEY_PARADA_COORDY))));
 			parada.setNombre((c.getString(c.getColumnIndex(KEY_PARADA_NOMBRE))));
@@ -409,8 +403,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 				parada.setIdentifier(c.getInt(c.getColumnIndex(KEY_IDENTIFIER)));
 				parada.setIdentifierLinea(c.getInt(c.getColumnIndex(KEY_PARADA_LINEA_IDENTIFIER)));
 				parada.setNumParada(c.getInt(c.getColumnIndex(KEY_PARADA_NUMPARADA)));
-				parada.setWgs64Lat((c.getDouble(c.getColumnIndex(KEY_PARADA_WGS84LAT))));
-				parada.setWgs64Long((c.getDouble(c.getColumnIndex(KEY_PARADA_WGS84LONG))));
+				parada.setWgs64Lat((c.getDouble(c.getColumnIndex(KEY_PARADA_WGS64LAT))));
+				parada.setWgs64Long((c.getDouble(c.getColumnIndex(KEY_PARADA_WGS64LONG))));
 				parada.setCoordX((c.getDouble(c.getColumnIndex(KEY_PARADA_COORDX))));
 				parada.setCoordY((c.getDouble(c.getColumnIndex(KEY_PARADA_COORDY))));
 				parada.setNombre((c.getString(c.getColumnIndex(KEY_PARADA_NOMBRE))));
@@ -422,7 +416,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 			} while (c.moveToNext());
 		}
 		if(c != null)
-			c.close();
+				c.close();
 		return paradas;
 	}
 
@@ -449,8 +443,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 				parada.setIdentifier(c.getInt(c.getColumnIndex(KEY_IDENTIFIER)));
 				parada.setIdentifierLinea(c.getInt(c.getColumnIndex(KEY_PARADA_LINEA_IDENTIFIER)));
 				parada.setNumParada(c.getInt(c.getColumnIndex(KEY_PARADA_NUMPARADA)));
-				parada.setWgs64Lat((c.getDouble(c.getColumnIndex(KEY_PARADA_WGS84LAT))));
-				parada.setWgs64Long((c.getDouble(c.getColumnIndex(KEY_PARADA_WGS84LONG))));
+				parada.setWgs64Lat((c.getDouble(c.getColumnIndex(KEY_PARADA_WGS64LAT))));
+				parada.setWgs64Long((c.getDouble(c.getColumnIndex(KEY_PARADA_WGS64LONG))));
 				parada.setCoordX((c.getDouble(c.getColumnIndex(KEY_PARADA_COORDX))));
 				parada.setCoordY((c.getDouble(c.getColumnIndex(KEY_PARADA_COORDY))));
 				parada.setNombre((c.getString(c.getColumnIndex(KEY_PARADA_NOMBRE))));
@@ -462,7 +456,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 			} while (c.moveToNext());
 		}
 		if(c != null)
-			c.close();
+				c.close();
 		return paradas;
 	}
 
@@ -515,4 +509,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 		if (db != null && db.isOpen())
 			db.close();
 	}
+
+
+
 }

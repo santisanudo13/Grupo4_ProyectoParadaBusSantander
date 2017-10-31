@@ -19,13 +19,13 @@ public class RecargaBaseDatosMenu {
     private MainActivity activity;
     private Context context;
 
-    List<Linea> listLineas = new ArrayList<Linea>();
-    List<Parada> listParadas = new ArrayList<Parada>();
-    List<ParadaConNombre> listParadasConNombre = new ArrayList<ParadaConNombre>();
+    private List<Linea> listLineas = new ArrayList<Linea>();
+    private List<Parada> listParadas = new ArrayList<Parada>();
+    private List<ParadaConNombre> listParadasConNombre = new ArrayList<ParadaConNombre>();
 
-    ServicioListener listener;
+    private ServicioListener listener;
 
-    ConnectivityManager cm = null;
+    private ConnectivityManager cm = null;
 
 
     private  RemoteFetch remoteFetch = new RemoteFetch();
@@ -54,35 +54,35 @@ public class RecargaBaseDatosMenu {
         //LINEAS
         try {
             remoteFetch.getJSON(RemoteFetch.URL_LINEAS_BUS);
-        } catch (IOException e) {
-
+        } catch (Exception e) {
+            
         }
         try {
             listLineas = ParserJSON.readArrayLineasBus(remoteFetch.getBufferedData());
-        } catch (IOException e) {
-
+        } catch (Exception e) {
+            
         }
         //PARADAS
         try {
             remoteFetch.getJSON(RemoteFetch.URL_PARADAS);
-        } catch (IOException e) {
-
+        } catch (Exception e) {
+            
         }
         try {
             listParadas = ParserJSON.readArrayParadas(remoteFetch.getBufferedData());
-        } catch (IOException e) {
-
+        } catch (Exception e) {
+            
         }
         //PARADAS CON NOMBRE
         try {
             remoteFetch.getJSON(RemoteFetch.URL_PARADAS_NOMBRE);
-        } catch (IOException e) {
-
+        } catch (Exception e) {
+            
         }
         try {
             listParadasConNombre = ParserJSON.readArrayParadasConNombre(remoteFetch.getBufferedData());
-        } catch (IOException e) {
-
+        } catch (Exception e) {
+            
         }
 
         return !listLineas.isEmpty() && !listParadas.isEmpty();
@@ -188,7 +188,6 @@ public class RecargaBaseDatosMenu {
     public static interface ServicioListener {
         public void onComplete();
     }
-
 
 
     public ServicioListener getListener() {

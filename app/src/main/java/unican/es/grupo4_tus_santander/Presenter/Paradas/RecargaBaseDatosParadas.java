@@ -2,13 +2,16 @@ package unican.es.grupo4_tus_santander.Presenter.Paradas;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.util.Log;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import unican.es.grupo4_tus_santander.Models.BaseDatos.helper.DatabaseHelper;
-import unican.es.grupo4_tus_santander.Models.Pojos.*;
+import unican.es.grupo4_tus_santander.Models.Pojos.Color;
+import unican.es.grupo4_tus_santander.Models.Pojos.Linea;
+import unican.es.grupo4_tus_santander.Models.Pojos.Parada;
+import unican.es.grupo4_tus_santander.Models.Pojos.ParadaConNombre;
 import unican.es.grupo4_tus_santander.Models.WebService.DataLoaders.ParserJSON;
 import unican.es.grupo4_tus_santander.Models.WebService.DataLoaders.RemoteFetch;
 import unican.es.grupo4_tus_santander.Presenter.Paradas.AsyncTasks.GetDataServicio;
@@ -22,10 +25,17 @@ public class RecargaBaseDatosParadas {
     List<Parada> listParadas = new ArrayList<Parada>();
     List<ParadaConNombre> listParadasConNombre = new ArrayList<ParadaConNombre>();
 
+    public void setListener(ServicioListener listener) {
+        this.listener = listener;
+    }
+
     ServicioListener listener;
 
-    ConnectivityManager cm = null;
+    public void setCm(ConnectivityManager cm) {
+        this.cm = cm;
+    }
 
+    ConnectivityManager cm = null;
 
     private  RemoteFetch remoteFetch = new RemoteFetch();
 
@@ -35,8 +45,8 @@ public class RecargaBaseDatosParadas {
         this.activity = activity;
         this.context = context;
         this.cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-    }// MainPresenter
 
+    }// MainPresenter
 
     public void start(){
         activity.showProgress(true, 0);
@@ -53,44 +63,46 @@ public class RecargaBaseDatosParadas {
         //LINEAS
         try {
             remoteFetch.getJSON(RemoteFetch.URL_LINEAS_BUS);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Log.e("ERROR","Error : "+e.getMessage());
         }
         try {
             listLineas = ParserJSON.readArrayLineasBus(remoteFetch.getBufferedData());
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Log.e("ERROR","Error : "+e.getMessage());
         }
         //PARADAS
         try {
             remoteFetch.getJSON(RemoteFetch.URL_PARADAS);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Log.e("ERROR","Error : "+e.getMessage());
         }
         try {
             listParadas = ParserJSON.readArrayParadas(remoteFetch.getBufferedData());
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Log.e("ERROR","Error : "+e.getMessage());
         }
         //PARADAS CON NOMBRE
         try {
             remoteFetch.getJSON(RemoteFetch.URL_PARADAS_NOMBRE);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Log.e("ERROR","Error : "+e.getMessage());
         }
         try {
             listParadasConNombre = ParserJSON.readArrayParadasConNombre(remoteFetch.getBufferedData());
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Log.e("ERROR","Error : "+e.getMessage());
         }
 
         return !listLineas.isEmpty() && !listParadas.isEmpty();
     }
 
-
+    public ServicioListener getListener() {
+        return listener;
+    }
 
     public void guardaDataEnBaseDatos() {
-        db = new DatabaseHelper(this.context,1);
+        this.db = new DatabaseHelper(this.context,1);
         db.reiniciarTablas();
 
         for(Linea l: listLineas) {
@@ -164,7 +176,7 @@ public class RecargaBaseDatosParadas {
                     id_color = db.createColor(new Color(255, 0, 0, 0));
                     break;
             }
-            long id_linea = db.createLinea(l, id_color);
+            long id_linea =db.createLinea(l, id_color);
             l.setId((int) id_linea);
 
             for(Parada parada : listParadas){
@@ -182,39 +194,33 @@ public class RecargaBaseDatosParadas {
         db.closeDB();
     }
 
-
     public static interface ServicioListener {
         public void onComplete();
     }
 
+    private class LineaYParadas{
+        private Linea linea;
+        private List<Parada> paradas;
 
+        public LineaYParadas(Linea linea, List<Parada> paradas){
+            this.linea = linea;
+            this.paradas = paradas;
+        }
 
-    public ServicioListener getListener() {
-        return listener;
-    }
+        public Linea getLinea() {
+            return linea;
+        }
 
-    public void setListener(ServicioListener listener) {
-        this.listener = listener;
-    }
+        public void setLinea(Linea linea) {
+            this.linea = linea;
+        }
 
+        public List<Parada> getParadas() {
+            return paradas;
+        }
 
-    public ConnectivityManager getCm() {
-        return cm;
-    }
-
-    public void setCm(ConnectivityManager cm) {
-        this.cm = cm;
-    }
-
-    public List<Linea> getListLineas() {
-        return listLineas;
-    }
-
-    public List<Parada> getListParadas() {
-        return listParadas;
-    }
-
-    public List<ParadaConNombre> getListParadasConNombre() {
-        return listParadasConNombre;
+        public void setParadas(List<Parada> paradas) {
+            this.paradas = paradas;
+        }
     }
 }

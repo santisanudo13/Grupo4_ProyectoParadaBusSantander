@@ -18,39 +18,74 @@ import unican.es.grupo4_tus_santander.Models.Pojos.Parada;
 import static org.junit.Assert.*;
 
 /**
- * Created by Asier on 30/10/17.
+ * Created by Asier on 31/10/17.
  */
 @RunWith(AndroidJUnit4.class)
 public class DatabaseHelperParadasTest {
 
     public static DatabaseHelper cd=new DatabaseHelper(InstrumentationRegistry.getTargetContext(),1);
 
-    public static Parada p1, p2, p3, p4;
+    public static Color c1,c2,c3,c4;
 
-    public static List<Long> p_ids = new ArrayList<>();;
+    public static Linea l1,l2,l3,l4;
+
+    public static Parada p1,p2,p3,p4;
+
+    public static List<Long> c_ids= new ArrayList<>();
+
+    public static List<Long> l_ids= new ArrayList<>();
+
+    public static List<Long> p_ids= new ArrayList<>();
 
     @BeforeClass
     public static void setUpBeforeClass(){
         cd.reiniciarTablas();
         cd.closeDB();
+        c1 = new Color(23,245,12,24);
 
-        p1 = new Parada();
-        p2 = new Parada();
-        p3 = new Parada();
-        p4 = new Parada();
+        c2 = new Color(249,23,123,98);
+
+        c3 = new Color(-1,-1,256,-1);
+
+        c4 = new Color(2,123,123,123);
+
+        c_ids.add(cd.createColor(c1));
+        c_ids.add(cd.createColor(c2));
+        c_ids.add(cd.createColor(c3));
+        c_ids.add(cd.createColor(c4));
+
+        l1= new Linea("1","uno",1);
+        l2= new Linea("2","dos",2);
+        l3= new Linea("3","tres",234);
+        l4= new Linea("4","cuatro",999);
+
+        l1.setIdColor(c_ids.get(0).intValue());
+        l2.setIdColor(c_ids.get(1).intValue());
+        l3.setIdColor(c_ids.get(0).intValue());
+        l4.setIdColor(c_ids.get(2).intValue());
+
+        l_ids.add(cd.createLinea(l1,c_ids.get(0)));
+        l_ids.add(cd.createLinea(l2,c_ids.get(1)));
+        l_ids.add(cd.createLinea(l3,c_ids.get(0)));
+        l_ids.add(cd.createLinea(l4,c_ids.get(2)));
+
+        p1 = new Parada(1, 10, 1.0, 1.0, 1.0, 1.0, 0);
+        p2 = new Parada(2, 20, 1.0, 1.0, 1.0, 1.0, 1);
+        p3 = new Parada(234, 30, 1.0, 1.0, 1.0, 1.0, 2);
+        p4 = new Parada(999, 40, 1.0, 1.0, 1.0, 1.0, 3);
     }
 
     @Test
     public void createParada() throws Exception {
-        p1.setIdColor(c_ids.get(0).intValue());
-        p2.setIdColor(c_ids.get(1).intValue());
-        p3.setIdColor(c_ids.get(0).intValue());
-        p4.setIdColor(c_ids.get(2).intValue());
+        p1.setIdentifierLinea(l_ids.get(0).intValue());
+        p2.setIdentifierLinea(l_ids.get(1).intValue());
+        p3.setIdentifierLinea(l_ids.get(0).intValue());
+        p4.setIdentifierLinea(l_ids.get(2).intValue());
 
-        p_ids.add(cd.createLinea(p1,c_ids.get(0)));
-        p_ids.add(cd.createLinea(p2,c_ids.get(1)));
-        p_ids.add(cd.createLinea(p3,c_ids.get(0)));
-        p_ids.add(cd.createLinea(p4,c_ids.get(2)));
+        p_ids.add(cd.createParada(p1,l_ids.get(0)));
+        p_ids.add(cd.createParada(p2,l_ids.get(1)));
+        p_ids.add(cd.createParada(p3,l_ids.get(0)));
+        p_ids.add(cd.createParada(p4,l_ids.get(2)));
 
         for (long c: p_ids) {
             assertNotNull(c);
@@ -58,38 +93,32 @@ public class DatabaseHelperParadasTest {
     }
 
     @Test
-    public void getLinea() throws Exception{
-        assertEquals(p1.getIdentifier(),cd.getLinea(p_ids.get(0)).getIdentifier());
-        assertEquals(p1.getName(),cd.getLinea(p_ids.get(0)).getName());
-        assertEquals(p1.getNumero(),cd.getLinea(p_ids.get(0)).getNumero());
-        assertEquals(p1.getIdColor(),cd.getLinea(p_ids.get(0)).getIdColor());
+    public void getParada() throws Exception{
+        assertEquals(p1.getIdentifier(),cd.getParada(p_ids.get(0)).getIdentifier());
+        assertEquals(p1.getNombre(),cd.getParada(p_ids.get(0)).getNombre());
+        assertEquals(p1.getNumParada(),cd.getParada(p_ids.get(0)).getNumParada());
 
-        assertEquals(p2.getIdentifier(),cd.getLinea(p_ids.get(1)).getIdentifier());
-        assertEquals(p2.getName(),cd.getLinea(p_ids.get(1)).getName());
-        assertEquals(p2.getNumero(),cd.getLinea(p_ids.get(1)).getNumero());
-        assertEquals(p2.getIdColor(),cd.getLinea(p_ids.get(1)).getIdColor());
+        assertEquals(p2.getIdentifier(),cd.getParada(p_ids.get(1)).getIdentifier());
+        assertEquals(p2.getNombre(),cd.getParada(p_ids.get(1)).getNombre());
+        assertEquals(p2.getNumParada(),cd.getParada(p_ids.get(1)).getNumParada());
 
-        assertEquals(p3.getIdentifier(),cd.getLinea(p_ids.get(2)).getIdentifier());
-        assertEquals(p3.getName(),cd.getLinea(p_ids.get(2)).getName());
-        assertEquals(p3.getNumero(),cd.getLinea(p_ids.get(2)).getNumero());
-        assertEquals(p3.getIdColor(),cd.getLinea(p_ids.get(2)).getIdColor());
+        assertEquals(p3.getIdentifier(),cd.getParada(p_ids.get(2)).getIdentifier());
+        assertEquals(p3.getNombre(),cd.getParada(p_ids.get(2)).getNombre());
+        assertEquals(p3.getNumParada(),cd.getParada(p_ids.get(2)).getNumParada());
 
-        assertEquals(p4.getIdentifier(),cd.getLinea(p_ids.get(3)).getIdentifier());
-        assertEquals(p4.getName(),cd.getLinea(p_ids.get(3)).getName());
-        assertEquals(p4.getNumero(),cd.getLinea(p_ids.get(3)).getNumero());
-        assertEquals(p4.getIdColor(),cd.getLinea(p_ids.get(3)).getIdColor());
+        assertEquals(p4.getIdentifier(),cd.getParada(p_ids.get(3)).getIdentifier());
+        assertEquals(p4.getNombre(),cd.getParada(p_ids.get(3)).getNombre());
+        assertEquals(p4.getNumParada(),cd.getParada(p_ids.get(3)).getNumParada());
     }
 
     @Test
-    public void getAllLinea() throws Exception {
-        List<Linea> t= cd.getAllLinea();
+    public void getAllParada() throws Exception {
+        List<Parada> t= cd.getAllParada();
 
         for (int i =0;i<t.size();i++) {
-            assertEquals(t.get(i).getIdentifier(),cd.getLinea(p_ids.get(i)).getIdentifier());
-            assertEquals(t.get(i).getName(),cd.getLinea(p_ids.get(i)).getName());
-            assertEquals(t.get(i).getNumero(),cd.getLinea(p_ids.get(i)).getNumero());
-            assertEquals(t.get(i).getIdColor(),cd.getLinea(p_ids.get(i)).getIdColor());
-
+            assertEquals(t.get(i).getIdentifier(),cd.getParada(p_ids.get(i)).getIdentifier());
+            assertEquals(t.get(i).getNombre(),cd.getParada(p_ids.get(i)).getNombre());
+            assertEquals(t.get(i).getNumParada(),cd.getParada(p_ids.get(i)).getNumParada());
         }
     }
 }

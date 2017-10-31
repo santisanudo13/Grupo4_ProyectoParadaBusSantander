@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.Unitarias.Paradas;
+package unican.es.grupo4_tus_santander.Integracion.Paradas;
 
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
@@ -18,7 +18,6 @@ import unican.es.grupo4_tus_santander.View.Paradas.ParadasActivity;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
  * Created by Asier on 31/10/17.
@@ -31,14 +30,12 @@ public class ParadasPresenterTest {
 
     @BeforeClass
     public static void setUpBeforeClass(){
-        db= mock(DatabaseHelper.class);
+        db= new DatabaseHelper(InstrumentationRegistry.getTargetContext(),1);
         p = new ArrayList<>();
-
-        Parada p1 = new Parada(0, 10, 1.0, 1.0, 1.0, 1.0, 0);
-        Parada p2 = new Parada(1, 20, 1.0, 1.0, 1.0, 1.0, 1);
-        Parada p3 = new Parada(1, 30, 1.0, 1.0, 1.0, 1.0, 2);
-        Parada p4 = new Parada(2, 40, 1.0, 1.0, 1.0, 1.0, 3);
-
+        Parada p1 = new Parada(1, 10, 1.0, 1.0, 1.0, 1.0, 0);
+        Parada p2 = new Parada(2, 20, 1.0, 1.0, 1.0, 1.0, 1);
+        Parada p3 = new Parada(500, 30, 1.0, 1.0, 1.0, 1.0, 2);
+        Parada p4 = new Parada(999, 40, 1.0, 1.0, 1.0, 1.0, 3);
         p.add(p1);
         p.add(p2);
         p.add(p3);
@@ -47,17 +44,19 @@ public class ParadasPresenterTest {
 
     @Test
     public void obtenParadasCorrecto(){
-        when(db.getParadasByLinea(1)).thenReturn(p);
-        ParadasActivity pa = mock(ParadasActivity.class);
-        ListParadasPresenter p = new ListParadasPresenter(InstrumentationRegistry.getTargetContext(), pa);
+        ParadasActivity la = mock(ParadasActivity.class);
+        ListParadasPresenter p =new ListParadasPresenter(InstrumentationRegistry.getTargetContext(),la);
         p.ld=db;
         assertTrue(p.obtenParadasPorLinea());
     }
 
     @Test
     public void obtenParadasError(){
-        ParadasActivity pa = mock(ParadasActivity.class);
-        ListParadasPresenter p =new ListParadasPresenter(InstrumentationRegistry.getTargetContext(),pa);
+        db.reiniciarTablas();
+        ParadasActivity la = mock(ParadasActivity.class);
+        ListParadasPresenter p =new ListParadasPresenter(InstrumentationRegistry.getTargetContext(),la);
         assertFalse(p.obtenParadasPorLinea());
     }
 }
+
+

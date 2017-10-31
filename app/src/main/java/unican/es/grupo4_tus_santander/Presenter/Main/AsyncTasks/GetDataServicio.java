@@ -27,7 +27,7 @@ public class GetDataServicio extends AsyncTask<Void, Void, Boolean> {
         if (result) {
             new GetSaveDataIntoDataBase(refresh).execute();
         } else {
-            refresh.activity.showProgress(false, -1);
+            refresh.getActivity().showProgress(false, -1);
             if(refresh.getListener() != null)
                 refresh.getListener().onComplete();
         }

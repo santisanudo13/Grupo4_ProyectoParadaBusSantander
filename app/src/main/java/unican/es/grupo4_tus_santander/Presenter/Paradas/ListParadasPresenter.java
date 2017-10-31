@@ -1,6 +1,7 @@
 package unican.es.grupo4_tus_santander.Presenter.Paradas;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -16,17 +17,18 @@ import unican.es.grupo4_tus_santander.View.Paradas.ParadasActivity;
  */
 
 public class ListParadasPresenter {
-    private ParadasActivity paradasActivity;
+    public ParadasActivity paradasActivity;
     private int idLinea;
     private List<Parada> listaParadasBusPorLinea;
     private Context context;
-    private DatabaseHelper ld;
+    public DatabaseHelper ld;
 
     public ListParadasPresenter(Context context, ParadasActivity paradasActivity){
         this.paradasActivity = paradasActivity;
         this.context = context;
         this.listaParadasBusPorLinea = new ArrayList<>();
         this.ld = new DatabaseHelper(context,1);
+        start();
     }// ListParadasPresenter
 
     public void start(){
@@ -42,12 +44,19 @@ public class ListParadasPresenter {
     }
 
     public Boolean obtenParadasPorLinea() {
-        if(idLinea == -1){
-            listaParadasBusPorLinea = ld.getAllParada();
-        }else{
-            listaParadasBusPorLinea = ld.getParadasByLinea(getIdLinea());
+        try {
+            if(idLinea == -1){
+                listaParadasBusPorLinea = ld.getAllParada();
+                ld.closeDB();
+            }else {
+                listaParadasBusPorLinea = ld.getParadasByLinea(getIdLinea());
+                ld.closeDB();
+            }
+            return !(getListaParadasBusPorLinea() == null || getListaParadasBusPorLinea().isEmpty());
+        }catch(Exception e){
+            Log.e("ERROR","Error en la obtención de las paradas de la linea: "+e.getMessage());
+            return false;
         }
-        return !listaParadasBusPorLinea.isEmpty();
     }
 
     public int getIdLinea() {
@@ -64,6 +73,5 @@ public class ListParadasPresenter {
 
     public void showToastEmptyParadas() {
         Toast.makeText(context, "No existen paradas asociadas a esta linea", Toast.LENGTH_SHORT).show();
-
     }
 }// ListParadasPresenter

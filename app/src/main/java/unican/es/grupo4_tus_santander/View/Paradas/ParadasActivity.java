@@ -42,7 +42,7 @@ public class ParadasActivity extends AppCompatActivity  implements SearchView.On
 
         this.listParadasPresenter = new ListParadasPresenter(getApplicationContext(),this);
         this.listParadasPresenter.setIdLinea(lineaId);
-        this.listParadasPresenter.start();
+        //this.listParadasPresenter.start();
     }//onCreate
 
     public void start(){

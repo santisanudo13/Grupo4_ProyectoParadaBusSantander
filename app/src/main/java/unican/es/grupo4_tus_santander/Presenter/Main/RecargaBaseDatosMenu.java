@@ -16,7 +16,7 @@ import unican.es.grupo4_tus_santander.View.Main.MainActivity;
 
 
 public class RecargaBaseDatosMenu {
-    public MainActivity activity;
+    private MainActivity activity;
     private Context context;
 
     List<Linea> listLineas = new ArrayList<Linea>();
@@ -55,34 +55,34 @@ public class RecargaBaseDatosMenu {
         try {
             remoteFetch.getJSON(RemoteFetch.URL_LINEAS_BUS);
         } catch (IOException e) {
-            e.printStackTrace();
+
         }
         try {
             listLineas = ParserJSON.readArrayLineasBus(remoteFetch.getBufferedData());
         } catch (IOException e) {
-            e.printStackTrace();
+
         }
         //PARADAS
         try {
             remoteFetch.getJSON(RemoteFetch.URL_PARADAS);
         } catch (IOException e) {
-            e.printStackTrace();
+
         }
         try {
             listParadas = ParserJSON.readArrayParadas(remoteFetch.getBufferedData());
         } catch (IOException e) {
-            e.printStackTrace();
+
         }
         //PARADAS CON NOMBRE
         try {
             remoteFetch.getJSON(RemoteFetch.URL_PARADAS_NOMBRE);
         } catch (IOException e) {
-            e.printStackTrace();
+
         }
         try {
             listParadasConNombre = ParserJSON.readArrayParadasConNombre(remoteFetch.getBufferedData());
         } catch (IOException e) {
-            e.printStackTrace();
+
         }
 
         return !listLineas.isEmpty() && !listParadas.isEmpty();
@@ -171,9 +171,10 @@ public class RecargaBaseDatosMenu {
             for(Parada parada : listParadas){
                 if(parada.getIdentifierLinea() == l.getIdentifier()){
                     for(ParadaConNombre paradaConNombre : listParadasConNombre){
-                        if(parada.getNumParada() == paradaConNombre.getNumero())
+                        if(parada.getNumParada() == paradaConNombre.getNumero()) {
                             parada.setNombre(paradaConNombre.getParada());
                             parada.setFavorito(0);
+                        }
                     }
 
                     long id_parada = db.createParada(parada, l.getId());
@@ -217,5 +218,13 @@ public class RecargaBaseDatosMenu {
 
     public List<ParadaConNombre> getListParadasConNombre() {
         return listParadasConNombre;
+    }
+
+    public MainActivity getActivity() {
+        return activity;
+    }
+
+    public void setActivity(MainActivity activity) {
+        this.activity = activity;
     }
 }

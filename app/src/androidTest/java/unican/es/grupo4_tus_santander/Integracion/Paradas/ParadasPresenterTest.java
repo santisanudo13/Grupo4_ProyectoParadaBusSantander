@@ -56,7 +56,6 @@ public class ParadasPresenterTest {
         p1.setFavorito(0);
         p1.setNombre("Nombre_"+p1.getIdentifier());
         p1.setId((int) db.createParada(p1, linea.getId()));
-        db.closeDB();
 
 
 

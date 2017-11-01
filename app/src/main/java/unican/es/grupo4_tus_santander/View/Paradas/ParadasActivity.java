@@ -1,5 +1,6 @@
 package unican.es.grupo4_tus_santander.View.Paradas;
 
+
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import java.util.List;
 
 import unican.es.grupo4_tus_santander.Models.Pojos.Parada;
 import unican.es.grupo4_tus_santander.Presenter.Paradas.ListParadasPresenter;
+
 import unican.es.grupo4_tus_santander.R;
 
 /**
@@ -26,9 +28,11 @@ public class ParadasActivity extends AppCompatActivity  implements SearchView.On
     private ProgressBar progressBar;
     private Context context;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         this.context = getApplicationContext();
         setContentView(R.layout.activity_paradas);
         this.progressBar=(ProgressBar)findViewById(R.id.progressParada);

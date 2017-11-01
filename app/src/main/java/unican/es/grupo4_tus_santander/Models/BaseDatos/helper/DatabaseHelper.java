@@ -253,7 +253,6 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 		Cursor c;
 		try{
 			c = db.rawQuery(selectQuery, null);
-
 			c.moveToFirst();
 
 			Linea linea = new Linea();
@@ -346,8 +345,10 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 
 
 			// insert row
+
 			long parada_id = db.insert(TABLE_PARADA, null, values);
 			return  parada_id;
+
 		}
 	}
 
@@ -434,7 +435,9 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 	 * */
 	public List<Parada> getAllParadasFavoritos() {
 		List<Parada> paradas = new ArrayList<Parada>();
+
 		String selectQuery = "SELECT  * FROM " + TABLE_PARADA + " WHERE "+KEY_PARADA_FAVORITO+" == 1";
+
 
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor c = null;
@@ -495,6 +498,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 	}
 
 	public List<Parada> getParadasByLinea(long linea_id){
+
 		List<Parada> paradas = new ArrayList<Parada>();
 		String selectQuery = "SELECT  * FROM " + TABLE_PARADA + " WHERE "+KEY_PARADA_LINEA_ID +" == "+linea_id;
 
@@ -529,6 +533,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 		if(c != null)
 			c.close();
 		return paradas;
+
 	}
 
 

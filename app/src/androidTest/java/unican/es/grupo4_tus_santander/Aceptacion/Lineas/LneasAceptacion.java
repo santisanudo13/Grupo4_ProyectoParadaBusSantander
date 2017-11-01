@@ -74,16 +74,6 @@ public class LneasAceptacion {
                         isDisplayed()));
         imageView.check(matches(isDisplayed()));
 
-        ViewInteraction textView2 = onView(
-                allOf(withId(R.id.textViewName), withText("CORBAN-CONSUELO BERGES"),
-                        childAtPosition(
-                                childAtPosition(
-                                        IsInstanceOf.<View>instanceOf(android.widget.RelativeLayout.class),
-                                        1),
-                                1),
-                        isDisplayed()));
-        textView2.check(matches(isDisplayed()));
-
     }
 
 
@@ -164,15 +154,7 @@ public class LneasAceptacion {
                         isDisplayed()));
         imageView.check(matches(isDisplayed()));
 
-        ViewInteraction textView2 = onView(
-                allOf(withId(R.id.textViewName), withText("CORBAN-CONSUELO BERGES"),
-                        childAtPosition(
-                                childAtPosition(
-                                        IsInstanceOf.<View>instanceOf(android.widget.RelativeLayout.class),
-                                        1),
-                                1),
-                        isDisplayed()));
-        textView2.check(matches(isDisplayed()));
+
 
     }
 

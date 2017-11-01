@@ -42,10 +42,12 @@ public class LineasPresenterTest {
         l.add(l2);
         l.add(l3);
         l.add(l4);
+        db.closeDB();
     }
 
     @Test
-    public void obtenLineasCorrecto(){
+    public void obtººenLineasCorrecto(){
+        db= new DatabaseHelper(InstrumentationRegistry.getTargetContext(),1);
         Color c= new Color(1,1,1,1);
         long id=db.createColor(c);
         for(Linea a:l){
@@ -54,17 +56,18 @@ public class LineasPresenterTest {
         db.closeDB();
         LineasActivity la = mock(LineasActivity.class);
         ListLineasPresenter p =new ListLineasPresenter(InstrumentationRegistry.getTargetContext(),la);
-        p.setLd(db);
         assertTrue(p.obtenLineas());
+
     }
 
     @Test
     public void obtenLineasError(){
+        db= new DatabaseHelper(InstrumentationRegistry.getTargetContext(),1);
         db.reiniciarTablas();
         LineasActivity la = mock(LineasActivity.class);
         ListLineasPresenter p =new ListLineasPresenter(InstrumentationRegistry.getTargetContext(),la);
         assertFalse(p.obtenLineas());
-
+        db.closeDB();
     }
 
 }

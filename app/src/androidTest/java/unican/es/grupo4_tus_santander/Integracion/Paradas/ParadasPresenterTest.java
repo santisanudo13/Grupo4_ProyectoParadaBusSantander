@@ -69,7 +69,6 @@ public class ParadasPresenterTest {
     @Test
     public void obtenParadasError(){
         db.reiniciarTablas();
-        db.closeDB();
         ParadasActivity la = mock(ParadasActivity.class);
         ListParadasPresenter p =new ListParadasPresenter(InstrumentationRegistry.getTargetContext(),la);
 

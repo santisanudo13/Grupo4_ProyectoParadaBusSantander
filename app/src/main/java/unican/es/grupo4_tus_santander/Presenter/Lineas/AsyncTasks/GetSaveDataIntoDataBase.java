@@ -26,9 +26,9 @@ public class GetSaveDataIntoDataBase extends AsyncTask<Void, Void, Boolean> {
 
     @Override
     protected void onPostExecute(Boolean result) {
-
         refresh.getActivity().showProgress(false, 1);
         refresh.getActivity().start();
+
         if(refresh.getListener() != null)
             refresh.getListener().onComplete();
     }

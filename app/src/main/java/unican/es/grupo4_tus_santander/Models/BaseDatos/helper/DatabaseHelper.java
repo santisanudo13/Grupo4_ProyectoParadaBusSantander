@@ -253,16 +253,16 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 		Cursor c;
 		try{
 			c = db.rawQuery(selectQuery, null);
-
-
 			c.moveToFirst();
 
 			Linea linea = new Linea();
+
 			linea.setId(c.getInt((c.getColumnIndex(KEY_ID))));
 			linea.setIdentifier(c.getInt((c.getColumnIndex(KEY_IDENTIFIER))));
 			linea.setName(c.getString(c.getColumnIndex(KEY_LINEA_NAME)));
 			linea.setNumero(c.getString(c.getColumnIndex(KEY_LINEA_NUMERO)));
 			linea.setIdColor(c.getInt((c.getColumnIndex(KEY_LINEA_COLORID))));
+
 			if(c != null)
 				c.close();
 			return linea;
@@ -345,8 +345,10 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 
 
 			// insert row
-			long linea_id = db.insert(TABLE_PARADA, null, values);
-			return  linea_id;
+
+			long parada_id = db.insert(TABLE_PARADA, null, values);
+			return  parada_id;
+
 		}
 	}
 
@@ -433,7 +435,9 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 	 * */
 	public List<Parada> getAllParadasFavoritos() {
 		List<Parada> paradas = new ArrayList<Parada>();
-		String selectQuery = "SELECT  * FROM " + TABLE_PARADA + " WHERE favorito == 1";
+
+		String selectQuery = "SELECT  * FROM " + TABLE_PARADA + " WHERE "+KEY_PARADA_FAVORITO+" == 1";
+
 
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor c = null;
@@ -494,19 +498,42 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 	}
 
 	public List<Parada> getParadasByLinea(long linea_id){
-		Linea linea = null;
-		linea = getLinea(linea_id);
-		if(linea == null)
+
+		List<Parada> paradas = new ArrayList<Parada>();
+		String selectQuery = "SELECT  * FROM " + TABLE_PARADA + " WHERE "+KEY_PARADA_LINEA_ID +" == "+linea_id;
+
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor c = null;
+		try{
+			c = db.rawQuery(selectQuery, null);
+		}catch(Exception e){
 			return null;
-
-		List<Parada> allParadas = getAllParada();
-		List<Parada> paradasLinea = new ArrayList<Parada>();
-
-		for(Parada parada : allParadas){
-			if(parada.getIdentifierLinea() == linea.getIdentifier())
-				paradasLinea.add(parada);
 		}
-		return paradasLinea;
+
+		// looping through all rows and adding to list
+		if (c.moveToFirst()) {
+			do {
+				Parada parada = new Parada();
+				parada.setId(c.getInt(c.getColumnIndex(KEY_ID)));
+				parada.setIdentifier(c.getInt(c.getColumnIndex(KEY_IDENTIFIER)));
+				parada.setIdentifierLinea(c.getInt(c.getColumnIndex(KEY_PARADA_LINEA_IDENTIFIER)));
+				parada.setNumParada(c.getInt(c.getColumnIndex(KEY_PARADA_NUMPARADA)));
+				parada.setWgs64Lat((c.getDouble(c.getColumnIndex(KEY_PARADA_WGS64LAT))));
+				parada.setWgs64Long((c.getDouble(c.getColumnIndex(KEY_PARADA_WGS64LONG))));
+				parada.setCoordX((c.getDouble(c.getColumnIndex(KEY_PARADA_COORDX))));
+				parada.setCoordY((c.getDouble(c.getColumnIndex(KEY_PARADA_COORDY))));
+				parada.setNombre((c.getString(c.getColumnIndex(KEY_PARADA_NOMBRE))));
+				parada.setIdLinea((c.getInt(c.getColumnIndex(KEY_PARADA_LINEA_ID))));
+				parada.setFavorito((c.getInt(c.getColumnIndex(KEY_PARADA_FAVORITO))));
+
+
+				paradas.add(parada);
+			} while (c.moveToNext());
+		}
+		if(c != null)
+			c.close();
+		return paradas;
+
 	}
 
 

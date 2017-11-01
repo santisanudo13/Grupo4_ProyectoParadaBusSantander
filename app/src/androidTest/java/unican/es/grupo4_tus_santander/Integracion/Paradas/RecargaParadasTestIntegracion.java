@@ -12,6 +12,7 @@ import java.util.concurrent.CountDownLatch;
 
 import unican.es.grupo4_tus_santander.Models.BaseDatos.helper.DatabaseHelper;
 import unican.es.grupo4_tus_santander.Models.Pojos.Parada;
+import unican.es.grupo4_tus_santander.Presenter.Paradas.ListParadasPresenter;
 import unican.es.grupo4_tus_santander.Presenter.Paradas.RecargaBaseDatosParadas;
 import unican.es.grupo4_tus_santander.View.Paradas.ParadasActivity;
 
@@ -22,6 +23,7 @@ import static org.mockito.Mockito.mock;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
+
 @RunWith(AndroidJUnit4.class)
 public class RecargaParadasTestIntegracion extends InstrumentationTestCase {
 
@@ -44,9 +46,9 @@ public class RecargaParadasTestIntegracion extends InstrumentationTestCase {
         final CountDownLatch signal = new CountDownLatch(1);
 
         ParadasActivity activity = mock(ParadasActivity.class);
-
+        ListParadasPresenter presenter = new ListParadasPresenter(InstrumentationRegistry.getTargetContext(), activity);
         //Realizamos la recarga de la base de datos
-        RecargaBaseDatosParadas refresh = new RecargaBaseDatosParadas(InstrumentationRegistry.getTargetContext(), activity);
+       RecargaBaseDatosParadas refresh = new RecargaBaseDatosParadas(InstrumentationRegistry.getTargetContext(), activity, presenter);
 
         refresh.setListener(new RecargaBaseDatosParadas.ServicioListener(){
             @Override
@@ -56,6 +58,7 @@ public class RecargaParadasTestIntegracion extends InstrumentationTestCase {
         });
 
         refresh.start();
+
 
         try {
             signal.await();
@@ -86,9 +89,9 @@ public class RecargaParadasTestIntegracion extends InstrumentationTestCase {
         // create  a signal to let us know when our task is done. y el mock de la main activity para poder crear el objeto de RecargaBaseDatosmenu
         final CountDownLatch signal = new CountDownLatch(1);
         ParadasActivity activity = mock(ParadasActivity.class);
-
+        ListParadasPresenter presenter = new ListParadasPresenter(InstrumentationRegistry.getTargetContext(), activity);
         //Realizamos la recarga de la base de datos
-        RecargaBaseDatosParadas refresh = new RecargaBaseDatosParadas(InstrumentationRegistry.getTargetContext(), activity);
+        RecargaBaseDatosParadas refresh = new RecargaBaseDatosParadas(InstrumentationRegistry.getTargetContext(), activity, presenter);
 
         refresh.setListener(new RecargaBaseDatosParadas.ServicioListener(){
             @Override
@@ -113,4 +116,5 @@ public class RecargaParadasTestIntegracion extends InstrumentationTestCase {
 
         assertTrue(paradas.isEmpty());
     }
+
 }

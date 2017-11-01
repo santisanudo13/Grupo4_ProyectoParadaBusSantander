@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import unican.es.grupo4_tus_santander.Models.BaseDatos.helper.DatabaseHelper;
+import unican.es.grupo4_tus_santander.Models.Pojos.Color;
+import unican.es.grupo4_tus_santander.Models.Pojos.Linea;
 import unican.es.grupo4_tus_santander.Models.Pojos.Parada;
 import unican.es.grupo4_tus_santander.Presenter.Paradas.ListParadasPresenter;
 import unican.es.grupo4_tus_santander.View.Paradas.ParadasActivity;
@@ -26,36 +28,53 @@ import static org.mockito.Mockito.mock;
 @RunWith(AndroidJUnit4.class)
 public class ParadasPresenterTest {
     static DatabaseHelper db;
-    static List<Parada> p;
+    static Parada p1;
+    static Linea linea;
+    static Color c;
+
 
     @BeforeClass
     public static void setUpBeforeClass(){
         db= new DatabaseHelper(InstrumentationRegistry.getTargetContext(),1);
-        p = new ArrayList<>();
-        Parada p1 = new Parada(1, 10, 1.0, 1.0, 1.0, 1.0, 0);
-        Parada p2 = new Parada(2, 20, 1.0, 1.0, 1.0, 1.0, 1);
-        Parada p3 = new Parada(500, 30, 1.0, 1.0, 1.0, 1.0, 2);
-        Parada p4 = new Parada(999, 40, 1.0, 1.0, 1.0, 1.0, 3);
-        p.add(p1);
-        p.add(p2);
-        p.add(p3);
-        p.add(p4);
+
+        p1 = new Parada(1, 10, 1.0, 1.0, 1.0, 1.0, 0);
+        linea = new Linea("100","cien",105464);
+        c= new Color(1,1,1,1);
+
     }
 
     @Test
     public void obtenParadasCorrecto(){
+        db.reiniciarTablas();
+
+
+        long idColor = db.createColor(c);
+        linea.setIdColor((int) idColor);
+        linea.setId((int) db.createLinea(linea,idColor ));
+
+
+        p1.setFavorito(0);
+        p1.setNombre("Nombre_"+p1.getIdentifier());
+        p1.setId((int) db.createParada(p1, linea.getId()));
+        db.closeDB();
+
+
+
         ParadasActivity la = mock(ParadasActivity.class);
         ListParadasPresenter p =new ListParadasPresenter(InstrumentationRegistry.getTargetContext(),la);
-        p.ld=db;
-        assertTrue(p.obtenParadasPorLinea());
+        p.setIdLinea(linea.getId());
+
+        assertTrue(p.obtenParadas());
     }
 
     @Test
     public void obtenParadasError(){
         db.reiniciarTablas();
+        db.closeDB();
         ParadasActivity la = mock(ParadasActivity.class);
         ListParadasPresenter p =new ListParadasPresenter(InstrumentationRegistry.getTargetContext(),la);
-        assertFalse(p.obtenParadasPorLinea());
+
+        assertFalse(p.obtenParadas());
     }
 }
 

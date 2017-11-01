@@ -70,48 +70,8 @@ public class ListarParadasDeUnaLineaTestAceptacion {
                 .atPosition(3);
         relativeLayout2.perform(click());
 
-        ViewInteraction actionMenuItemView2 = onView(
-                allOf(withId(R.id.refresh), withContentDescription("Actualizar"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.action_bar),
-                                        1),
-                                1),
-                        isDisplayed()));
-        actionMenuItemView2.perform(click());
+        onView(withId(R.id.toolbar_actualizar)).perform(click());
 
-        ViewInteraction appCompatImageView = onView(
-                allOf(withId(R.id.search_button), withContentDescription("Search"),
-                        childAtPosition(
-                                allOf(withId(R.id.search_bar),
-                                        childAtPosition(
-                                                withId(R.id.search),
-                                                0)),
-                                1),
-                        isDisplayed()));
-        appCompatImageView.perform(click());
-
-        ViewInteraction searchAutoComplete = onView(
-                allOf(withId(R.id.search_src_text),
-                        childAtPosition(
-                                allOf(withId(R.id.search_plate),
-                                        childAtPosition(
-                                                withId(R.id.search_edit_frame),
-                                                1)),
-                                0),
-                        isDisplayed()));
-        searchAutoComplete.perform(replaceText("ok"), closeSoftKeyboard());
-
-        ViewInteraction searchAutoComplete2 = onView(
-                allOf(withId(R.id.search_src_text), withText("ok"),
-                        childAtPosition(
-                                allOf(withId(R.id.search_plate),
-                                        childAtPosition(
-                                                withId(R.id.search_edit_frame),
-                                                1)),
-                                0),
-                        isDisplayed()));
-        searchAutoComplete2.perform(pressImeActionButton());
 
     }
 

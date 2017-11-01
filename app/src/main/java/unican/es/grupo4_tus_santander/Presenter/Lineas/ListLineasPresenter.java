@@ -8,17 +8,20 @@ import java.util.List;
 
 import unican.es.grupo4_tus_santander.Models.BaseDatos.helper.DatabaseHelper;
 import unican.es.grupo4_tus_santander.Models.Pojos.Linea;
+import unican.es.grupo4_tus_santander.Presenter.Lineas.AsyncTasks.getLineas;
 import unican.es.grupo4_tus_santander.View.Lineas.LineasActivity;
 
 
-/**
- * Created by alejandro on 11/10/17.
- */
 
 public class ListLineasPresenter {
-    private LineasActivity listLineasView;
+    LineasActivity listLineasView;
     private List<Linea> listaLineasBus;
     private Context context;
+
+    public void setLd(DatabaseHelper ld) {
+        this.ld = ld;
+    }
+
     DatabaseHelper ld;
 
     public ListLineasPresenter(Context context, LineasActivity listLineasView){
@@ -26,6 +29,7 @@ public class ListLineasPresenter {
         this.context = context;
         this.listaLineasBus=new ArrayList<>();
         this.ld = new DatabaseHelper(this.context,1);
+        start();
     }// ListLineasPresenter
 
     public void start(){
@@ -48,13 +52,12 @@ public class ListLineasPresenter {
         try {
             listaLineasBus=ld.getAllLinea();
             ld.closeDB();
-            if(listaLineasBus.size()==0){
+            if( listaLineasBus==null ||listaLineasBus.size()==0){
                 return false;
             }
             return true;
         }catch(Exception e){
             Log.e("ERROR","Error en la obtención de las lineas de Bus: "+e.getMessage());
-            e.printStackTrace();
             return false;
         }
     }//obtenLineas

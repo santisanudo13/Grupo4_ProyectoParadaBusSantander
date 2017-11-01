@@ -1,9 +1,9 @@
 package unican.es.grupo4_tus_santander.Presenter.Lineas;
 
 import android.content.Context;
-import android.os.AsyncTask;
+import android.net.ConnectivityManager;
+import android.util.Log;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,18 +14,34 @@ import unican.es.grupo4_tus_santander.Models.Pojos.Parada;
 import unican.es.grupo4_tus_santander.Models.Pojos.ParadaConNombre;
 import unican.es.grupo4_tus_santander.Models.WebService.DataLoaders.ParserJSON;
 import unican.es.grupo4_tus_santander.Models.WebService.DataLoaders.RemoteFetch;
+import unican.es.grupo4_tus_santander.Presenter.Lineas.AsyncTasks.GetDataServicio;
 import unican.es.grupo4_tus_santander.View.Lineas.LineasActivity;
 
 
 public class RecargaBaseDatosLineas {
-    private LineasActivity activity;
+
+    public LineasActivity getActivity() {
+        return activity;
+    }
+
+    LineasActivity activity;
     private Context context;
 
     List<Linea> listLineas = new ArrayList<Linea>();
     List<Parada> listParadas = new ArrayList<Parada>();
     List<ParadaConNombre> listParadasConNombre = new ArrayList<ParadaConNombre>();
 
+    public void setListener(ServicioListener listener) {
+        this.listener = listener;
+    }
 
+    ServicioListener listener;
+
+    public void setCm(ConnectivityManager cm) {
+        this.cm = cm;
+    }
+
+    ConnectivityManager cm = null;
 
     private  RemoteFetch remoteFetch = new RemoteFetch();
 
@@ -34,91 +50,67 @@ public class RecargaBaseDatosLineas {
     public RecargaBaseDatosLineas(Context context, LineasActivity activity){
         this.activity = activity;
         this.context = context;
-        this.db = new DatabaseHelper(this.context,1);
-        db.reiniciarTablas();
-        start();
+        this.cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         
     }// MainPresenter
 
     public void start(){
         activity.showProgress(true, 0);
-        new getDataServicio().execute();
+        new GetDataServicio(this).execute();
     }// start
 
 
     public boolean obtenData(){
+
+        //SI NO TIENE INTERNET DEVUELVE FALSE
+        if(cm == null)
+            return false;
+
         //LINEAS
         try {
             remoteFetch.getJSON(RemoteFetch.URL_LINEAS_BUS);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Log.e("ERROR","Error : "+e.getMessage());
         }
         try {
             listLineas = ParserJSON.readArrayLineasBus(remoteFetch.getBufferedData());
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("ERROR","Error : "+e.getMessage());
         }
         //PARADAS
         try {
             remoteFetch.getJSON(RemoteFetch.URL_PARADAS);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Log.e("ERROR","Error : "+e.getMessage());
         }
         try {
             listParadas = ParserJSON.readArrayParadas(remoteFetch.getBufferedData());
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("ERROR","Error : "+e.getMessage());
         }
         //PARADAS CON NOMBRE
         try {
             remoteFetch.getJSON(RemoteFetch.URL_PARADAS_NOMBRE);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Log.e("ERROR","Error : "+e.getMessage());
         }
         try {
             listParadasConNombre = ParserJSON.readArrayParadasConNombre(remoteFetch.getBufferedData());
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("ERROR","Error : "+e.getMessage());
         }
 
         return !listLineas.isEmpty() && !listParadas.isEmpty();
     }
 
-
-
-    private class getDataServicio extends AsyncTask<Void, Void, Boolean> {
-        @Override
-        protected Boolean doInBackground(Void... v) {
-            return obtenData();
-        }
-
-        @Override
-        protected void onPostExecute(Boolean result) {
-            if (result) {
-                new getSaveDataIntoDataBase().execute();
-            } else {
-                activity.showProgress(false, -1);
-            }
-
-        }
-    }
-
-    private class getSaveDataIntoDataBase extends AsyncTask<Void, Void, Boolean> {
-        @Override
-        protected Boolean doInBackground(Void... v) {
-            guardaDataEnBaseDatos();
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean result) {
-            activity.showProgress(false, 1);
-            activity.start();
-        }
+    public ServicioListener getListener() {
+        return listener;
     }
 
 
-    private void guardaDataEnBaseDatos() {
+    public void guardaDataEnBaseDatos() {
+        this.db = new DatabaseHelper(this.context,1);
+        db.reiniciarTablas();
 
         for(Linea l: listLineas) {
             long id_color = -1;
@@ -207,6 +199,10 @@ public class RecargaBaseDatosLineas {
             }
         }
         db.closeDB();
+    }
+
+    public static interface ServicioListener {
+        public void onComplete();
     }
 
     private class LineaYParadas{

@@ -1,11 +1,14 @@
 package unican.es.grupo4_tus_santander.View.Lineas;
 
 
+
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,29 +28,32 @@ import unican.es.grupo4_tus_santander.View.Paradas.ParadasActivity;
 
 public class LineasActivity extends AppCompatActivity  implements SearchView.OnQueryTextListener{
 
-    //private ListView listViewLineas;
-    private int lineaIdentifier;
-    private int paradaIdentifier;
     private ListLineasPresenter listLineasPresenter;
     private ProgressBar progressBar;
     private Context context;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         this.context = getApplicationContext();
         setContentView(R.layout.activity_lineas);
         this.progressBar=(ProgressBar)findViewById(R.id.progressLinea);
         this.listLineasPresenter = new ListLineasPresenter(getApplicationContext(),this);
-        this.listLineasPresenter.start();
+
     }//onCreate
 
+    /**
+     * Metodo encargado de generar el toolbar
+     * @param menu
+     * @return si la creacion fue correcta
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_busqueda, menu);
-        MenuItem searchItem = menu.findItem(R.id.search);
-        //SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-        //searchView.setOnQueryTextListener(this);
+
 
         return true;
     }
@@ -84,12 +90,18 @@ public class LineasActivity extends AppCompatActivity  implements SearchView.OnQ
         listLineasPresenter.start();
     }
 
+    /**
+     * Metodo encargado de determinar las acciones a realizar por los botones del toolbar
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if(item.getItemId() == R.id.refresh)
         {
-            new RecargaBaseDatosLineas(getApplicationContext(), this);
+            RecargaBaseDatosLineas r =new RecargaBaseDatosLineas(getApplicationContext(), this);
+            r.start();
             return(true);
         }
         return(super.onOptionsItemSelected(item));
@@ -115,3 +127,4 @@ public class LineasActivity extends AppCompatActivity  implements SearchView.OnQ
     }
 
 }// MainActivity
+

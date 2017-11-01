@@ -50,14 +50,15 @@ public class ParadasPresenterTest {
         when(db.getParadasByLinea(1)).thenReturn(p);
         ParadasActivity pa = mock(ParadasActivity.class);
         ListParadasPresenter p = new ListParadasPresenter(InstrumentationRegistry.getTargetContext(), pa);
-        p.ld=db;
-        assertTrue(p.obtenParadasPorLinea());
+        p.setDb(db);
+        p.setIdLinea(1);
+        assertTrue(p.obtenParadas());
     }
 
     @Test
     public void obtenParadasError(){
         ParadasActivity pa = mock(ParadasActivity.class);
         ListParadasPresenter p =new ListParadasPresenter(InstrumentationRegistry.getTargetContext(),pa);
-        assertFalse(p.obtenParadasPorLinea());
+        assertFalse(p.obtenParadas());
     }
 }

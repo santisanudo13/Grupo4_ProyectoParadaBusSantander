@@ -15,7 +15,6 @@ import java.util.List;
 
 import unican.es.grupo4_tus_santander.Models.Pojos.Parada;
 import unican.es.grupo4_tus_santander.Presenter.Paradas.ListParadasPresenter;
-import unican.es.grupo4_tus_santander.Presenter.Paradas.RecargaBaseDatosParadas;
 import unican.es.grupo4_tus_santander.R;
 
 /**
@@ -25,7 +24,6 @@ import unican.es.grupo4_tus_santander.R;
 public class ParadasActivity extends AppCompatActivity  implements SearchView.OnQueryTextListener {
     private ListParadasPresenter listParadasPresenter;
     private ProgressBar progressBar;
-    private RecargaBaseDatosParadas actualiza;
     private Context context;
 
     @Override
@@ -42,6 +40,8 @@ public class ParadasActivity extends AppCompatActivity  implements SearchView.On
 
         this.listParadasPresenter = new ListParadasPresenter(getApplicationContext(),this);
         this.listParadasPresenter.setIdLinea(lineaId);
+
+
         //this.listParadasPresenter.start();
     }//onCreate
 
@@ -59,10 +59,9 @@ public class ParadasActivity extends AppCompatActivity  implements SearchView.On
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(item.getItemId() == R.id.refresh)
+        if(item.getItemId() == R.id.toolbar_actualizar)
         {
-            actualiza = new RecargaBaseDatosParadas(getApplicationContext(), this);
-            actualiza.start();
+            listParadasPresenter.recargarDatos();
             return(true);
         }
         return(super.onOptionsItemSelected(item));
@@ -99,5 +98,17 @@ public class ParadasActivity extends AppCompatActivity  implements SearchView.On
         ListParadasAdapter listParadasAdapter = new  ListParadasAdapter(this,paradasList);
         ListView listview = (ListView) findViewById(R.id.listParadas);
         listview.setAdapter(listParadasAdapter);
+    }
+
+    public ListParadasPresenter getListParadasPresenter() {
+        return listParadasPresenter;
+    }
+
+    public void setListParadasPresenter(ListParadasPresenter listParadasPresenter) {
+        this.listParadasPresenter = listParadasPresenter;
+    }
+
+    public void showToasEmptyParadas() {
+        Toast.makeText(getApplicationContext(), "No hay paradas en la línea actualmente", Toast.LENGTH_SHORT).show();
     }
 }// ParadasActivity

@@ -1,1 +1,0 @@
-Fichero dispensable empleado para realizar la creacion del sistema de ficheros en el repositorio git.

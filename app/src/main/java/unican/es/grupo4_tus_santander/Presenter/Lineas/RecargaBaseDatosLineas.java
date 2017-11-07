@@ -205,31 +205,11 @@ public class RecargaBaseDatosLineas {
         public void onComplete();
     }
 
-    private class LineaYParadas{
-        private Linea linea;
-        private List<Parada> paradas;
-
-        public LineaYParadas(Linea linea, List<Parada> paradas){
-            this.linea = linea;
-            this.paradas = paradas;
-        }
-
-        public Linea getLinea() {
-            return linea;
-        }
-
-        public void setLinea(Linea linea) {
-            this.linea = linea;
-        }
-
-        public List<Parada> getParadas() {
-            return paradas;
-        }
-
-        public void setParadas(List<Parada> paradas) {
-            this.paradas = paradas;
-        }
+    public RemoteFetch getRemoteFetch() {
+        return remoteFetch;
     }
 
-
+    public void setRemoteFetch(RemoteFetch remoteFetch) {
+        this.remoteFetch = remoteFetch;
+    }
 }

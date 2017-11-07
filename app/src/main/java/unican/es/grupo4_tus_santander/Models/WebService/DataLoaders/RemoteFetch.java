@@ -30,11 +30,13 @@ public class RemoteFetch {
      * clase
      * @throws IOException
      */
-    public void getJSON(String urlJSON) throws IOException {
+    public int getJSON(String urlJSON) throws IOException {
             URL url = new URL(urlJSON);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.addRequestProperty("Accept", "application/json");
             bufferedData =  new BufferedInputStream(urlConnection.getInputStream());
+
+            return 0;
     }//getJSON
 
     /**
@@ -43,8 +45,10 @@ public class RemoteFetch {
      * @return
      */
     public BufferedInputStream getBufferedData() {
-
         return bufferedData;
     }//getBufferedData
 
+    public void setBufferedData(BufferedInputStream bufferedData) {
+        this.bufferedData = bufferedData;
+    }
 }//RemoteFetch

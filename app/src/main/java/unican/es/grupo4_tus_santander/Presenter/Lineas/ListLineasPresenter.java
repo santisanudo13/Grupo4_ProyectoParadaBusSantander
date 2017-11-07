@@ -24,13 +24,15 @@ public class ListLineasPresenter {
 
     DatabaseHelper ld;
 
+    RecargaBaseDatosLineas r;
+
     public ListLineasPresenter(Context context, LineasActivity listLineasView){
         this.listLineasView = listLineasView;
         this.context = context;
         this.listaLineasBus=new ArrayList<>();
         this.ld = new DatabaseHelper(this.context,1);
         if(ld.getAllColor().size()==0){
-            RecargaBaseDatosLineas r= new RecargaBaseDatosLineas(context,listLineasView);
+            r = new RecargaBaseDatosLineas(context,listLineasView);
             r.start();
         }
         start();
@@ -71,5 +73,11 @@ public class ListLineasPresenter {
         return listaLineasBus;
     }//getListaLineasBus
 
+    public RecargaBaseDatosLineas getR() {
+        return r;
+    }
 
+    public void setR(RecargaBaseDatosLineas r) {
+        this.r = r;
+    }
 }// ListLineasPresenter

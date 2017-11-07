@@ -124,5 +124,12 @@ public class LineasActivity extends AppCompatActivity  implements SearchView.OnQ
         }
     }
 
+    public ListLineasPresenter getListLineasPresenter() {
+        return listLineasPresenter;
+    }
+
+    public void setListLineasPresenter(ListLineasPresenter listLineasPresenter) {
+        this.listLineasPresenter = listLineasPresenter;
+    }
 }// MainActivity
 

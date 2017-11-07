@@ -119,8 +119,6 @@ public class LineasActivity extends AppCompatActivity  implements SearchView.OnQ
                 Toast.makeText(getApplicationContext(), "Carga de datos exitosa", Toast.LENGTH_SHORT).show();
             if(tipo == -1)
                 Toast.makeText(getApplicationContext(), "Carga de datos fallida", Toast.LENGTH_SHORT).show();
-            if(tipo == -2)
-                Toast.makeText(getApplicationContext(), "Actualiza los datos, por favor", Toast.LENGTH_SHORT).show();
 
             progressBar.setVisibility(View.GONE);
         }

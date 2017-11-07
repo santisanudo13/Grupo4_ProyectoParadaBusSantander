@@ -29,6 +29,10 @@ public class ListLineasPresenter {
         this.context = context;
         this.listaLineasBus=new ArrayList<>();
         this.ld = new DatabaseHelper(this.context,1);
+        if(ld.getAllColor().size()==0){
+            RecargaBaseDatosLineas r= new RecargaBaseDatosLineas(context,listLineasView);
+            r.start();
+        }
         start();
     }// ListLineasPresenter
 
@@ -51,10 +55,10 @@ public class ListLineasPresenter {
 
         try {
             listaLineasBus=ld.getAllLinea();
-            ld.closeDB();
-            if( listaLineasBus==null ||listaLineasBus.size()==0){
+            if( listaLineasBus==null || listaLineasBus.size()==0){
                 return false;
             }
+            ld.closeDB();
             return true;
         }catch(Exception e){
             Log.e("ERROR","Error en la obtención de las lineas de Bus: "+e.getMessage());

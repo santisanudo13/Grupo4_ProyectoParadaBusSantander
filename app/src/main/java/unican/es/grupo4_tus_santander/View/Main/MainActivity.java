@@ -140,4 +140,12 @@ public class MainActivity extends AppCompatActivity {
     public void setProgressBar(ProgressBar progressBar) {
         this.progressBar = progressBar;
     }
+
+    public MainPresenter getMainPresenter() {
+        return mainPresenter;
+    }
+
+    public void setMainPresenter(MainPresenter mainPresenter) {
+        this.mainPresenter = mainPresenter;
+    }
 }// MainActivity

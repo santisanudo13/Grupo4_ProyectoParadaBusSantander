@@ -99,4 +99,17 @@ public class ListParadasPresenter {
     public void setDb(DatabaseHelper db) {
         this.db = db;
     }
+
+    public void filtra(String s){
+        List<Parada> temp = new ArrayList<>();
+        for(Parada x: listaParadas){
+
+            if(x.getNombre().toLowerCase().contains(s.toLowerCase())||(x.getNumParada()+"").toLowerCase().contains(s.toLowerCase())){
+                temp.add(x);
+            }
+
+        }
+        paradasActivity.showList(temp);
+
+    }
 }// ListLineasPresenter

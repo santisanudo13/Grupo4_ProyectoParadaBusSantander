@@ -4,7 +4,7 @@ package unican.es.grupo4_tus_santander.View.Paradas;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
+import android.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -56,7 +56,9 @@ public class ParadasActivity extends AppCompatActivity  implements SearchView.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_busqueda_paradas, menu);
-        MenuItem searchItem = menu.findItem(R.id.search);
+        SearchView searchItem = (SearchView) menu.findItem(R.id.search).getActionView();
+        searchItem.setOnQueryTextListener(this);
+
         return true;
     }
 
@@ -90,12 +92,14 @@ public class ParadasActivity extends AppCompatActivity  implements SearchView.On
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        return false;
+        listParadasPresenter.filtra(query);
+        return true;
     }
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        return false;
+        listParadasPresenter.filtra(newText);
+        return true;
     }
 
     public void showList(List<Parada> paradasList) {

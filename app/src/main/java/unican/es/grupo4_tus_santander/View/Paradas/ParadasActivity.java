@@ -10,8 +10,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import unican.es.grupo4_tus_santander.Models.Pojos.Parada;
@@ -27,6 +31,7 @@ public class ParadasActivity extends AppCompatActivity  implements SearchView.On
     private ListParadasPresenter listParadasPresenter;
     private ProgressBar progressBar;
     private Context context;
+    private TextView vacio;
 
 
     @Override
@@ -45,7 +50,7 @@ public class ParadasActivity extends AppCompatActivity  implements SearchView.On
         this.listParadasPresenter = new ListParadasPresenter(getApplicationContext(),this);
         this.listParadasPresenter.setIdLinea(lineaId);
 
-
+        vacio = (TextView)findViewById(R.id.txtVacio);
         //this.listParadasPresenter.start();
     }//onCreate
 
@@ -103,7 +108,16 @@ public class ParadasActivity extends AppCompatActivity  implements SearchView.On
     }
 
     public void showList(List<Parada> paradasList) {
-        ListParadasAdapter listParadasAdapter = new  ListParadasAdapter(this,paradasList);
+        ListParadasAdapter listParadasAdapter;
+        if(paradasList.size()!=0) {
+            vacio.setVisibility(View.INVISIBLE);
+            listParadasAdapter = new ListParadasAdapter(this, paradasList);
+
+        }else{
+            List<Parada> v= new ArrayList<>();
+            listParadasAdapter = new ListParadasAdapter(this, v);
+            vacio.setVisibility(View.VISIBLE);
+        }
         ListView listview = (ListView) findViewById(R.id.listParadas);
         listview.setAdapter(listParadasAdapter);
     }

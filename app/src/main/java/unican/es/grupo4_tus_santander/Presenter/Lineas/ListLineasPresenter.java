@@ -47,8 +47,6 @@ public class ListLineasPresenter {
 
         if(result){
             listLineasView.showLista(getListaLineasBus());
-        }else{
-           listLineasView.showProgress(false,-2);
         }
 
     }

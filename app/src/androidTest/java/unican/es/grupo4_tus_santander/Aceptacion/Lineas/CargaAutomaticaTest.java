@@ -27,6 +27,7 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import unican.es.grupo4_tus_santander.Models.BaseDatos.helper.DatabaseHelper;
 import unican.es.grupo4_tus_santander.Models.WebService.DataLoaders.RemoteFetch;
 import unican.es.grupo4_tus_santander.R;
 import unican.es.grupo4_tus_santander.View.Lineas.LineasActivity;
@@ -50,8 +51,7 @@ public class CargaAutomaticaTest {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
-    @Rule
-    public ActivityTestRule<LineasActivity> lActivityTestRule = new ActivityTestRule<>(LineasActivity.class);
+
 
 
     RemoteFetch remoteFetch = mock(RemoteFetch.class);
@@ -60,36 +60,9 @@ public class CargaAutomaticaTest {
 
     @Test
     public void cargaAutomaticaTest() throws IOException {
-        final InputStream isLineas = mActivityTestRule.getActivity().getApplicationContext().getResources().openRawResource(R.raw.lineas_test);
-        final InputStream isParadas = mActivityTestRule.getActivity().getApplicationContext().getResources().openRawResource(R.raw.paradas_bus);
-        final InputStream isLineasParadas = mActivityTestRule.getActivity().getApplicationContext().getResources().openRawResource(R.raw.lineas_bus_paradas);
 
-
-        doAnswer(new Answer() {
-            public Object answer(InvocationOnMock invocation) {
-                remoteFetch.setBufferedData((BufferedInputStream) isLineas);
-                return 0;
-            }})
-                .when(remoteFetch).getJSON(RemoteFetch.URL_LINEAS_BUS);
-
-        doAnswer(new Answer() {
-            public Object answer(InvocationOnMock invocation) {
-                remoteFetch.setBufferedData((BufferedInputStream) isParadas);
-                return 0;
-            }})
-                .when(remoteFetch).getJSON(RemoteFetch.URL_PARADAS);
-
-        doAnswer(new Answer() {
-            public Object answer(InvocationOnMock invocation) {
-                remoteFetch.setBufferedData((BufferedInputStream) isLineasParadas);
-                return 0;
-            }})
-                .when(remoteFetch).getJSON(RemoteFetch.URL_PARADAS_NOMBRE);
-
-
-
-        lActivityTestRule.getActivity().getListLineasPresenter().getR().setRemoteFetch(remoteFetch);
-
+        DatabaseHelper db= new DatabaseHelper(mActivityTestRule.getActivity().getApplicationContext(),1);
+        db.reiniciarTablas();
 
         DataInteraction relativeLayout = onData(anything())
                 .inAdapterView(allOf(withId(R.id.listFuncionesMenu),
@@ -99,16 +72,11 @@ public class CargaAutomaticaTest {
                 .atPosition(1);
         relativeLayout.perform(click());
 
-
-
         try {
             Thread.sleep(1000*15);
         } catch (InterruptedException e) {
         }
-
         onView(withId(R.id.listLineas)).check(ViewAssertions.matches(listaNoVacia()));
-
-
     }
 
     public static Matcher<View> listaNoVacia (){
@@ -123,7 +91,7 @@ public class CargaAutomaticaTest {
 
             @Override
             public void describeTo(Description description) {
-                description.appendText("El estado no coincide");
+                description.appendText("La lista esta vacía");
             }
         };
     }

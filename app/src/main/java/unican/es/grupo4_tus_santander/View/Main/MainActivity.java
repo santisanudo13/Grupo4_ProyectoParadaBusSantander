@@ -28,14 +28,14 @@ public class MainActivity extends AppCompatActivity {
 
     private Context context;
     private MainPresenter mainPresenter;
-    private ProgressBar progressBar;
+    private ProgressBar progressBarMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.context = getApplicationContext();
-        this.progressBar = (ProgressBar) findViewById(R.id.progressBarMenu);
+        this.progressBarMain = (ProgressBar) findViewById(R.id.progressBarMenu);
         this.mainPresenter = new MainPresenter(context, this);
         mainPresenter.start();
 
@@ -118,26 +118,34 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void showProgress (boolean state, int tipo){
-        if(state)
+    public void showProgress (boolean stateMain, int tipoMain){
+        if(stateMain)
         {
             Toast.makeText(getApplicationContext(), "Cargando datos", Toast.LENGTH_SHORT).show();
-            progressBar.setVisibility(View.VISIBLE);
+            progressBarMain.setVisibility(View.VISIBLE);
         }else{
-            if(tipo == 1)
+            if(tipoMain == 1)
                 Toast.makeText(getApplicationContext(), "Carga de datos exitosa", Toast.LENGTH_SHORT).show();
-            if(tipo == -1)
+            if(tipoMain == -1)
                 Toast.makeText(getApplicationContext(), "Carga de datos fallida", Toast.LENGTH_SHORT).show();
 
-            progressBar.setVisibility(View.GONE);
+            progressBarMain.setVisibility(View.GONE);
         }
     }
 
     public ProgressBar getProgressBar() {
-        return progressBar;
+        return progressBarMain;
     }
 
     public void setProgressBar(ProgressBar progressBar) {
-        this.progressBar = progressBar;
+        this.progressBarMain = progressBar;
+    }
+
+    public MainPresenter getMainPresenter() {
+        return mainPresenter;
+    }
+
+    public void setMainPresenter(MainPresenter mainPresenter) {
+        this.mainPresenter = mainPresenter;
     }
 }// MainActivity

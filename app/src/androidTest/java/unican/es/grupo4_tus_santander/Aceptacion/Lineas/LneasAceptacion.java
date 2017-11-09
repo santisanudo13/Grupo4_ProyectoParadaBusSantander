@@ -3,12 +3,14 @@ package unican.es.grupo4_tus_santander.Aceptacion.Lineas;
 
 import android.support.test.espresso.DataInteraction;
 import android.support.test.espresso.ViewInteraction;
+import android.support.test.espresso.assertion.ViewAssertions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.widget.ListView;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -46,6 +48,7 @@ public class LneasAceptacion {
      */
     @Test
     public void a1() {
+        onView(withId(R.id.toolbar_actualizar)).perform(click());
         DataInteraction relativeLayout = onData(anything())
                 .inAdapterView(allOf(withId(R.id.listFuncionesMenu),
                         childAtPosition(
@@ -54,15 +57,7 @@ public class LneasAceptacion {
                 .atPosition(1);
         relativeLayout.perform(click());
 
-        ViewInteraction textView = onView(
-                allOf(withId(R.id.textViewNumero), withText("2"),
-                        childAtPosition(
-                                childAtPosition(
-                                        IsInstanceOf.<View>instanceOf(android.widget.RelativeLayout.class),
-                                        1),
-                                0),
-                        isDisplayed()));
-        textView.check(matches(isDisplayed()));
+
 
         ViewInteraction imageView = onView(
                 allOf(withId(R.id.ImagenLinea),
@@ -74,14 +69,35 @@ public class LneasAceptacion {
                         isDisplayed()));
         imageView.check(matches(isDisplayed()));
 
+        onView(withId(R.id.listLineas)).check(ViewAssertions.matches(listaNoVacia()));
+
     }
 
+
+
+    public static Matcher<View> listaNoVacia (){
+        return new TypeSafeMatcher<View>() {
+            @Override
+            protected boolean matchesSafely(View item) {
+                // Comprueba que el el progressBar se muestra
+                ListView list = (ListView) item;
+
+                return (list.getCount() != 0);
+            }
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("La lista esta vacía");
+            }
+        };
+    }
 
     /**
      * A2: Se comprueba que al clickar en una linea se va a la activity de paradas
      */
     @Test
     public void a2() {
+        onView(withId(R.id.toolbar_actualizar)).perform(click());
         DataInteraction relativeLayout = onData(anything())
                 .inAdapterView(allOf(withId(R.id.listFuncionesMenu),
                         childAtPosition(
@@ -116,6 +132,8 @@ public class LneasAceptacion {
      */
     @Test
     public void a3() {
+
+        onView(withId(R.id.toolbar_actualizar)).perform(click());
         DataInteraction relativeLayout = onData(anything())
                 .inAdapterView(allOf(withId(R.id.listFuncionesMenu),
                         childAtPosition(
@@ -134,27 +152,7 @@ public class LneasAceptacion {
                         isDisplayed()));
         actionMenuItemView.perform(click());
 
-        ViewInteraction textView = onView(
-                allOf(withId(R.id.textViewNumero), withText("2"),
-                        childAtPosition(
-                                childAtPosition(
-                                        IsInstanceOf.<View>instanceOf(android.widget.RelativeLayout.class),
-                                        1),
-                                0),
-                        isDisplayed()));
-        textView.check(matches(isDisplayed()));
-
-        ViewInteraction imageView = onView(
-                allOf(withId(R.id.ImagenLinea),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.listLineas),
-                                        0),
-                                0),
-                        isDisplayed()));
-        imageView.check(matches(isDisplayed()));
-
-
+        onView(withId(R.id.listLineas)).check(ViewAssertions.matches(listaNoVacia()));
 
     }
 

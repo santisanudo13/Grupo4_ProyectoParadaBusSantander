@@ -45,6 +45,8 @@ public class ParadasActivity extends AppCompatActivity  implements SearchView.On
         this.listParadasPresenter = new ListParadasPresenter(getApplicationContext(),this);
         this.listParadasPresenter.setIdLinea(lineaId);
 
+        listParadasPresenter.start();
+
 
         //this.listParadasPresenter.start();
     }//onCreate

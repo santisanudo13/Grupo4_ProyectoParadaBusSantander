@@ -142,6 +142,31 @@ public class DatabaseHelperLineasTest {
 
     @Test
     public void getAllLinea() throws Exception {
+        cd=new DatabaseHelper(InstrumentationRegistry.getTargetContext(),1);
+
+        cd.reiniciarTablas();
+
+        cd=new DatabaseHelper(InstrumentationRegistry.getTargetContext(),1);
+
+        List<Long> c_id= new ArrayList<>();;
+
+        c_id.add(cd.createColor(c1));
+        c_id.add(cd.createColor(c2));
+        c_id.add(cd.createColor(c4));
+
+
+        l1.setIdColor(c_id.get(0).intValue());
+        l2.setIdColor(c_id.get(1).intValue());
+        l3.setIdColor(c_id.get(0).intValue());
+        l4.setIdColor(c_id.get(2).intValue());
+
+        l_ids.clear();
+
+        l_ids.add(cd.createLinea(l1,c_id.get(0)));
+        l_ids.add(cd.createLinea(l2,c_id.get(1)));
+        l_ids.add(cd.createLinea(l3,c_id.get(0)));
+        l_ids.add(cd.createLinea(l4,c_id.get(2)));
+
         List<Linea> t= cd.getAllLinea();
 
         for (int i =0;i<t.size();i++) {

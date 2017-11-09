@@ -52,6 +52,8 @@ public class ParadasPresenterTest {
         ListParadasPresenter p = new ListParadasPresenter(InstrumentationRegistry.getTargetContext(), pa);
         p.setDb(db);
         p.setIdLinea(1);
+
+
         assertTrue(p.obtenParadas());
     }
 

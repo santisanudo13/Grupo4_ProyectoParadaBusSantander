@@ -46,6 +46,7 @@ public class ParadasPresenterTest {
     @Test
     public void obtenParadasCorrecto(){
         db.reiniciarTablas();
+        db= new DatabaseHelper(InstrumentationRegistry.getTargetContext(),1);
 
 
         long idColor = db.createColor(c);
@@ -69,6 +70,8 @@ public class ParadasPresenterTest {
     @Test
     public void obtenParadasError(){
         db.reiniciarTablas();
+        db= new DatabaseHelper(InstrumentationRegistry.getTargetContext(),1);
+
         ParadasActivity la = mock(ParadasActivity.class);
         ListParadasPresenter p =new ListParadasPresenter(InstrumentationRegistry.getTargetContext(),la);
 

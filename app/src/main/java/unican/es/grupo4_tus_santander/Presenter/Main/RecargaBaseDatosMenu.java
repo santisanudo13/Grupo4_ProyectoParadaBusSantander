@@ -16,31 +16,31 @@ import unican.es.grupo4_tus_santander.View.Main.MainActivity;
 
 
 public class RecargaBaseDatosMenu {
-    private MainActivity activity;
-    private Context context;
+    private MainActivity activityMenu;
+    private Context contextMenu;
 
     private List<Linea> listLineas = new ArrayList<Linea>();
     private List<Parada> listParadas = new ArrayList<Parada>();
     private List<ParadaConNombre> listParadasConNombre = new ArrayList<ParadaConNombre>();
 
-    private ServicioListener listener;
+    private ServicioListener listenerMenu;
 
     private ConnectivityManager cm = null;
 
 
-    private  RemoteFetch remoteFetch = new RemoteFetch();
+    private  RemoteFetch remoteFetchMenu = new RemoteFetch();
 
-    DatabaseHelper db;
+    DatabaseHelper dbMenu;
 
     public RecargaBaseDatosMenu(Context context, MainActivity activity){
-        this.activity = activity;
-        this.context = context;
+        this.activityMenu = activity;
+        this.contextMenu = context;
         this.cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
     }// MainPresenter
 
 
     public void start(){
-        activity.showProgress(true, 0);
+        activityMenu.showProgress(true, 0);
         new GetDataServicio(this).execute();
     }// start
 
@@ -53,34 +53,34 @@ public class RecargaBaseDatosMenu {
 
         //LINEAS
         try {
-            remoteFetch.getJSON(RemoteFetch.URL_LINEAS_BUS);
+            remoteFetchMenu.getJSON(RemoteFetch.URL_LINEAS_BUS);
         } catch (Exception e) {
             
         }
         try {
-            listLineas = ParserJSON.readArrayLineasBus(remoteFetch.getBufferedData());
+            listLineas = ParserJSON.readArrayLineasBus(remoteFetchMenu.getBufferedData());
         } catch (Exception e) {
             
         }
         //PARADAS
         try {
-            remoteFetch.getJSON(RemoteFetch.URL_PARADAS);
+            remoteFetchMenu.getJSON(RemoteFetch.URL_PARADAS);
         } catch (Exception e) {
             
         }
         try {
-            listParadas = ParserJSON.readArrayParadas(remoteFetch.getBufferedData());
+            listParadas = ParserJSON.readArrayParadas(remoteFetchMenu.getBufferedData());
         } catch (Exception e) {
             
         }
         //PARADAS CON NOMBRE
         try {
-            remoteFetch.getJSON(RemoteFetch.URL_PARADAS_NOMBRE);
+            remoteFetchMenu.getJSON(RemoteFetch.URL_PARADAS_NOMBRE);
         } catch (Exception e) {
             
         }
         try {
-            listParadasConNombre = ParserJSON.readArrayParadasConNombre(remoteFetch.getBufferedData());
+            listParadasConNombre = ParserJSON.readArrayParadasConNombre(remoteFetchMenu.getBufferedData());
         } catch (Exception e) {
             
         }
@@ -91,81 +91,81 @@ public class RecargaBaseDatosMenu {
 
 
     public void guardaDataEnBaseDatos() {
-        db = new DatabaseHelper(this.context,1);
-        db.reiniciarTablas();
+        dbMenu = new DatabaseHelper(this.contextMenu,1);
+        dbMenu.reiniciarTablas();
 
         for(Linea l: listLineas) {
-            long id_color = -1;
+            long id_colorMenu = -1;
 
             switch (l.getNumero()+"") {
                 case "1":
-                    id_color = db.createColor(new Color(255, 255, 0, 0));
+                    id_colorMenu = dbMenu.createColor(new Color(255, 255, 0, 0));
                     break;
                 case "2":
-                    id_color = db.createColor(new Color(255, 171, 68, 206));
+                    id_colorMenu = dbMenu.createColor(new Color(255, 171, 68, 206));
                     break;
                 case "3":
-                    id_color = db.createColor(new Color(255, 253, 205, 47));
+                    id_colorMenu = dbMenu.createColor(new Color(255, 253, 205, 47));
                     break;
                 case "4":
-                    id_color = db.createColor(new Color(255, 48, 180, 214));
+                    id_colorMenu = dbMenu.createColor(new Color(255, 48, 180, 214));
                     break;
                 case "5C1":
-                    id_color = db.createColor(new Color(255, 150, 150, 150));
+                    id_colorMenu = dbMenu.createColor(new Color(255, 150, 150, 150));
                     break;
                 case "5C2":
-                    id_color = db.createColor(new Color(255, 150, 150, 150));
+                    id_colorMenu = dbMenu.createColor(new Color(255, 150, 150, 150));
                     break;
                 case "6C1":
-                    id_color = db.createColor(new Color(255, 15, 127, 52));
+                    id_colorMenu = dbMenu.createColor(new Color(255, 15, 127, 52));
                     break;
                 case "6C2":
-                    id_color = db.createColor(new Color(255, 15, 127, 52));
+                    id_colorMenu = dbMenu.createColor(new Color(255, 15, 127, 52));
                     break;
                 case "7C1":
-                    id_color = db.createColor(new Color(255, 244, 98, 38));
+                    id_colorMenu = dbMenu.createColor(new Color(255, 244, 98, 38));
                     break;
                 case "7C2":
-                    id_color = db.createColor(new Color(255, 244, 98, 38));
+                    id_colorMenu = dbMenu.createColor(new Color(255, 244, 98, 38));
                     break;
                 case "11":
-                    id_color = db.createColor(new Color(255, 2, 23, 91));
+                    id_colorMenu = dbMenu.createColor(new Color(255, 2, 23, 91));
                     break;
                 case "12":
-                    id_color = db.createColor(new Color(255, 164, 211, 99));
+                    id_colorMenu = dbMenu.createColor(new Color(255, 164, 211, 99));
                     break;
                 case "13":
-                    id_color = db.createColor(new Color(255, 144, 129, 176));
+                    id_colorMenu = dbMenu.createColor(new Color(255, 144, 129, 176));
                     break;
                 case "14":
-                    id_color = db.createColor(new Color(255, 14, 105, 175));
+                    id_colorMenu = dbMenu.createColor(new Color(255, 14, 105, 175));
                     break;
                 case "16":
-                    id_color = db.createColor(new Color(255, 98, 24, 54));
+                    id_colorMenu = dbMenu.createColor(new Color(255, 98, 24, 54));
                     break;
                 case "17":
-                    id_color = db.createColor(new Color(255, 246, 128, 132));
+                    id_colorMenu = dbMenu.createColor(new Color(255, 246, 128, 132));
                     break;
                 case "18":
-                    id_color = db.createColor(new Color(255, 177, 232, 224));
+                    id_colorMenu = dbMenu.createColor(new Color(255, 177, 232, 224));
                     break;
                 case "19":
-                    id_color = db.createColor(new Color(255, 18, 132, 147));
+                    id_colorMenu = dbMenu.createColor(new Color(255, 18, 132, 147));
                     break;
                 case "20":
-                    id_color = db.createColor(new Color(255, 136, 248, 170));
+                    id_colorMenu = dbMenu.createColor(new Color(255, 136, 248, 170));
                     break;
                 case "21":
-                    id_color = db.createColor(new Color(255, 163, 211, 98));
+                    id_colorMenu = dbMenu.createColor(new Color(255, 163, 211, 98));
                     break;
                 case "23":
-                    id_color = db.createColor(new Color(255, 202, 202, 202));
+                    id_colorMenu = dbMenu.createColor(new Color(255, 202, 202, 202));
                     break;
                 default:
-                    id_color = db.createColor(new Color(255, 0, 0, 0));
+                    id_colorMenu = dbMenu.createColor(new Color(255, 0, 0, 0));
                     break;
             }
-            long id_linea = db.createLinea(l, id_color);
+            long id_linea = dbMenu.createLinea(l, id_colorMenu);
             l.setId((int) id_linea);
 
             for(Parada parada : listParadas){
@@ -177,11 +177,11 @@ public class RecargaBaseDatosMenu {
                         }
                     }
 
-                    long id_parada = db.createParada(parada, l.getId());
+                    long id_parada = dbMenu.createParada(parada, l.getId());
                 }
             }
         }
-        db.closeDB();
+        dbMenu.closeDB();
     }
 
 
@@ -191,11 +191,11 @@ public class RecargaBaseDatosMenu {
 
 
     public ServicioListener getListener() {
-        return listener;
+        return listenerMenu;
     }
 
     public void setListener(ServicioListener listener) {
-        this.listener = listener;
+        this.listenerMenu = listener;
     }
 
 
@@ -220,10 +220,10 @@ public class RecargaBaseDatosMenu {
     }
 
     public MainActivity getActivity() {
-        return activity;
+        return activityMenu;
     }
 
     public void setActivity(MainActivity activity) {
-        this.activity = activity;
+        this.activityMenu = activity;
     }
 }

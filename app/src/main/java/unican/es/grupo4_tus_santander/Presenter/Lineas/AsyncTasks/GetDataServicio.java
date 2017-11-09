@@ -12,25 +12,25 @@ import unican.es.grupo4_tus_santander.Presenter.Main.RecargaBaseDatosMenu;
 
 public class GetDataServicio extends AsyncTask<Void, Void, Boolean> {
 
-    private RecargaBaseDatosLineas refresh;
+    private RecargaBaseDatosLineas refreshLineas;
 
     public GetDataServicio(RecargaBaseDatosLineas refresh) {
-        this.refresh = refresh;
+        this.refreshLineas = refresh;
     }
 
     @Override
     protected Boolean doInBackground(Void... v) {
-        return refresh.obtenData();
+        return refreshLineas.obtenData();
     }
 
     @Override
     protected void onPostExecute(Boolean result) {
         if (result) {
-            new GetSaveDataIntoDataBase(refresh).execute();
+            new GetSaveDataIntoDataBase(refreshLineas).execute();
         } else {
-            refresh.getActivity().showProgress(false, -1);
-            if(refresh.getListener() != null)
-                refresh.getListener().onComplete();
+            refreshLineas.getActivity().showProgress(false, -1);
+            if(refreshLineas.getListener() != null)
+                refreshLineas.getListener().onComplete();
         }
     }
 

@@ -29,7 +29,7 @@ public class ListParadasPresenter {
         this.db = new DatabaseHelper(this.context,1);
 
 
-        start();
+
     }// ListLineasPresenter
 
     public void start(){

@@ -51,42 +51,49 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 	private static final String KEY_PARADA_LINEA_ID = "lineaId";
 	private static final String KEY_PARADA_FAVORITO = "favorito";
 
+	private static final String INTEGER1 = " INTEGER,";
+	private static final String INTEGER2 = " INTEGER";
+	private static final String INTEGER_PRIMARY_KEY = " INTEGER PRIMARY KEY,";
+	private static final String TEXT = " TEXT,";
+	private static final String REAL = " REAL,";
+	private static final String CREATE_TABLE = "CREATE TABLE ";
+
 
 	// Table Create Statements
 	// COLOR table create statement
-	private static final String CREATE_TABLE_COLOR = "CREATE TABLE " + TABLE_COLOR
+	private static final String CREATE_TABLE_COLOR = CREATE_TABLE + TABLE_COLOR
 			+ "("
-			+ KEY_ID + " INTEGER PRIMARY KEY,"
-			+ KEY_COLOR_ALPHA + " INTEGER,"
-			+ KEY_COLOR_RED + " INTEGER,"
-			+ KEY_COLOR_GREEN + " INTEGER,"
-			+ KEY_COLOR_BLUE + " INTEGER"
+			+ KEY_ID + INTEGER_PRIMARY_KEY
+			+ KEY_COLOR_ALPHA + INTEGER1
+			+ KEY_COLOR_RED + INTEGER1
+			+ KEY_COLOR_GREEN + INTEGER1
+			+ KEY_COLOR_BLUE + INTEGER2
 			+ ")";
 
 	// LINEA table create statement
-	private static final String CREATE_TABLE_LINEA = "CREATE TABLE "+ TABLE_LINEA
+	private static final String CREATE_TABLE_LINEA = CREATE_TABLE + TABLE_LINEA
 			+ "("
-			+ KEY_ID + " INTEGER PRIMARY KEY,"
-			+ KEY_IDENTIFIER + " INTEGER,"
-			+ KEY_LINEA_NAME+ " TEXT,"
-			+ KEY_LINEA_NUMERO + " TEXT,"
-			+ KEY_LINEA_COLORID + " INTEGER"
+			+ KEY_ID + INTEGER_PRIMARY_KEY
+			+ KEY_IDENTIFIER + INTEGER1
+			+ KEY_LINEA_NAME+ TEXT
+			+ KEY_LINEA_NUMERO + TEXT
+			+ KEY_LINEA_COLORID + INTEGER2
 			+ ")";
 
 	// PARADA table create statement
-	private static final String CREATE_TABLE_PARADA = "CREATE TABLE " + TABLE_PARADA
+	private static final String CREATE_TABLE_PARADA = CREATE_TABLE + TABLE_PARADA
 			+ "("
-			+ KEY_ID + " INTEGER PRIMARY KEY,"
-			+ KEY_IDENTIFIER + " INTEGER,"
-			+ KEY_PARADA_LINEA_IDENTIFIER + " INTEGER,"
-			+ KEY_PARADA_NUMPARADA + " INTEGER,"
-			+ KEY_PARADA_WGS64LAT + " REAL,"
-			+ KEY_PARADA_WGS64LONG + " REAL,"
-			+ KEY_PARADA_COORDX + " REAL,"
-			+ KEY_PARADA_COORDY + " REAL,"
-			+ KEY_PARADA_NOMBRE + " TEXT,"
-			+ KEY_PARADA_LINEA_ID + " INTEGER,"
-			+ KEY_PARADA_FAVORITO + " INTEGER"
+			+ KEY_ID + INTEGER_PRIMARY_KEY
+			+ KEY_IDENTIFIER + INTEGER1
+			+ KEY_PARADA_LINEA_IDENTIFIER + INTEGER1
+			+ KEY_PARADA_NUMPARADA + INTEGER1
+			+ KEY_PARADA_WGS64LAT + REAL
+			+ KEY_PARADA_WGS64LONG + REAL
+			+ KEY_PARADA_COORDX + REAL
+			+ KEY_PARADA_COORDY + REAL
+			+ KEY_PARADA_NOMBRE + TEXT
+			+ KEY_PARADA_LINEA_ID + INTEGER1
+			+ KEY_PARADA_FAVORITO + INTEGER2
 			+ ")";
 
 	public DatabaseHelper(Context context, int dBVersion) {
@@ -146,8 +153,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 		values.put(KEY_COLOR_GREEN, color.getGreen());
 		values.put(KEY_COLOR_BLUE, color.getBlue());
 		// insert row
-		long color_id = db.insert(TABLE_COLOR, null, values);
-		return color_id;
+		return db.insert(TABLE_COLOR, null, values);
 	}
 
 	/*
@@ -238,8 +244,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 			values.put(KEY_LINEA_NUMERO, linea.getNumero());
 			values.put(KEY_LINEA_COLORID, color_id);
 			// insert row
-			long linea_id = db.insert(TABLE_LINEA, null, values);
-			return  linea_id;
+			return db.insert(TABLE_LINEA, null, values);
 		}
 	}
 	/*
@@ -345,9 +350,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 
 
 			// insert row
-
-			long parada_id = db.insert(TABLE_PARADA, null, values);
-			return  parada_id;
+			return  db.insert(TABLE_PARADA, null, values);
 
 		}
 	}
@@ -367,18 +370,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 
 			c.moveToFirst();
 
-			Parada parada = new Parada();
-			parada.setId(c.getInt(c.getColumnIndex(KEY_ID)));
-			parada.setIdentifier(c.getInt(c.getColumnIndex(KEY_IDENTIFIER)));
-			parada.setIdentifierLinea(c.getInt(c.getColumnIndex(KEY_PARADA_LINEA_IDENTIFIER)));
-			parada.setNumParada(c.getInt(c.getColumnIndex(KEY_PARADA_NUMPARADA)));
-			parada.setWgs64Lat((c.getDouble(c.getColumnIndex(KEY_PARADA_WGS64LAT))));
-			parada.setWgs64Long((c.getDouble(c.getColumnIndex(KEY_PARADA_WGS64LONG))));
-			parada.setCoordX((c.getDouble(c.getColumnIndex(KEY_PARADA_COORDX))));
-			parada.setCoordY((c.getDouble(c.getColumnIndex(KEY_PARADA_COORDY))));
-			parada.setNombre((c.getString(c.getColumnIndex(KEY_PARADA_NOMBRE))));
-			parada.setIdLinea((c.getInt(c.getColumnIndex(KEY_PARADA_LINEA_ID))));
-			parada.setFavorito((c.getInt(c.getColumnIndex(KEY_PARADA_FAVORITO))));
+			Parada parada = setDatosParada(c);
 
 			if(c != null)
 				c.close();
@@ -396,38 +388,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 		List<Parada> paradas = new ArrayList<Parada>();
 		String selectQuery = "SELECT  * FROM " + TABLE_PARADA;
 
-		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor c = null;
-		try{
-			c = db.rawQuery(selectQuery, null);
-		}catch(Exception e){
-			return null;
-		}
-
-		// looping through all rows and adding to list
-		if (c.moveToFirst()) {
-			do {
-				Parada parada = new Parada();
-				parada.setId(c.getInt(c.getColumnIndex(KEY_ID)));
-				parada.setIdentifier(c.getInt(c.getColumnIndex(KEY_IDENTIFIER)));
-				parada.setIdentifierLinea(c.getInt(c.getColumnIndex(KEY_PARADA_LINEA_IDENTIFIER)));
-				parada.setNumParada(c.getInt(c.getColumnIndex(KEY_PARADA_NUMPARADA)));
-				parada.setWgs64Lat((c.getDouble(c.getColumnIndex(KEY_PARADA_WGS64LAT))));
-				parada.setWgs64Long((c.getDouble(c.getColumnIndex(KEY_PARADA_WGS64LONG))));
-				parada.setCoordX((c.getDouble(c.getColumnIndex(KEY_PARADA_COORDX))));
-				parada.setCoordY((c.getDouble(c.getColumnIndex(KEY_PARADA_COORDY))));
-				parada.setNombre((c.getString(c.getColumnIndex(KEY_PARADA_NOMBRE))));
-				parada.setIdLinea((c.getInt(c.getColumnIndex(KEY_PARADA_LINEA_ID))));
-				parada.setFavorito((c.getInt(c.getColumnIndex(KEY_PARADA_FAVORITO))));
-
-
-				paradas.add(parada);
-			} while (c.moveToNext());
-		}
-		if(c != null)
-				c.close();
-
-		return paradas;
+		return setListaParadas(selectQuery, paradas);
 	}
 
 	/**
@@ -438,7 +399,26 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 
 		String selectQuery = "SELECT  * FROM " + TABLE_PARADA + " WHERE "+KEY_PARADA_FAVORITO+" == 1";
 
+		return setListaParadas(selectQuery, paradas);
+	}
 
+	public Parada setDatosParada(Cursor c){
+		Parada parada = new Parada();
+		parada.setId(c.getInt(c.getColumnIndex(KEY_ID)));
+		parada.setIdentifier(c.getInt(c.getColumnIndex(KEY_IDENTIFIER)));
+		parada.setIdentifierLinea(c.getInt(c.getColumnIndex(KEY_PARADA_LINEA_IDENTIFIER)));
+		parada.setNumParada(c.getInt(c.getColumnIndex(KEY_PARADA_NUMPARADA)));
+		parada.setWgs64Lat((c.getDouble(c.getColumnIndex(KEY_PARADA_WGS64LAT))));
+		parada.setWgs64Long((c.getDouble(c.getColumnIndex(KEY_PARADA_WGS64LONG))));
+		parada.setCoordX((c.getDouble(c.getColumnIndex(KEY_PARADA_COORDX))));
+		parada.setCoordY((c.getDouble(c.getColumnIndex(KEY_PARADA_COORDY))));
+		parada.setNombre((c.getString(c.getColumnIndex(KEY_PARADA_NOMBRE))));
+		parada.setIdLinea((c.getInt(c.getColumnIndex(KEY_PARADA_LINEA_ID))));
+		parada.setFavorito((c.getInt(c.getColumnIndex(KEY_PARADA_FAVORITO))));
+		return parada;
+	}
+
+	public List<Parada> setListaParadas(String selectQuery, List<Parada> paradas){
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor c = null;
 		try{
@@ -450,21 +430,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 		// looping through all rows and adding to list
 		if (c.moveToFirst()) {
 			do {
-				Parada parada = new Parada();
-				parada.setId(c.getInt(c.getColumnIndex(KEY_ID)));
-				parada.setIdentifier(c.getInt(c.getColumnIndex(KEY_IDENTIFIER)));
-				parada.setIdentifierLinea(c.getInt(c.getColumnIndex(KEY_PARADA_LINEA_IDENTIFIER)));
-				parada.setNumParada(c.getInt(c.getColumnIndex(KEY_PARADA_NUMPARADA)));
-				parada.setWgs64Lat((c.getDouble(c.getColumnIndex(KEY_PARADA_WGS64LAT))));
-				parada.setWgs64Long((c.getDouble(c.getColumnIndex(KEY_PARADA_WGS64LONG))));
-				parada.setCoordX((c.getDouble(c.getColumnIndex(KEY_PARADA_COORDX))));
-				parada.setCoordY((c.getDouble(c.getColumnIndex(KEY_PARADA_COORDY))));
-				parada.setNombre((c.getString(c.getColumnIndex(KEY_PARADA_NOMBRE))));
-				parada.setIdLinea((c.getInt(c.getColumnIndex(KEY_PARADA_LINEA_ID))));
-				parada.setFavorito((c.getInt(c.getColumnIndex(KEY_PARADA_FAVORITO))));
-
-
-				paradas.add(parada);
+				paradas.add(setDatosParada(c));
 			} while (c.moveToNext());
 		}
 		if(c != null)
@@ -502,37 +468,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 		List<Parada> paradas = new ArrayList<Parada>();
 		String selectQuery = "SELECT  * FROM " + TABLE_PARADA + " WHERE "+KEY_PARADA_LINEA_ID +" == "+linea_id;
 
-		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor c = null;
-		try{
-			c = db.rawQuery(selectQuery, null);
-		}catch(Exception e){
-			return null;
-		}
-
-		// looping through all rows and adding to list
-		if (c.moveToFirst()) {
-			do {
-				Parada parada = new Parada();
-				parada.setId(c.getInt(c.getColumnIndex(KEY_ID)));
-				parada.setIdentifier(c.getInt(c.getColumnIndex(KEY_IDENTIFIER)));
-				parada.setIdentifierLinea(c.getInt(c.getColumnIndex(KEY_PARADA_LINEA_IDENTIFIER)));
-				parada.setNumParada(c.getInt(c.getColumnIndex(KEY_PARADA_NUMPARADA)));
-				parada.setWgs64Lat((c.getDouble(c.getColumnIndex(KEY_PARADA_WGS64LAT))));
-				parada.setWgs64Long((c.getDouble(c.getColumnIndex(KEY_PARADA_WGS64LONG))));
-				parada.setCoordX((c.getDouble(c.getColumnIndex(KEY_PARADA_COORDX))));
-				parada.setCoordY((c.getDouble(c.getColumnIndex(KEY_PARADA_COORDY))));
-				parada.setNombre((c.getString(c.getColumnIndex(KEY_PARADA_NOMBRE))));
-				parada.setIdLinea((c.getInt(c.getColumnIndex(KEY_PARADA_LINEA_ID))));
-				parada.setFavorito((c.getInt(c.getColumnIndex(KEY_PARADA_FAVORITO))));
-
-
-				paradas.add(parada);
-			} while (c.moveToNext());
-		}
-		if(c != null)
-			c.close();
-		return paradas;
+		return setListaParadas(selectQuery, paradas);
 
 	}
 

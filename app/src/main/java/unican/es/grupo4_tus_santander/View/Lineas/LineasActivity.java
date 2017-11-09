@@ -29,7 +29,7 @@ import unican.es.grupo4_tus_santander.View.Paradas.ParadasActivity;
 public class LineasActivity extends AppCompatActivity  implements SearchView.OnQueryTextListener{
 
     private ListLineasPresenter listLineasPresenter;
-    private ProgressBar progressBar;
+    private ProgressBar progressBarLineas;
     private Context context;
 
 
@@ -40,7 +40,7 @@ public class LineasActivity extends AppCompatActivity  implements SearchView.OnQ
 
         this.context = getApplicationContext();
         setContentView(R.layout.activity_lineas);
-        this.progressBar=(ProgressBar)findViewById(R.id.progressLinea);
+        this.progressBarLineas=(ProgressBar)findViewById(R.id.progressLinea);
         this.listLineasPresenter = new ListLineasPresenter(getApplicationContext(),this);
 
     }//onCreate
@@ -109,18 +109,18 @@ public class LineasActivity extends AppCompatActivity  implements SearchView.OnQ
 
 
 
-    public void showProgress (boolean state, int tipo){
-        if(state)
+    public void showProgress (boolean stateLineas, int tipoLineas){
+        if(stateLineas)
         {
             Toast.makeText(getApplicationContext(), "Cargando datos", Toast.LENGTH_SHORT).show();
-            progressBar.setVisibility(View.VISIBLE);
+            progressBarLineas.setVisibility(View.VISIBLE);
         }else{
-            if(tipo == 1)
+            if(tipoLineas == 1)
                 Toast.makeText(getApplicationContext(), "Carga de datos exitosa", Toast.LENGTH_SHORT).show();
-            if(tipo == -1)
+            if(tipoLineas == -1)
                 Toast.makeText(getApplicationContext(), "Carga de datos fallida", Toast.LENGTH_SHORT).show();
 
-            progressBar.setVisibility(View.GONE);
+            progressBarLineas.setVisibility(View.GONE);
         }
     }
 

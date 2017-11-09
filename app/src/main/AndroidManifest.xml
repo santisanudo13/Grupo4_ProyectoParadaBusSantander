@@ -21,30 +21,36 @@
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".View.Favoritos.FavsActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_favs" />
         <activity
             android:name=".View.Lineas.LineasActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_lineas" />
         <activity
             android:name=".View.Paradas.ParadasActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_paradas" />
         <activity
             android:name=".View.Tarifas.TarifasActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_tarifas" />
         <activity
             android:name=".View.Restricciones.RestriccionesActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_restricciones" />
         <activity
             android:name=".View.Ajustes.AjustesActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_ajustes" />
         <activity
             android:name=".View.ServiciosAlternativos.ServiciosAlternativosActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_serviciosAlternativos" />
     </application>
 

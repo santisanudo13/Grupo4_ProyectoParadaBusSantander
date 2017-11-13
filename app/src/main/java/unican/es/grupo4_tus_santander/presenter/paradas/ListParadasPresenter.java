@@ -18,6 +18,7 @@ import unican.es.grupo4_tus_santander.view.paradas.ParadasActivity;
 public class ListParadasPresenter {
     ParadasActivity paradasActivity;
     private List<Parada> listaParadas;
+    private List<Parada> temp;
     private Context context;
 
     private int idLinea;
@@ -103,10 +104,11 @@ public class ListParadasPresenter {
     }
 
     public void filtra(String s){
+
         s=normaliza(s);
         String nombre;
         String numero;
-        List<Parada> temp = new ArrayList<>();
+        temp = new ArrayList<>();
         for(Parada x: listaParadas){
             nombre=normaliza(x.getNombre());
             numero=normaliza(x.getNumParada()+"");
@@ -116,7 +118,6 @@ public class ListParadasPresenter {
 
         }
         paradasActivity.showList(temp);
-
     }
 
     private String normaliza(String t){
@@ -124,5 +125,9 @@ public class ListParadasPresenter {
                 .replace('í','i').replace('ó','o')
                 .replace('ú','u');
 
+    }
+
+    public List<Parada> getTemp() {
+        return temp;
     }
 }// ListLineasPresenter

@@ -48,6 +48,7 @@ public class ParadasPresenterTest {
     @Test
     public void obtenParadasCorrecto(){
         when(db.getParadasByLinea(1)).thenReturn(p);
+
         ParadasActivity pa = mock(ParadasActivity.class);
         ListParadasPresenter p = new ListParadasPresenter(InstrumentationRegistry.getTargetContext(), pa);
         p.setDb(db);

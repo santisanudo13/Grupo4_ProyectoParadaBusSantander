@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="unican.es.grupo4_tus_santander">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+
+        <activity
+            android:name=".view.main.MainActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.favoritos.FavsActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_favs" />
+        <activity
+            android:name=".view.lineas.LineasActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_lineas" />
+        <activity
+            android:name=".view.paradas.ParadasActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_paradas" />
+        <activity
+            android:name=".view.tarifas.TarifasActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_tarifas" />
+        <activity
+            android:name=".view.restricciones.RestriccionesActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_restricciones" />
+        <activity
+            android:name=".view.ajustes.AjustesActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_ajustes" />
+        <activity
+            android:name=".view.serviciosalternativos.ServiciosAlternativosActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_serviciosAlternativos" />
+    </application>
+
+</manifest>

@@ -1,7 +1,9 @@
 package unican.es.grupo4_tus_santander.presenter.paradas;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,15 +103,26 @@ public class ListParadasPresenter {
     }
 
     public void filtra(String s){
+        s=normaliza(s);
+        String nombre;
+        String numero;
         List<Parada> temp = new ArrayList<>();
         for(Parada x: listaParadas){
-
-            if(x.getNombre().toLowerCase().contains(s.toLowerCase())||(x.getNumParada()+"").toLowerCase().contains(s.toLowerCase())){
+            nombre=normaliza(x.getNombre());
+            numero=normaliza(x.getNumParada()+"");
+            if(nombre.contains(s)||(numero.contains(s))){
                 temp.add(x);
             }
 
         }
         paradasActivity.showList(temp);
+
+    }
+
+    private String normaliza(String t){
+        return t.toLowerCase().replace('á','a').replace('é','e')
+                .replace('í','i').replace('ó','o')
+                .replace('ú','u');
 
     }
 }// ListLineasPresenter

@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.PruebasUnitarias.Lineas;
+package unican.es.grupo4_tus_santander.pruebasunitarias.lineas;
 
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
@@ -10,9 +10,9 @@ import org.junit.runner.RunWith;
 import java.util.ArrayList;
 import java.util.List;
 
-import unican.es.grupo4_tus_santander.Models.BaseDatos.helper.DatabaseHelper;
-import unican.es.grupo4_tus_santander.Models.Pojos.Color;
-import unican.es.grupo4_tus_santander.Models.Pojos.Linea;
+import unican.es.grupo4_tus_santander.models.basedatos.helper.DatabaseHelper;
+import unican.es.grupo4_tus_santander.models.pojos.Color;
+import unican.es.grupo4_tus_santander.models.pojos.Linea;
 
 import static org.junit.Assert.*;
 

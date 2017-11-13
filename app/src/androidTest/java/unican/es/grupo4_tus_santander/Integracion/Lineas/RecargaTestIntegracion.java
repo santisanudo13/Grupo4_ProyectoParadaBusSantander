@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.Integracion.Lineas;
+package unican.es.grupo4_tus_santander.integracion.lineas;
 
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
@@ -11,12 +11,10 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 
-import unican.es.grupo4_tus_santander.Models.BaseDatos.helper.DatabaseHelper;
-import unican.es.grupo4_tus_santander.Models.Pojos.Linea;
-import unican.es.grupo4_tus_santander.Presenter.Lineas.RecargaBaseDatosLineas;
-import unican.es.grupo4_tus_santander.Presenter.Main.RecargaBaseDatosMenu;
-import unican.es.grupo4_tus_santander.View.Lineas.LineasActivity;
-import unican.es.grupo4_tus_santander.View.Main.MainActivity;
+import unican.es.grupo4_tus_santander.models.basedatos.helper.DatabaseHelper;
+import unican.es.grupo4_tus_santander.models.pojos.Linea;
+import unican.es.grupo4_tus_santander.presenter.lineas.RecargaBaseDatosLineas;
+import unican.es.grupo4_tus_santander.view.lineas.LineasActivity;
 
 import static org.mockito.Mockito.mock;
 

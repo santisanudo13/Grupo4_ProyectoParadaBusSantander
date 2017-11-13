@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.Presenter.Paradas;
+package unican.es.grupo4_tus_santander.presenter.paradas;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -6,15 +6,15 @@ import android.net.ConnectivityManager;
 import java.util.ArrayList;
 import java.util.List;
 
-import unican.es.grupo4_tus_santander.Models.BaseDatos.helper.DatabaseHelper;
-import unican.es.grupo4_tus_santander.Models.Pojos.Color;
-import unican.es.grupo4_tus_santander.Models.Pojos.Linea;
-import unican.es.grupo4_tus_santander.Models.Pojos.Parada;
-import unican.es.grupo4_tus_santander.Models.Pojos.ParadaConNombre;
-import unican.es.grupo4_tus_santander.Models.WebService.DataLoaders.ParserJSON;
-import unican.es.grupo4_tus_santander.Models.WebService.DataLoaders.RemoteFetch;
-import unican.es.grupo4_tus_santander.Presenter.Paradas.AsyncTasks.GetDataServicioParadas;
-import unican.es.grupo4_tus_santander.View.Paradas.ParadasActivity;
+import unican.es.grupo4_tus_santander.models.basedatos.helper.DatabaseHelper;
+import unican.es.grupo4_tus_santander.models.pojos.Color;
+import unican.es.grupo4_tus_santander.models.pojos.Linea;
+import unican.es.grupo4_tus_santander.models.pojos.Parada;
+import unican.es.grupo4_tus_santander.models.pojos.ParadaConNombre;
+import unican.es.grupo4_tus_santander.models.webservice.dataloaders.ParserJSON;
+import unican.es.grupo4_tus_santander.models.webservice.dataloaders.RemoteFetch;
+import unican.es.grupo4_tus_santander.presenter.paradas.asynctasks.GetDataServicioParadas;
+import unican.es.grupo4_tus_santander.view.paradas.ParadasActivity;
 
 
 public class RecargaBaseDatosParadas {

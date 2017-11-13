@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.Models.Pojos;
+package unican.es.grupo4_tus_santander.models.pojos;
 
 /**
  * Created by Tiago on 26/10/2017.

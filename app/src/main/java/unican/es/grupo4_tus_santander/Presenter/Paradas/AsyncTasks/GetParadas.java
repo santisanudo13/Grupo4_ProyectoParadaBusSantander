@@ -1,9 +1,8 @@
-package unican.es.grupo4_tus_santander.Presenter.Paradas.AsyncTasks;
+package unican.es.grupo4_tus_santander.presenter.paradas.asynctasks;
 
 import android.os.AsyncTask;
 
-import unican.es.grupo4_tus_santander.Presenter.Lineas.ListLineasPresenter;
-import unican.es.grupo4_tus_santander.Presenter.Paradas.ListParadasPresenter;
+import unican.es.grupo4_tus_santander.presenter.paradas.ListParadasPresenter;
 
 /**
  * Created by Luis on 30/10/17.

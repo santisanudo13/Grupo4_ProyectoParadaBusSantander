@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.View.Restricciones;
+package unican.es.grupo4_tus_santander.view.restricciones;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

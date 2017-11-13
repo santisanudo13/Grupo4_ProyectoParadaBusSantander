@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.Models.WebService.DataLoaders;
+package unican.es.grupo4_tus_santander.models.webservice.dataloaders;
 
 
 import java.io.BufferedInputStream;

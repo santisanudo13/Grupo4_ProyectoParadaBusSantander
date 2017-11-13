@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.Aceptacion.Main;
+package unican.es.grupo4_tus_santander.aceptacion.main;
 
 
 import android.support.test.espresso.DataInteraction;
@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -21,12 +20,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import unican.es.grupo4_tus_santander.R;
-import unican.es.grupo4_tus_santander.View.Main.MainActivity;
+import unican.es.grupo4_tus_santander.view.main.MainActivity;
 
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;

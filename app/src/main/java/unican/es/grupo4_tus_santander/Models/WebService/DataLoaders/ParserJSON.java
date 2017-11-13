@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.Models.WebService.DataLoaders;
+package unican.es.grupo4_tus_santander.models.webservice.dataloaders;
 
 import android.util.JsonReader;
 
@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import unican.es.grupo4_tus_santander.Models.Pojos.*;
+import unican.es.grupo4_tus_santander.models.pojos.*;
 
 
 /**
@@ -24,13 +24,17 @@ public class ParserJSON{
      * @return Lista con todas las lineas
      * @throws IOException
      */
+    private static final String UTF8 = "UTF-8";
+    private static final String RESOURCES = "resources";
+    private static final String DCID = "dc:identifier";
+
     public static List<Linea> readArrayLineasBus (InputStream in) throws IOException {
-            JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
-            List<Linea> listLineasBus = new ArrayList<Linea>();
+            JsonReader reader = new JsonReader(new InputStreamReader(in, UTF8));
+            List<Linea> listLineasBus = new ArrayList<>();
             reader.beginObject(); //summary y resources
             while (reader.hasNext()){
                     String name = reader.nextName();
-                    if(name.equals ("resources")){
+                    if(name.equals (RESOURCES)){
                         reader.beginArray(); //cada elemento del array es un object
                         while(reader.hasNext())
                             listLineasBus.add(readLinea(reader));
@@ -55,7 +59,7 @@ public class ParserJSON{
             String n = reader.nextName();
             if (n.equals("ayto:numero")) {
                 numero = reader.nextString();
-            } else if (n.equals("dc:identifier")) {
+            } else if (n.equals(DCID)) {
                 identifier = reader.nextInt();
             } else if (n.equals("dc:name")) {
                 name = reader.nextString();
@@ -68,12 +72,12 @@ public class ParserJSON{
     }
 
     public static List<Parada> readArrayParadas(InputStream in) throws IOException {
-        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
-        List<Parada> listParadasJson = new ArrayList<Parada>();
+        JsonReader reader = new JsonReader(new InputStreamReader(in, UTF8));
+        List<Parada> listParadasJson = new ArrayList<>();
         reader.beginObject(); //summary y resources
         while (reader.hasNext()){
             String name = reader.nextName();
-            if(name.equals ("resources")){
+            if(name.equals (RESOURCES)){
                 reader.beginArray(); //cada elemento del array es un object
                 while(reader.hasNext())
                     listParadasJson.add(readParada(reader));
@@ -108,7 +112,7 @@ public class ParserJSON{
                 wgs64Lat = reader.nextDouble();
             }else if (n.equals("ayto:parada")) {
                 numParada = reader.nextInt();
-            }else if (n.equals("dc:identifier")) {
+            }else if (n.equals(DCID)) {
                 identifier = reader.nextInt();
             }else {
                 reader.skipValue();
@@ -120,12 +124,12 @@ public class ParserJSON{
     }
 
     public static List<ParadaConNombre> readArrayParadasConNombre (InputStream in) throws IOException {
-        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
-        List<ParadaConNombre> listParadasJson = new ArrayList<ParadaConNombre>();
+        JsonReader reader = new JsonReader(new InputStreamReader(in, UTF8));
+        List<ParadaConNombre> listParadasJson = new ArrayList<>();
         reader.beginObject(); //summary y resources
         while (reader.hasNext()){
             String name = reader.nextName();
-            if(name.equals ("resources")){
+            if(name.equals (RESOURCES)){
                 reader.beginArray(); //cada elemento del array es un object
                 while(reader.hasNext())
                     listParadasJson.add(readParadaConNombre(reader));
@@ -147,7 +151,7 @@ public class ParserJSON{
             String n = reader.nextName();
             if (n.equals("ayto:parada")) {
                 parada = reader.nextString();
-            }else if (n.equals("dc:identifier")) {
+            }else if (n.equals(DCID)) {
                 identifier = reader.nextInt();
             }else if (n.equals("ayto:numero")) {
                 numero = reader.nextInt();

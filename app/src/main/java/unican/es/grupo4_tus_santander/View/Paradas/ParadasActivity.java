@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.View.Paradas;
+package unican.es.grupo4_tus_santander.view.paradas;
 
 
 import android.content.Context;
@@ -14,8 +14,8 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import unican.es.grupo4_tus_santander.Models.Pojos.Parada;
-import unican.es.grupo4_tus_santander.Presenter.Paradas.ListParadasPresenter;
+import unican.es.grupo4_tus_santander.models.pojos.Parada;
+import unican.es.grupo4_tus_santander.presenter.paradas.ListParadasPresenter;
 
 import unican.es.grupo4_tus_santander.R;
 

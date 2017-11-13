@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.View.Tarifas;
+package unican.es.grupo4_tus_santander.view.tarifas;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

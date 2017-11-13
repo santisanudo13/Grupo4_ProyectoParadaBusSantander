@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.Models.BaseDatos.helper;
+package unican.es.grupo4_tus_santander.models.basedatos.helper;
 
 
 
@@ -11,7 +11,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import unican.es.grupo4_tus_santander.Models.Pojos.*;
+import unican.es.grupo4_tus_santander.models.pojos.*;
 
 public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterface {
 
@@ -34,7 +34,6 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 	public static final String KEY_COLOR_BLUE = "blue";
 
 	// LINEA Table - column names
-	int idColor;
 	private static final String KEY_LINEA_NAME = "name";
 	private static final String KEY_LINEA_NUMERO = "numero";
 	private static final String KEY_LINEA_COLORID = "colorID";
@@ -57,6 +56,9 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 	private static final String TEXT = " TEXT,";
 	private static final String REAL = " REAL,";
 	private static final String CREATE_TABLE = "CREATE TABLE ";
+	private static final String WHERE = " WHERE ";
+	private static final String SELECT = "SELECT * FROM ";
+	private static final String DROP = "DROP TABLE IF EXISTS ";
 
 
 	// Table Create Statements
@@ -106,9 +108,9 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 		// on upgrade drop older tables
 		SQLiteDatabase db = this.getWritableDatabase();
 
-		db.execSQL("DROP TABLE IF EXISTS " + TABLE_COLOR);
-		db.execSQL("DROP TABLE IF EXISTS " + TABLE_LINEA);
-		db.execSQL("DROP TABLE IF EXISTS " + TABLE_PARADA);
+		db.execSQL(DROP + TABLE_COLOR);
+		db.execSQL(DROP + TABLE_LINEA);
+		db.execSQL(DROP + TABLE_PARADA);
 
 		// create new tables
 		onCreate(db);
@@ -125,9 +127,9 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		// on upgrade drop older tables
-		db.execSQL("DROP TABLE IF EXISTS " + TABLE_COLOR);
-		db.execSQL("DROP TABLE IF EXISTS " + TABLE_LINEA);
-		db.execSQL("DROP TABLE IF EXISTS " + TABLE_PARADA);
+		db.execSQL(DROP + TABLE_COLOR);
+		db.execSQL(DROP + TABLE_LINEA);
+		db.execSQL(DROP + TABLE_PARADA);
 		// create new tables
 		onCreate(db);
 	}
@@ -159,10 +161,10 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 	/*
 	 * get single color
 	 */
-	public Color getColor(long color_id) {
+	public Color getColor(long colorID) {
 		SQLiteDatabase db = this.getReadableDatabase();
-		String selectQuery = "SELECT  * FROM " + TABLE_COLOR + " WHERE "
-				+ KEY_ID + " = " + color_id;
+		String selectQuery = SELECT + TABLE_COLOR + WHERE
+				+ KEY_ID + " = " + colorID;
 
 		Cursor c;
 		try{
@@ -176,8 +178,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 			color.setRed((c.getInt(c.getColumnIndex(KEY_COLOR_RED))));
 			color.setGreen((c.getInt(c.getColumnIndex(KEY_COLOR_GREEN))));
 			color.setBlue((c.getInt(c.getColumnIndex(KEY_COLOR_BLUE))));
-			if(c != null)
-				c.close();
+			c.close();
 			return color;
 		}catch(Exception e){
 			return null;
@@ -188,15 +189,15 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 	 * getting all color
 	 * */
 	public List<Color> getAllColor() {
-		List<Color> colores = new ArrayList<Color>();
-		String selectQuery = "SELECT  * FROM " + TABLE_COLOR;
+		List<Color> colores = new ArrayList<>();
+		String selectQuery = SELECT + TABLE_COLOR;
 
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor c = null;
 		try{
 			c = db.rawQuery(selectQuery, null);
 		}catch(Exception e){
-			return null;
+			return new ArrayList<>();
 		}
 
 		// looping through all rows and adding to list
@@ -212,8 +213,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 				colores.add(color);
 			} while (c.moveToNext());
 		}
-		if(c != null)
-				c.close();
+		c.close();
 
 		return colores;
 	}
@@ -223,12 +223,12 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 	/*
 	 * Creating linea
 	 */
-	public long createLinea(Linea linea, long color_id) {
+	public long createLinea(Linea linea, long colorID) {
 		List<Color> colores = getAllColor();
 
 		Color color = null;
 		for(Color c: colores){
-			if(c.getId() == color_id){
+			if(c.getId() == colorID){
 				color = c;
 				break;
 			}
@@ -242,7 +242,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 			values.put(KEY_IDENTIFIER, linea.getIdentifier());
 			values.put(KEY_LINEA_NAME, linea.getName());
 			values.put(KEY_LINEA_NUMERO, linea.getNumero());
-			values.put(KEY_LINEA_COLORID, color_id);
+			values.put(KEY_LINEA_COLORID, colorID);
 			// insert row
 			return db.insert(TABLE_LINEA, null, values);
 		}
@@ -250,11 +250,11 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 	/*
 	 * get single color
 	 */
-	public Linea getLinea(long linea_id) {
+	public Linea getLinea(long lineaID) {
 		SQLiteDatabase db = this.getReadableDatabase();
 
-		String selectQuery = "SELECT  * FROM " + TABLE_LINEA + " WHERE "
-				+ KEY_ID + " = " + linea_id;
+		String selectQuery = SELECT + TABLE_LINEA + WHERE
+				+ KEY_ID + " = " + lineaID;
 		Cursor c;
 		try{
 			c = db.rawQuery(selectQuery, null);
@@ -267,9 +267,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 			linea.setName(c.getString(c.getColumnIndex(KEY_LINEA_NAME)));
 			linea.setNumero(c.getString(c.getColumnIndex(KEY_LINEA_NUMERO)));
 			linea.setIdColor(c.getInt((c.getColumnIndex(KEY_LINEA_COLORID))));
-
-			if(c != null)
-				c.close();
+			c.close();
 			return linea;
 		}catch(Exception e){
 			return null;
@@ -279,8 +277,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 	 * getting all linea
 	 * */
 	public List<Linea> getAllLinea() {
-		List<Linea> lineas = new ArrayList<Linea>();
-		String selectQuery = "SELECT  * FROM " + TABLE_LINEA;
+		List<Linea> lineas = new ArrayList<>();
+		String selectQuery = SELECT + TABLE_LINEA;
 
 
 		SQLiteDatabase db = this.getReadableDatabase();
@@ -288,7 +286,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 		try{
 			c = db.rawQuery(selectQuery, null);
 		}catch(Exception e){
-			return null;
+			return new ArrayList<>();
 		}
 
 		// looping through all rows and adding to list
@@ -306,9 +304,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 				lineas.add(linea);
 			} while (c.moveToNext());
 
-		}		
-		if(c != null)
-				c.close();
+		}
+		c.close();
 		return lineas;
 	}
 
@@ -319,13 +316,13 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 	/*
 	 * Creating a parada
 	 */
-	public long createParada(Parada parada, long id_linea) {
+	public long createParada(Parada parada, long lineaID) {
 		List<Linea> lineas = getAllLinea();
 
 		Linea linea = null;
 
 		for(Linea l: lineas){
-			if(l.getId() == id_linea){
+			if(l.getId() == lineaID){
 				linea = l;
 				break;
 			}
@@ -345,7 +342,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 			values.put(KEY_PARADA_WGS64LAT, parada.getWgs64Lat());
 			values.put(KEY_PARADA_WGS64LONG, parada.getWgs64Long());
 			values.put(KEY_PARADA_NOMBRE, parada.getNombre());
-			values.put(KEY_PARADA_LINEA_ID, id_linea);
+			values.put(KEY_PARADA_LINEA_ID, lineaID);
 			values.put(KEY_PARADA_FAVORITO, 0);
 
 
@@ -358,10 +355,10 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 	/*
 	 * get single parada
 	 */
-	public Parada getParada(long parada_id) {
+	public Parada getParada(long paradaID) {
 		SQLiteDatabase db = this.getReadableDatabase();
-		String selectQuery = "SELECT  * FROM " + TABLE_PARADA + " WHERE "
-				+ KEY_ID + " = " + parada_id;
+		String selectQuery = SELECT + TABLE_PARADA + WHERE
+				+ KEY_ID + " = " + paradaID;
 
 		Cursor c = null;
 		try{
@@ -372,8 +369,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 
 			Parada parada = setDatosParada(c);
 
-			if(c != null)
-				c.close();
+			c.close();
 			return parada;
 		}catch(Exception e){
 			return null;
@@ -385,8 +381,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 	 * getting all paradas
 	 * */
 	public List<Parada> getAllParada() {
-		List<Parada> paradas = new ArrayList<Parada>();
-		String selectQuery = "SELECT  * FROM " + TABLE_PARADA;
+		List<Parada> paradas = new ArrayList<>();
+		String selectQuery = SELECT + TABLE_PARADA;
 
 		return setListaParadas(selectQuery, paradas);
 	}
@@ -395,9 +391,9 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 	 * getting all paradas
 	 * */
 	public List<Parada> getAllParadasFavoritos() {
-		List<Parada> paradas = new ArrayList<Parada>();
+		List<Parada> paradas = new ArrayList<>();
 
-		String selectQuery = "SELECT  * FROM " + TABLE_PARADA + " WHERE "+KEY_PARADA_FAVORITO+" == 1";
+		String selectQuery = SELECT + TABLE_PARADA + " WHERE "+KEY_PARADA_FAVORITO+" == 1";
 
 		return setListaParadas(selectQuery, paradas);
 	}
@@ -424,7 +420,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 		try{
 			c = db.rawQuery(selectQuery, null);
 		}catch(Exception e){
-			return null;
+			return new ArrayList<>();
 		}
 
 		// looping through all rows and adding to list
@@ -433,14 +429,13 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 				paradas.add(setDatosParada(c));
 			} while (c.moveToNext());
 		}
-		if(c != null)
-			c.close();
+		c.close();
 		return paradas;
 	}
 
-	public Color getColorByLinea(long linea_id){
+	public Color getColorByLinea(long lineaID){
 		Linea linea = null;
-		linea = getLinea(linea_id);
+		linea = getLinea(lineaID);
 		if(linea == null){
 			return null;
 		}
@@ -451,9 +446,9 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 		return c;
 	}
 
-	public Linea getLineaByParada(long parada_id){
+	public Linea getLineaByParada(long paradaID){
 		Parada parada = null;
-		parada = getParada(parada_id);
+		parada = getParada(paradaID);
 		if(parada == null)
 			return null;
 		Linea linea = null;
@@ -463,10 +458,10 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 
 	}
 
-	public List<Parada> getParadasByLinea(long linea_id){
+	public List<Parada> getParadasByLinea(long lineaID){
 
-		List<Parada> paradas = new ArrayList<Parada>();
-		String selectQuery = "SELECT  * FROM " + TABLE_PARADA + " WHERE "+KEY_PARADA_LINEA_ID +" == "+linea_id;
+		List<Parada> paradas = new ArrayList<>();
+		String selectQuery = SELECT + TABLE_PARADA + WHERE + KEY_PARADA_LINEA_ID + " == " +lineaID;
 
 		return setListaParadas(selectQuery, paradas);
 

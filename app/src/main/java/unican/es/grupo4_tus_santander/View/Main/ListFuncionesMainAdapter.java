@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.View.Main;
+package unican.es.grupo4_tus_santander.view.main;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

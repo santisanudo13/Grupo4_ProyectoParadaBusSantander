@@ -1,7 +1,6 @@
-package unican.es.grupo4_tus_santander.Aceptacion.Lineas;
+package unican.es.grupo4_tus_santander.aceptacion.lineas;
 
 
-import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.DataInteraction;
 import android.support.test.espresso.assertion.ViewAssertions;
 import android.support.test.rule.ActivityTestRule;
@@ -11,27 +10,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
-import unican.es.grupo4_tus_santander.Models.BaseDatos.helper.DatabaseHelper;
-import unican.es.grupo4_tus_santander.Models.WebService.DataLoaders.RemoteFetch;
+import unican.es.grupo4_tus_santander.models.basedatos.helper.DatabaseHelper;
+import unican.es.grupo4_tus_santander.models.webservice.dataloaders.RemoteFetch;
 import unican.es.grupo4_tus_santander.R;
-import unican.es.grupo4_tus_santander.View.Lineas.LineasActivity;
-import unican.es.grupo4_tus_santander.View.Main.MainActivity;
+import unican.es.grupo4_tus_santander.view.main.MainActivity;
 
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
@@ -41,9 +33,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)

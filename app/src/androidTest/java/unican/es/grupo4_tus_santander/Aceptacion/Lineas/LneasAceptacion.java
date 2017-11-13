@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.Aceptacion.Lineas;
+package unican.es.grupo4_tus_santander.aceptacion.lineas;
 
 
 import android.support.test.espresso.DataInteraction;
@@ -15,13 +15,12 @@ import android.widget.ListView;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import org.hamcrest.core.IsInstanceOf;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import unican.es.grupo4_tus_santander.R;
-import unican.es.grupo4_tus_santander.View.Main.MainActivity;
+import unican.es.grupo4_tus_santander.view.main.MainActivity;
 
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;

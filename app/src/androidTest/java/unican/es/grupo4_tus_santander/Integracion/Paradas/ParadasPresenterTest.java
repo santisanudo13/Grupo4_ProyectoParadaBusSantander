@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.Integracion.Paradas;
+package unican.es.grupo4_tus_santander.integracion.paradas;
 
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
@@ -7,15 +7,12 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import unican.es.grupo4_tus_santander.Models.BaseDatos.helper.DatabaseHelper;
-import unican.es.grupo4_tus_santander.Models.Pojos.Color;
-import unican.es.grupo4_tus_santander.Models.Pojos.Linea;
-import unican.es.grupo4_tus_santander.Models.Pojos.Parada;
-import unican.es.grupo4_tus_santander.Presenter.Paradas.ListParadasPresenter;
-import unican.es.grupo4_tus_santander.View.Paradas.ParadasActivity;
+import unican.es.grupo4_tus_santander.models.basedatos.helper.DatabaseHelper;
+import unican.es.grupo4_tus_santander.models.pojos.Color;
+import unican.es.grupo4_tus_santander.models.pojos.Linea;
+import unican.es.grupo4_tus_santander.models.pojos.Parada;
+import unican.es.grupo4_tus_santander.presenter.paradas.ListParadasPresenter;
+import unican.es.grupo4_tus_santander.view.paradas.ParadasActivity;
 
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;

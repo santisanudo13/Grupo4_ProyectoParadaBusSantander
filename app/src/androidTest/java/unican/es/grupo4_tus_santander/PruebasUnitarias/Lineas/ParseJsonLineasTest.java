@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.PruebasUnitarias.Lineas;
+package unican.es.grupo4_tus_santander.pruebasunitarias.lineas;
 
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
@@ -9,10 +9,10 @@ import org.junit.runner.RunWith;
 import java.io.InputStream;
 import java.util.List;
 
-import unican.es.grupo4_tus_santander.Models.Pojos.Linea;
-import unican.es.grupo4_tus_santander.Models.Pojos.Parada;
-import unican.es.grupo4_tus_santander.Models.Pojos.ParadaConNombre;
-import unican.es.grupo4_tus_santander.Models.WebService.DataLoaders.ParserJSON;
+import unican.es.grupo4_tus_santander.models.pojos.Linea;
+import unican.es.grupo4_tus_santander.models.pojos.Parada;
+import unican.es.grupo4_tus_santander.models.pojos.ParadaConNombre;
+import unican.es.grupo4_tus_santander.models.webservice.dataloaders.ParserJSON;
 import unican.es.grupo4_tus_santander.R;
 
 import static junit.framework.Assert.assertEquals;

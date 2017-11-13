@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.View.Main;
+package unican.es.grupo4_tus_santander.view.main;
 
 
 import android.content.Context;
@@ -14,15 +14,15 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
-import unican.es.grupo4_tus_santander.Presenter.Main.MainPresenter;
+import unican.es.grupo4_tus_santander.presenter.main.MainPresenter;
 import unican.es.grupo4_tus_santander.R;
-import unican.es.grupo4_tus_santander.View.Ajustes.AjustesActivity;
-import unican.es.grupo4_tus_santander.View.Favoritos.FavsActivity;
-import unican.es.grupo4_tus_santander.View.Lineas.LineasActivity;
-import unican.es.grupo4_tus_santander.View.Paradas.ParadasActivity;
-import unican.es.grupo4_tus_santander.View.Restricciones.RestriccionesActivity;
-import unican.es.grupo4_tus_santander.View.ServiciosAlternativos.ServiciosAlternativosActivity;
-import unican.es.grupo4_tus_santander.View.Tarifas.TarifasActivity;
+import unican.es.grupo4_tus_santander.view.ajustes.AjustesActivity;
+import unican.es.grupo4_tus_santander.view.favoritos.FavsActivity;
+import unican.es.grupo4_tus_santander.view.lineas.LineasActivity;
+import unican.es.grupo4_tus_santander.view.paradas.ParadasActivity;
+import unican.es.grupo4_tus_santander.view.restricciones.RestriccionesActivity;
+import unican.es.grupo4_tus_santander.view.serviciosalternativos.ServiciosAlternativosActivity;
+import unican.es.grupo4_tus_santander.view.tarifas.TarifasActivity;
 
 public class MainActivity extends AppCompatActivity {
 

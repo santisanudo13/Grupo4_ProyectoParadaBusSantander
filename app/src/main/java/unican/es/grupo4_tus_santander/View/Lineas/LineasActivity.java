@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.View.Lineas;
+package unican.es.grupo4_tus_santander.view.lineas;
 
 
 
@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,11 +18,11 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import unican.es.grupo4_tus_santander.Models.Pojos.Linea;
-import unican.es.grupo4_tus_santander.Presenter.Lineas.RecargaBaseDatosLineas;
-import unican.es.grupo4_tus_santander.Presenter.Lineas.ListLineasPresenter;
+import unican.es.grupo4_tus_santander.models.pojos.Linea;
+import unican.es.grupo4_tus_santander.presenter.lineas.RecargaBaseDatosLineas;
+import unican.es.grupo4_tus_santander.presenter.lineas.ListLineasPresenter;
 import unican.es.grupo4_tus_santander.R;
-import unican.es.grupo4_tus_santander.View.Paradas.ParadasActivity;
+import unican.es.grupo4_tus_santander.view.paradas.ParadasActivity;
 
 
 public class LineasActivity extends AppCompatActivity  implements SearchView.OnQueryTextListener{

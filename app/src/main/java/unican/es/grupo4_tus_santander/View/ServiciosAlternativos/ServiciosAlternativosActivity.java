@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.View.ServiciosAlternativos;
+package unican.es.grupo4_tus_santander.view.serviciosalternativos;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

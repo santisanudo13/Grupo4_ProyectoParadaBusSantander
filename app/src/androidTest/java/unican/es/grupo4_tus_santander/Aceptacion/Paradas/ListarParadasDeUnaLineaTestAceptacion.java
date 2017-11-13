@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.Aceptacion.Paradas;
+package unican.es.grupo4_tus_santander.aceptacion.paradas;
 
 
 import android.support.test.espresso.DataInteraction;
@@ -18,14 +18,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import unican.es.grupo4_tus_santander.R;
-import unican.es.grupo4_tus_santander.View.Main.MainActivity;
+import unican.es.grupo4_tus_santander.view.main.MainActivity;
 
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static android.support.test.espresso.action.ViewActions.pressImeActionButton;
-import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;

@@ -1,8 +1,8 @@
-package unican.es.grupo4_tus_santander.Presenter.Main.AsyncTasks;
+package unican.es.grupo4_tus_santander.presenter.main.asynctasks;
 
 import android.os.AsyncTask;
 
-import unican.es.grupo4_tus_santander.Presenter.Main.RecargaBaseDatosMenu;
+import unican.es.grupo4_tus_santander.presenter.main.RecargaBaseDatosMenu;
 
 /**
  * Created by Tiago on 30/10/17.

@@ -1,16 +1,13 @@
-package unican.es.grupo4_tus_santander.PruebasUnitarias.Main;
+package unican.es.grupo4_tus_santander.pruebasunitarias.main;
 import android.support.test.InstrumentationRegistry;
-import android.support.test.espresso.assertion.ViewAssertions;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import unican.es.grupo4_tus_santander.Presenter.Main.RecargaBaseDatosMenu;
-import unican.es.grupo4_tus_santander.R;
-import unican.es.grupo4_tus_santander.View.Main.MainActivity;
+import unican.es.grupo4_tus_santander.presenter.main.RecargaBaseDatosMenu;
+import unican.es.grupo4_tus_santander.view.main.MainActivity;
 
-import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static junit.framework.Assert.assertTrue;

@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.Presenter.Lineas;
+package unican.es.grupo4_tus_santander.presenter.lineas;
 
 import android.content.Context;
 import android.util.Log;
@@ -6,10 +6,10 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-import unican.es.grupo4_tus_santander.Models.BaseDatos.helper.DatabaseHelper;
-import unican.es.grupo4_tus_santander.Models.Pojos.Linea;
-import unican.es.grupo4_tus_santander.Presenter.Lineas.AsyncTasks.getLineas;
-import unican.es.grupo4_tus_santander.View.Lineas.LineasActivity;
+import unican.es.grupo4_tus_santander.models.basedatos.helper.DatabaseHelper;
+import unican.es.grupo4_tus_santander.models.pojos.Linea;
+import unican.es.grupo4_tus_santander.presenter.lineas.asynctasks.GetLineas;
+import unican.es.grupo4_tus_santander.view.lineas.LineasActivity;
 
 
 
@@ -31,7 +31,7 @@ public class ListLineasPresenter {
         this.context = context;
         this.listaLineasBus=new ArrayList<>();
         this.ld = new DatabaseHelper(this.context,1);
-        if(ld.getAllColor().size()==0){
+        if(ld.getAllColor().isEmpty()){
             r = new RecargaBaseDatosLineas(context,listLineasView);
             r.start();
         }
@@ -39,7 +39,7 @@ public class ListLineasPresenter {
     }// ListLineasPresenter
 
     public void start(){
-        new getLineas().execute(this);
+        new GetLineas().execute(this);
 
     }// start
 
@@ -55,7 +55,7 @@ public class ListLineasPresenter {
 
         try {
             listaLineasBus=ld.getAllLinea();
-            if( listaLineasBus==null || listaLineasBus.size()==0){
+            if( listaLineasBus==null || listaLineasBus.isEmpty()){
                 return false;
             }
             ld.closeDB();

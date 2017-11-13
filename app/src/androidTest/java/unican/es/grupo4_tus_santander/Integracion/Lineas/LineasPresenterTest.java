@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.Integracion.Lineas;
+package unican.es.grupo4_tus_santander.integracion.lineas;
 
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
@@ -10,16 +10,15 @@ import org.junit.runner.RunWith;
 import java.util.ArrayList;
 import java.util.List;
 
-import unican.es.grupo4_tus_santander.Models.BaseDatos.helper.DatabaseHelper;
-import unican.es.grupo4_tus_santander.Models.Pojos.Color;
-import unican.es.grupo4_tus_santander.Models.Pojos.Linea;
-import unican.es.grupo4_tus_santander.Presenter.Lineas.ListLineasPresenter;
-import unican.es.grupo4_tus_santander.View.Lineas.LineasActivity;
+import unican.es.grupo4_tus_santander.models.basedatos.helper.DatabaseHelper;
+import unican.es.grupo4_tus_santander.models.pojos.Color;
+import unican.es.grupo4_tus_santander.models.pojos.Linea;
+import unican.es.grupo4_tus_santander.presenter.lineas.ListLineasPresenter;
+import unican.es.grupo4_tus_santander.view.lineas.LineasActivity;
 
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
  * Created by Luis on 30/10/17.

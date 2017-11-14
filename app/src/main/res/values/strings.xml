@@ -11,5 +11,6 @@
     <string name="title_activity_restricciones">Restricciones</string>
     <string name="title_activity_ajustes">Ajustes</string>
     <string name="title_activity_serviciosAlternativos">Transportes Alternativos</string>
+    <string name="cargando">Cargando</string>
+    <string name="no_encontrado">No hay resultados</string>
 </resources>
-

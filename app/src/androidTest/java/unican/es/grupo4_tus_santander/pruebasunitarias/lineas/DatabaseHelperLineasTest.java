@@ -169,13 +169,10 @@ public class DatabaseHelperLineasTest {
 
         List<Linea> t= cd.getAllLinea();
 
-        for (int i =0;i<t.size();i++) {
-            assertEquals(t.get(i).getIdentifier(),cd.getLinea(l_ids.get(i)).getIdentifier());
-            assertEquals(t.get(i).getName(),cd.getLinea(l_ids.get(i)).getName());
-            assertEquals(t.get(i).getNumero(),cd.getLinea(l_ids.get(i)).getNumero());
-            assertEquals(t.get(i).getIdColor(),cd.getLinea(l_ids.get(i)).getIdColor());
 
-        }
+        assertEquals(t.size(),4);
+
+
     }
 
     @Test

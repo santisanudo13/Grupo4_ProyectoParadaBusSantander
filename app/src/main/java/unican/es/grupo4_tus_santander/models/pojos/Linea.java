@@ -1,10 +1,12 @@
 package unican.es.grupo4_tus_santander.models.pojos;
 
+import android.support.annotation.NonNull;
+
 /**
  * Created by Tiago on 26/10/2017.
  */
 
-public class Linea {
+public class Linea implements Comparable<Linea>{
     int id;
     String numero;
     String name;
@@ -58,5 +60,10 @@ public class Linea {
 
     public void setIdColor(int idColor) {
         this.idColor = idColor;
+    }
+
+    @Override
+    public int compareTo(@NonNull Linea linea) {
+        return -1*this.getNumero().compareTo(linea.getNumero());
     }
 }

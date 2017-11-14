@@ -1,10 +1,12 @@
 package unican.es.grupo4_tus_santander.models.pojos;
 
+import android.support.annotation.NonNull;
+
 /**
  * Created by Tiago on 26/10/2017.
  */
 
-public class Parada {
+public class Parada implements Comparable<Parada>{
 
     int id;
     int identifierLinea;
@@ -117,5 +119,10 @@ public class Parada {
     }
     public void setFavorito(int favorito) {
         this.favorito = favorito;
+    }
+
+    @Override
+    public int compareTo(@NonNull Parada parada) {
+        return this.getNumParada() - parada.getNumParada();
     }
 }

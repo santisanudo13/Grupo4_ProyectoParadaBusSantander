@@ -3,6 +3,7 @@ package unican.es.grupo4_tus_santander.models.basedatos.helper;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import android.content.ContentValues;
@@ -306,6 +307,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 
 		}
 		c.close();
+		Collections.sort(lineas);
 		return lineas;
 	}
 
@@ -430,6 +432,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 			} while (c.moveToNext());
 		}
 		c.close();
+		Collections.sort(paradas);
 		return paradas;
 	}
 

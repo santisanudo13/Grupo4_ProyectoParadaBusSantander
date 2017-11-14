@@ -136,24 +136,24 @@ public class BusquedaParadasTest {
         searchAutoComplete.perform(replaceText("Canale"), closeSoftKeyboard());
 
         ViewInteraction textView = onView(
-                allOf(withId(R.id.textViewName), withText("Canalejas 42"),
+                allOf(withId(R.id.textViewName), withText("Canalejas 26"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.listParadas),
                                         0),
                                 1),
                         isDisplayed()));
-        textView.check(matches(withText("Canalejas 42")));
+        textView.check(matches(withText("Canalejas 26")));
 
         ViewInteraction textView2 = onView(
-                allOf(withId(R.id.textViewName), withText("Canalejas 26"),
+                allOf(withId(R.id.textViewName), withText("Canalejas 42"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.listParadas),
                                         1),
                                 1),
                         isDisplayed()));
-        textView2.check(matches(withText("Canalejas 26")));
+        textView2.check(matches(withText("Canalejas 42")));
 
     }
 
@@ -198,58 +198,14 @@ public class BusquedaParadasTest {
         searchAutoComplete.perform(replaceText("General Dávila 41"), closeSoftKeyboard());
 
         ViewInteraction textView = onView(
-                allOf(withId(R.id.textViewName), withText("General Dávila 41"),
+                allOf(withId(R.id.textViewNumero), withText("125"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.listParadas),
                                         0),
-                                1),
-                        isDisplayed()));
-        textView.check(matches(withText("General Dávila 41")));
-
-        ViewInteraction searchAutoComplete2 = onView(
-                allOf(withClassName(is("android.widget.SearchView$SearchAutoComplete")), withText("General Dávila 41"),
-                        childAtPosition(
-                                allOf(withClassName(is("android.widget.LinearLayout")),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.LinearLayout")),
-                                                1)),
                                 0),
                         isDisplayed()));
-        searchAutoComplete2.perform(click());
-
-        ViewInteraction searchAutoComplete3 = onView(
-                allOf(withClassName(is("android.widget.SearchView$SearchAutoComplete")), withText("General Dávila 41"),
-                        childAtPosition(
-                                allOf(withClassName(is("android.widget.LinearLayout")),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.LinearLayout")),
-                                                1)),
-                                0),
-                        isDisplayed()));
-        searchAutoComplete3.perform(click());
-
-        ViewInteraction searchAutoComplete4 = onView(
-                allOf(withClassName(is("android.widget.SearchView$SearchAutoComplete")), withText("General Dávila 41"),
-                        childAtPosition(
-                                allOf(withClassName(is("android.widget.LinearLayout")),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.LinearLayout")),
-                                                1)),
-                                0),
-                        isDisplayed()));
-        searchAutoComplete4.perform(replaceText("General Davila 41"));
-
-        ViewInteraction searchAutoComplete5 = onView(
-                allOf(withClassName(is("android.widget.SearchView$SearchAutoComplete")), withText("General Davila 41"),
-                        childAtPosition(
-                                allOf(withClassName(is("android.widget.LinearLayout")),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.LinearLayout")),
-                                                1)),
-                                0),
-                        isDisplayed()));
-        searchAutoComplete5.perform(closeSoftKeyboard());
+        textView.check(matches(withText("125")));
 
         ViewInteraction textView2 = onView(
                 allOf(withId(R.id.textViewName), withText("General Dávila 41"),
@@ -356,14 +312,14 @@ public class BusquedaParadasTest {
         searchAutoComplete.perform(replaceText("Peñacastillo"), closeSoftKeyboard());
 
         ViewInteraction textView = onView(
-                allOf(withId(R.id.textViewName), withText("Peñacastillo"),
+                allOf(withId(R.id.textViewName), withText("Carrefour Peñacastillo"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.listParadas),
                                         0),
                                 1),
                         isDisplayed()));
-        textView.check(matches(withText("Peñacastillo")));
+        textView.check(matches(withText("Carrefour Peñacastillo")));
 
     }
 
@@ -574,126 +530,127 @@ public class BusquedaParadasTest {
         searchAutoComplete.perform(replaceText("30"), closeSoftKeyboard());
 
         ViewInteraction textView = onView(
-                allOf(withId(R.id.textViewNumero), withText("305"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.listParadas),
-                                        0),
-                                0),
-                        isDisplayed()));
-        textView.check(matches(withText("305")));
-
-        ViewInteraction textView2 = onView(
-                allOf(withId(R.id.textViewName), withText("Carrefour Peñacastillo"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.listParadas),
-                                        0),
-                                1),
-                        isDisplayed()));
-        textView2.check(matches(withText("Carrefour Peñacastillo")));
-
-        ViewInteraction textView3 = onView(
-                allOf(withId(R.id.textViewNumero), withText("306"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.listParadas),
-                                        1),
-                                0),
-                        isDisplayed()));
-        textView3.check(matches(withText("306")));
-
-        ViewInteraction textView4 = onView(
-                allOf(withId(R.id.textViewName), withText("Francisco Rivas Moreno"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.listParadas),
-                                        1),
-                                1),
-                        isDisplayed()));
-        textView4.check(matches(withText("Francisco Rivas Moreno")));
-
-        ViewInteraction textView5 = onView(
-                allOf(withId(R.id.textViewNumero), withText("307"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.listParadas),
-                                        2),
-                                0),
-                        isDisplayed()));
-        textView5.check(matches(withText("307")));
-
-        ViewInteraction textView6 = onView(
-                allOf(withId(R.id.textViewName), withText("Nuevo Parque"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.listParadas),
-                                        2),
-                                1),
-                        isDisplayed()));
-        textView6.check(matches(withText("Nuevo Parque")));
-
-        ViewInteraction textView7 = onView(
-                allOf(withId(R.id.textViewNumero), withText("308"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.listParadas),
-                                        3),
-                                0),
-                        isDisplayed()));
-        textView7.check(matches(withText("308")));
-
-        ViewInteraction textView8 = onView(
-                allOf(withId(R.id.textViewName), withText("San Martin Del Pino 8"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.listParadas),
-                                        3),
-                                1),
-                        isDisplayed()));
-        textView8.check(matches(withText("San Martin Del Pino 8")));
-
-        ViewInteraction textView9 = onView(
-                allOf(withId(R.id.textViewNumero), withText("309"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.listParadas),
-                                        4),
-                                0),
-                        isDisplayed()));
-        textView9.check(matches(withText("309")));
-
-        ViewInteraction textView10 = onView(
-                allOf(withId(R.id.textViewName), withText("Santiago el Mayor 9"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.listParadas),
-                                        4),
-                                1),
-                        isDisplayed()));
-        textView10.check(matches(withText("Santiago el Mayor 9")));
-
-        ViewInteraction textView11 = onView(
-                allOf(withId(R.id.textViewNumero), withText("130"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.listParadas),
-                                        5),
-                                0),
-                        isDisplayed()));
-        textView11.check(matches(withText("130")));
-
-        ViewInteraction textView12 = onView(
                 allOf(withId(R.id.textViewName), withText("Reina Victoria  117"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.listParadas),
+                                        0),
+                                1),
+                        isDisplayed()));
+        textView.check(matches(withText("Reina Victoria  117")));
+
+        ViewInteraction textView2 = onView(
+                allOf(withId(R.id.textViewNumero), withText("130"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.listParadas),
+                                        0),
+                                0),
+                        isDisplayed()));
+        textView2.check(matches(withText("130")));
+
+        ViewInteraction textView3 = onView(
+                allOf(withId(R.id.textViewNumero), withText("305"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.listParadas),
+                                        1),
+                                0),
+                        isDisplayed()));
+        textView3.check(matches(withText("305")));
+
+        ViewInteraction textView4 = onView(
+                allOf(withId(R.id.textViewName), withText("Carrefour Peñacastillo"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.listParadas),
+                                        1),
+                                1),
+                        isDisplayed()));
+        textView4.check(matches(withText("Carrefour Peñacastillo")));
+
+        ViewInteraction textView5 = onView(
+                allOf(withId(R.id.textViewNumero), withText("306"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.listParadas),
+                                        2),
+                                0),
+                        isDisplayed()));
+        textView5.check(matches(withText("306")));
+
+        ViewInteraction textView6 = onView(
+                allOf(withId(R.id.textViewName), withText("Francisco Rivas Moreno"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.listParadas),
+                                        2),
+                                1),
+                        isDisplayed()));
+        textView6.check(matches(withText("Francisco Rivas Moreno")));
+
+        ViewInteraction textView7 = onView(
+                allOf(withId(R.id.textViewNumero), withText("307"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.listParadas),
+                                        3),
+                                0),
+                        isDisplayed()));
+        textView7.check(matches(withText("307")));
+
+        ViewInteraction textView8 = onView(
+                allOf(withId(R.id.textViewName), withText("Nuevo Parque"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.listParadas),
+                                        3),
+                                1),
+                        isDisplayed()));
+        textView8.check(matches(withText("Nuevo Parque")));
+
+        ViewInteraction textView9 = onView(
+                allOf(withId(R.id.textViewNumero), withText("308"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.listParadas),
+                                        4),
+                                0),
+                        isDisplayed()));
+        textView9.check(matches(withText("308")));
+
+        ViewInteraction textView10 = onView(
+                allOf(withId(R.id.textViewName), withText("San Martin Del Pino 8"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.listParadas),
+                                        4),
+                                1),
+                        isDisplayed()));
+        textView10.check(matches(withText("San Martin Del Pino 8")));
+
+        ViewInteraction textView11 = onView(
+                allOf(withId(R.id.textViewNumero), withText("309"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.listParadas),
+                                        5),
+                                0),
+                        isDisplayed()));
+        textView11.check(matches(withText("309")));
+
+        ViewInteraction textView12 = onView(
+                allOf(withId(R.id.textViewName), withText("Santiago el Mayor 9"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.listParadas),
                                         5),
                                 1),
                         isDisplayed()));
-        textView12.check(matches(withText("Reina Victoria  117")));
+        textView12.check(matches(withText("Santiago el Mayor 9")));
 
     }
+
 
     @Test
     public void a10() {
@@ -735,98 +692,108 @@ public class BusquedaParadasTest {
                         isDisplayed()));
         searchAutoComplete.perform(replaceText("35"), closeSoftKeyboard());
 
-        ViewInteraction searchAutoComplete2 = onView(
-                allOf(withClassName(is("android.widget.SearchView$SearchAutoComplete")), withText("35"),
+        ViewInteraction textView = onView(
+                allOf(withId(R.id.textViewNumero), withText("135"),
                         childAtPosition(
-                                allOf(withClassName(is("android.widget.LinearLayout")),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.LinearLayout")),
-                                                1)),
+                                childAtPosition(
+                                        withId(R.id.listParadas),
+                                        0),
                                 0),
                         isDisplayed()));
-        searchAutoComplete2.perform(pressImeActionButton());
+        textView.check(matches(withText("135")));
 
-        ViewInteraction textView = onView(
+        ViewInteraction textView2 = onView(
+                allOf(withId(R.id.textViewName), withText("Miranda"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.listParadas),
+                                        0),
+                                1),
+                        isDisplayed()));
+        textView2.check(matches(withText("Miranda")));
+
+        ViewInteraction textView3 = onView(
                 allOf(withId(R.id.textViewNumero), withText("352"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.listParadas),
-                                        0),
+                                        1),
                                 0),
                         isDisplayed()));
-        textView.check(matches(withText("352")));
+        textView3.check(matches(withText("352")));
 
-        ViewInteraction textView2 = onView(
+        ViewInteraction textView4 = onView(
                 allOf(withId(R.id.textViewName), withText("Camarreal 135"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.listParadas),
-                                        0),
+                                        1),
                                 1),
                         isDisplayed()));
-        textView2.check(matches(withText("Camarreal 135")));
+        textView4.check(matches(withText("Camarreal 135")));
 
-        ViewInteraction textView3 = onView(
+        ViewInteraction textView5 = onView(
                 allOf(withId(R.id.textViewNumero), withText("353"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.listParadas),
-                                        1),
+                                        2),
                                 0),
                         isDisplayed()));
-        textView3.check(matches(withText("353")));
+        textView5.check(matches(withText("353")));
 
-        ViewInteraction textView4 = onView(
+        ViewInteraction textView6 = onView(
                 allOf(withId(R.id.textViewName), withText("Camarreal 136"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.listParadas),
-                                        1),
+                                        2),
                                 1),
                         isDisplayed()));
-        textView4.check(matches(withText("Camarreal 136")));
+        textView6.check(matches(withText("Camarreal 136")));
 
-        ViewInteraction textView5 = onView(
+        ViewInteraction textView7 = onView(
                 allOf(withId(R.id.textViewNumero), withText("355"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.listParadas),
-                                        2),
+                                        3),
                                 0),
                         isDisplayed()));
-        textView5.check(matches(withText("355")));
+        textView7.check(matches(withText("355")));
 
-        ViewInteraction textView6 = onView(
+        ViewInteraction textView8 = onView(
                 allOf(withId(R.id.textViewName), withText("Ojaiz"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.listParadas),
-                                        2),
+                                        3),
                                 1),
                         isDisplayed()));
-        textView6.check(matches(withText("Ojaiz")));
+        textView8.check(matches(withText("Ojaiz")));
 
-        ViewInteraction textView7 = onView(
+        ViewInteraction textView9 = onView(
                 allOf(withId(R.id.textViewNumero), withText("444"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.listParadas),
-                                        3),
+                                        4),
                                 0),
                         isDisplayed()));
-        textView7.check(matches(withText("444")));
+        textView9.check(matches(withText("444")));
 
-        ViewInteraction textView8 = onView(
+        ViewInteraction textView10 = onView(
                 allOf(withId(R.id.textViewName), withText("Paseo de Pereda nº 35"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.listParadas),
-                                        3),
+                                        4),
                                 1),
                         isDisplayed()));
-        textView8.check(matches(withText("Paseo de Pereda nº 35")));
+        textView10.check(matches(withText("Paseo de Pereda nº 35")));
 
     }
+
 
     @Test
     public void a11() {

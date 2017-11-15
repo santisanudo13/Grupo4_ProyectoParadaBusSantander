@@ -170,7 +170,7 @@ public class DatabaseHelperLineasTest {
         List<Linea> t= cd.getAllLinea();
 
 
-        assertEquals(t.size(),4);
+        assertEquals(4, t.size());
 
 
     }

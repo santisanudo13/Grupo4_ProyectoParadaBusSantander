@@ -41,9 +41,9 @@ public class ListLineasAdapter extends ArrayAdapter {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View viewRow = layoutInflater.inflate(R.layout.custom_list_lineas_layout,null,true);
-        TextView textViewName = (TextView) viewRow.findViewById(R.id.textViewName);
-        TextView textViewNumero = (TextView) viewRow.findViewById(R.id.textViewNumero);
-        ImageView imageView = (ImageView) viewRow.findViewById(R.id.ImagenLinea);
+        TextView textViewName = viewRow.findViewById(R.id.textViewName);
+        TextView textViewNumero = viewRow.findViewById(R.id.textViewNumero);
+        ImageView imageView = viewRow.findViewById(R.id.ImagenLinea);
         textViewName.setText(lineasBus.get(position).getName());
         textViewNumero.setText( lineasBus.get(position).getNumero()+"");
         unican.es.grupo4_tus_santander.models.pojos.Color a =ld.getColorByLinea(lineasBus.get(position).getId());

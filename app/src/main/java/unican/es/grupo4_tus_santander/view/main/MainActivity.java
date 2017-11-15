@@ -111,6 +111,8 @@ public class MainActivity extends AppCompatActivity {
                         intent = new Intent(MainActivity.this, AjustesActivity.class);
                         startActivity(intent);
                         break;
+                    default:
+                        break;
                 }
             }
         });

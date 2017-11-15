@@ -29,8 +29,6 @@ public class ListParadasPresenter {
         this.listaParadas=new ArrayList<>();
         this.db = new DatabaseHelper(this.context,1);
 
-
-        start();
     }// ListLineasPresenter
 
     public void start(){
@@ -66,7 +64,7 @@ public class ListParadasPresenter {
 
         try {
             db.closeDB();
-            if( listaParadas==null ||listaParadas.size()==0){
+            if( listaParadas==null ||listaParadas.isEmpty()){
                 return false;
             }
 

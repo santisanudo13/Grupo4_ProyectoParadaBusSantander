@@ -144,7 +144,7 @@ public class DatabaseHelperParadasTest {
     public void getAllLinea() throws Exception {
         List<Linea> t= cd.getAllLinea();
 
-       assertEquals(t.size(), 4);
+       assertEquals(4, t.size());
     }
 
     @Test

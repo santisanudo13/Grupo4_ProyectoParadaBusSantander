@@ -29,8 +29,8 @@ public class ListFuncionesMainAdapter extends ArrayAdapter {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View viewRow = layoutInflater.inflate(R.layout.custom_list_funciones_main_layout,null,true);
 
-        TextView textViewNameFuncion = (TextView) viewRow.findViewById(R.id.textViewNameFuncion);
-        ImageView imagenViewFuncion = (ImageView) viewRow.findViewById(R.id.ImagenFuncion);
+        TextView textViewNameFuncion = viewRow.findViewById(R.id.textViewNameFuncion);
+        ImageView imagenViewFuncion = viewRow.findViewById(R.id.ImagenFuncion);
 
         textViewNameFuncion.setText(funcionesMain[position]);
 

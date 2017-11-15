@@ -395,7 +395,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements DatabaseInterfac
 	public List<Parada> getAllParadasFavoritos() {
 		List<Parada> paradas = new ArrayList<>();
 
-		String selectQuery = SELECT + TABLE_PARADA + " WHERE "+KEY_PARADA_FAVORITO+" == 1";
+		String selectQuery = SELECT + TABLE_PARADA + WHERE +KEY_PARADA_FAVORITO+" == 1";
 
 		return setListaParadas(selectQuery, paradas);
 	}

@@ -5,6 +5,9 @@ import android.net.ConnectivityManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
+import java.util.logging.Logger;
 
 import unican.es.grupo4_tus_santander.models.basedatos.helper.DatabaseHelper;
 import unican.es.grupo4_tus_santander.models.pojos.Color;
@@ -18,13 +21,16 @@ import unican.es.grupo4_tus_santander.view.paradas.ParadasActivity;
 
 
 public class RecargaBaseDatosParadas {
+
+    private static final Logger LOGGER = Logger.getLogger( RecargaBaseDatosParadas.class.getName() );
+
     private ParadasActivity activityParadas;
     private Context contextParadas;
     private ListParadasPresenter presenterParadas;
 
-    private List<Linea> listLineas = new ArrayList<Linea>();
-    private List<Parada> listParadas = new ArrayList<Parada>();
-    private List<ParadaConNombre> listParadasConNombre = new ArrayList<ParadaConNombre>();
+    private List<Linea> listLineas = new ArrayList<>();
+    private List<Parada> listParadas = new ArrayList<>();
+    private List<ParadaConNombre> listParadasConNombre = new ArrayList<>();
 
     private ServicioListener listenerParadas;
 
@@ -59,35 +65,34 @@ public class RecargaBaseDatosParadas {
         try {
             remoteFetchParadas.getJSON(RemoteFetch.URL_LINEAS_BUS);
         } catch (Exception e) {
-            
+            LOGGER.log(Level.FINE, "Excepción al obtener datos del JSON de líneas");
         }
         try {
             listLineas = ParserJSON.readArrayLineasBus(remoteFetchParadas.getBufferedData());
         } catch (Exception e) {
-            
+            LOGGER.log(Level.FINE, "Excepción al leer el array de líneas");
         }
         //PARADAS
         try {
             remoteFetchParadas.getJSON(RemoteFetch.URL_PARADAS);
         } catch (Exception e) {
-            
+            LOGGER.log(Level.FINE, "Excepción al obtener datos del JSON de paradas");
         }
         try {
             listParadas = ParserJSON.readArrayParadas(remoteFetchParadas.getBufferedData());
         } catch (Exception e) {
-            
+            LOGGER.log(Level.FINE, "Excepción al leer el array de paradas");
         }
         //PARADAS CON NOMBRE
         try {
             remoteFetchParadas.getJSON(RemoteFetch.URL_PARADAS_NOMBRE);
         } catch (Exception e) {
-            
+            LOGGER.log(Level.FINE, "Excepción al obtener datos del JSON de paradas con nombre");
         }
         try {
             listParadasConNombre = ParserJSON.readArrayParadasConNombre(remoteFetchParadas.getBufferedData());
         } catch (Exception e) {
-            
-        }
+            LOGGER.log(Level.FINE, "Excepción al leer el array de paradas con nombre");        }
 
         return !listLineas.isEmpty() && !listParadas.isEmpty();
     }
@@ -99,78 +104,78 @@ public class RecargaBaseDatosParadas {
         dbParadas.reiniciarTablas();
 
         for(Linea l: listLineas) {
-            long id_colorParadas = -1;
+            long colorParadasID = -1;
 
             switch (l.getNumero()+"") {
                 case "1":
-                    id_colorParadas = dbParadas.createColor(new Color(255, 255, 0, 0));
+                    colorParadasID = dbParadas.createColor(new Color(255, 255, 0, 0));
                     break;
                 case "2":
-                    id_colorParadas = dbParadas.createColor(new Color(255, 171, 68, 206));
+                    colorParadasID = dbParadas.createColor(new Color(255, 171, 68, 206));
                     break;
                 case "3":
-                    id_colorParadas = dbParadas.createColor(new Color(255, 253, 205, 47));
+                    colorParadasID = dbParadas.createColor(new Color(255, 253, 205, 47));
                     break;
                 case "4":
-                    id_colorParadas = dbParadas.createColor(new Color(255, 48, 180, 214));
+                    colorParadasID = dbParadas.createColor(new Color(255, 48, 180, 214));
                     break;
                 case "5C1":
-                    id_colorParadas = dbParadas.createColor(new Color(255, 150, 150, 150));
+                    colorParadasID = dbParadas.createColor(new Color(255, 150, 150, 150));
                     break;
                 case "5C2":
-                    id_colorParadas = dbParadas.createColor(new Color(255, 150, 150, 150));
+                    colorParadasID = dbParadas.createColor(new Color(255, 150, 150, 150));
                     break;
                 case "6C1":
-                    id_colorParadas = dbParadas.createColor(new Color(255, 15, 127, 52));
+                    colorParadasID = dbParadas.createColor(new Color(255, 15, 127, 52));
                     break;
                 case "6C2":
-                    id_colorParadas = dbParadas.createColor(new Color(255, 15, 127, 52));
+                    colorParadasID = dbParadas.createColor(new Color(255, 15, 127, 52));
                     break;
                 case "7C1":
-                    id_colorParadas = dbParadas.createColor(new Color(255, 244, 98, 38));
+                    colorParadasID = dbParadas.createColor(new Color(255, 244, 98, 38));
                     break;
                 case "7C2":
-                    id_colorParadas = dbParadas.createColor(new Color(255, 244, 98, 38));
+                    colorParadasID = dbParadas.createColor(new Color(255, 244, 98, 38));
                     break;
                 case "11":
-                    id_colorParadas = dbParadas.createColor(new Color(255, 2, 23, 91));
+                    colorParadasID = dbParadas.createColor(new Color(255, 2, 23, 91));
                     break;
                 case "12":
-                    id_colorParadas = dbParadas.createColor(new Color(255, 164, 211, 99));
+                    colorParadasID = dbParadas.createColor(new Color(255, 164, 211, 99));
                     break;
                 case "13":
-                    id_colorParadas = dbParadas.createColor(new Color(255, 144, 129, 176));
+                    colorParadasID = dbParadas.createColor(new Color(255, 144, 129, 176));
                     break;
                 case "14":
-                    id_colorParadas = dbParadas.createColor(new Color(255, 14, 105, 175));
+                    colorParadasID = dbParadas.createColor(new Color(255, 14, 105, 175));
                     break;
                 case "16":
-                    id_colorParadas = dbParadas.createColor(new Color(255, 98, 24, 54));
+                    colorParadasID = dbParadas.createColor(new Color(255, 98, 24, 54));
                     break;
                 case "17":
-                    id_colorParadas = dbParadas.createColor(new Color(255, 246, 128, 132));
+                    colorParadasID = dbParadas.createColor(new Color(255, 246, 128, 132));
                     break;
                 case "18":
-                    id_colorParadas = dbParadas.createColor(new Color(255, 177, 232, 224));
+                    colorParadasID = dbParadas.createColor(new Color(255, 177, 232, 224));
                     break;
                 case "19":
-                    id_colorParadas = dbParadas.createColor(new Color(255, 18, 132, 147));
+                    colorParadasID = dbParadas.createColor(new Color(255, 18, 132, 147));
                     break;
                 case "20":
-                    id_colorParadas = dbParadas.createColor(new Color(255, 136, 248, 170));
+                    colorParadasID = dbParadas.createColor(new Color(255, 136, 248, 170));
                     break;
                 case "21":
-                    id_colorParadas = dbParadas.createColor(new Color(255, 163, 211, 98));
+                    colorParadasID = dbParadas.createColor(new Color(255, 163, 211, 98));
                     break;
                 case "23":
-                    id_colorParadas = dbParadas.createColor(new Color(255, 202, 202, 202));
+                    colorParadasID = dbParadas.createColor(new Color(255, 202, 202, 202));
                     break;
                 default:
-                    id_colorParadas = dbParadas.createColor(new Color(255, 0, 0, 0));
+                    colorParadasID = dbParadas.createColor(new Color(255, 0, 0, 0));
                     break;
             }
-            long id_linea = dbParadas.createLinea(l, id_colorParadas);
-            l.setId((int) id_linea);
+            long lineaID = dbParadas.createLinea(l, colorParadasID);
+            l.setId((int) lineaID);
 
             for(Parada parada : listParadas){
                 if(parada.getIdentifierLinea() == l.getIdentifier()){
@@ -181,7 +186,7 @@ public class RecargaBaseDatosParadas {
                         }
                     }
 
-                    long id_parada = dbParadas.createParada(parada, l.getId());
+                    dbParadas.createParada(parada, l.getId());
                 }
             }
         }

@@ -5,16 +5,22 @@ import android.net.ConnectivityManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import unican.es.grupo4_tus_santander.models.basedatos.helper.DatabaseHelper;
 import unican.es.grupo4_tus_santander.models.pojos.*;
 import unican.es.grupo4_tus_santander.models.webservice.dataloaders.ParserJSON;
 import unican.es.grupo4_tus_santander.models.webservice.dataloaders.RemoteFetch;
 import unican.es.grupo4_tus_santander.presenter.main.asynctasks.GetDataServicio;
+import unican.es.grupo4_tus_santander.presenter.paradas.RecargaBaseDatosParadas;
 import unican.es.grupo4_tus_santander.view.main.MainActivity;
 
 
 public class RecargaBaseDatosMenu {
+
+    private static final Logger LOGGER = Logger.getLogger( RecargaBaseDatosParadas.class.getName() );
+
     private MainActivity activityMenu;
     private Context contextMenu;
 
@@ -54,34 +60,34 @@ public class RecargaBaseDatosMenu {
         try {
             remoteFetchMenu.getJSON(RemoteFetch.URL_LINEAS_BUS);
         } catch (Exception e) {
-            
+            LOGGER.log(Level.FINE, "Excepción al obtener datos del JSON de líneas");
         }
         try {
             listLineas = ParserJSON.readArrayLineasBus(remoteFetchMenu.getBufferedData());
         } catch (Exception e) {
-            
+            LOGGER.log(Level.FINE, "Excepción al obtener datos del array de líneas");
         }
         //PARADAS
         try {
             remoteFetchMenu.getJSON(RemoteFetch.URL_PARADAS);
         } catch (Exception e) {
-            
+            LOGGER.log(Level.FINE, "Excepción al obtener datos del JSON de paradas");
         }
         try {
             listParadas = ParserJSON.readArrayParadas(remoteFetchMenu.getBufferedData());
         } catch (Exception e) {
-            
+            LOGGER.log(Level.FINE, "Excepción al obtener datos del array de paradas");
         }
         //PARADAS CON NOMBRE
         try {
             remoteFetchMenu.getJSON(RemoteFetch.URL_PARADAS_NOMBRE);
         } catch (Exception e) {
-            
+            LOGGER.log(Level.FINE, "Excepción al obtener datos del JSON de paradas con nombre");
         }
         try {
             listParadasConNombre = ParserJSON.readArrayParadasConNombre(remoteFetchMenu.getBufferedData());
         } catch (Exception e) {
-            
+            LOGGER.log(Level.FINE, "Excepción al obtener datos del array de paradas con nombre");
         }
 
         return !listLineas.isEmpty() && !listParadas.isEmpty();

@@ -45,7 +45,7 @@ public class LineasPresenterTest {
     }
 
     @Test
-    public void obtººenLineasCorrecto(){
+    public void obtenLineasCorrecto(){
         db= new DatabaseHelper(InstrumentationRegistry.getTargetContext(),1);
         Color c= new Color(1,1,1,1);
         long id=db.createColor(c);

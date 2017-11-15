@@ -13,8 +13,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +28,6 @@ import unican.es.grupo4_tus_santander.R;
 public class ParadasActivity extends AppCompatActivity  implements SearchView.OnQueryTextListener {
     private ListParadasPresenter listParadasPresenter;
     private ProgressBar progressBar;
-    private Context context;
     private TextView vacio;
 
 
@@ -38,7 +35,6 @@ public class ParadasActivity extends AppCompatActivity  implements SearchView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.context = getApplicationContext();
         setContentView(R.layout.activity_paradas);
         this.progressBar=(ProgressBar)findViewById(R.id.progressParada);
         Bundle extras = getIntent().getExtras();
@@ -51,6 +47,7 @@ public class ParadasActivity extends AppCompatActivity  implements SearchView.On
         this.listParadasPresenter.setIdLinea(lineaId);
 
         vacio = (TextView)findViewById(R.id.txtVacio);
+        this.listParadasPresenter.start();
         //this.listParadasPresenter.start();
     }//onCreate
 
@@ -109,7 +106,7 @@ public class ParadasActivity extends AppCompatActivity  implements SearchView.On
 
     public void showList(List<Parada> paradasList) {
         ListParadasAdapter listParadasAdapter;
-        if(paradasList.size()!=0) {
+        if(!paradasList.isEmpty()) {
             vacio.setVisibility(View.INVISIBLE);
             listParadasAdapter = new ListParadasAdapter(this, paradasList);
 

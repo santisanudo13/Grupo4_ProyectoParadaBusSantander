@@ -2,8 +2,10 @@ package unican.es.grupo4_tus_santander.integracion.paradas;
 
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
+import android.test.InstrumentationTestCase;
 
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -23,55 +25,47 @@ import static org.mockito.Mockito.mock;
  */
 
 @RunWith(AndroidJUnit4.class)
-public class ParadasPresenterTest {
+public class ParadasPresenterTest extends InstrumentationTestCase {
     static DatabaseHelper db;
-    static Parada p1;
-    static Linea linea;
-    static Color c;
 
 
-    @BeforeClass
-    public static void setUpBeforeClass(){
-        db= new DatabaseHelper(InstrumentationRegistry.getTargetContext(),1);
 
-        p1 = new Parada(1, 10, 1.0, 1.0, 1.0, 1.0, 0);
-        linea = new Linea("100","cien",105464);
-        c= new Color(1,1,1,1);
 
-    }
 
     @Test
     public void obtenParadasCorrecto(){
-        db.reiniciarTablas();
         db= new DatabaseHelper(InstrumentationRegistry.getTargetContext(),1);
-
+        db.reiniciarTablas();
+        Parada p1= new Parada(1, 10, 1.0, 1.0, 1.0, 1.0, 0);
+        Linea linea= new Linea("100","cien",105464);;
+        Color c= new Color(1,1,1,1);;
 
         long idColor = db.createColor(c);
-        linea.setIdColor((int) idColor);
-        linea.setId((int) db.createLinea(linea,idColor ));
+        long t =db.createLinea(linea,idColor );
 
 
-        p1.setFavorito(0);
-        p1.setNombre("Nombre_"+p1.getIdentifier());
-        p1.setId((int) db.createParada(p1, linea.getId()));
+        p1.setNombre("Nombre_");
 
+        db.createParada(p1, t);
 
+        ListParadasPresenter p =new ListParadasPresenter(InstrumentationRegistry.getTargetContext(),null);
 
-        ParadasActivity la = mock(ParadasActivity.class);
-        ListParadasPresenter p =new ListParadasPresenter(InstrumentationRegistry.getTargetContext(),la);
-        p.setIdLinea(linea.getId());
-
+        p.setIdLinea((int)t);
         assertTrue(p.obtenParadas());
+        db.reiniciarTablas();
+        db.closeDB();
     }
 
     @Test
     public void obtenParadasError(){
-        db.reiniciarTablas();
         db= new DatabaseHelper(InstrumentationRegistry.getTargetContext(),1);
 
-        ParadasActivity la = mock(ParadasActivity.class);
-        ListParadasPresenter p =new ListParadasPresenter(InstrumentationRegistry.getTargetContext(),la);
+        db.reiniciarTablas();
 
+        ListParadasPresenter p =new ListParadasPresenter(InstrumentationRegistry.getTargetContext(),null);
+        p.setIdLinea(50);
         assertFalse(p.obtenParadas());
+        db.reiniciarTablas();
+        db.closeDB();
     }
 }

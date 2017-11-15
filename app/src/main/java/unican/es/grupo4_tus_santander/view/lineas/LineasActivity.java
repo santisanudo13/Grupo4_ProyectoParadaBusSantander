@@ -29,7 +29,6 @@ public class LineasActivity extends AppCompatActivity  implements SearchView.OnQ
 
     private ListLineasPresenter listLineasPresenter;
     private ProgressBar progressBarLineas;
-    private Context context;
 
 
 
@@ -37,7 +36,6 @@ public class LineasActivity extends AppCompatActivity  implements SearchView.OnQ
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.context = getApplicationContext();
         setContentView(R.layout.activity_lineas);
         this.progressBarLineas=(ProgressBar)findViewById(R.id.progressLinea);
         this.listLineasPresenter = new ListLineasPresenter(getApplicationContext(),this);

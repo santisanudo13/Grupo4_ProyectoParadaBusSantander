@@ -38,9 +38,9 @@ public class ListParadasAdapter extends ArrayAdapter {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View viewRow = layoutInflater.inflate(R.layout.custom_list_paradas_layout,null,true);
 
-        TextView textViewName = (TextView) viewRow.findViewById(R.id.textViewName);
-        TextView textViewNumero = (TextView) viewRow.findViewById(R.id.textViewNumero);
-        ImageView imagenViewFavorito = (ImageView) viewRow.findViewById(R.id.ImagenFavorito);
+        TextView textViewName = viewRow.findViewById(R.id.textViewName);
+        TextView textViewNumero = viewRow.findViewById(R.id.textViewNumero);
+        ImageView imagenViewFavorito = viewRow.findViewById(R.id.ImagenFavorito);
 
         String nombre = paradasBus.get(position).getNombre();
         String numero = "" + paradasBus.get(position).getNumParada();

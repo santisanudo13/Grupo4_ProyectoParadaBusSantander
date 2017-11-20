@@ -30,6 +30,10 @@ public class RecargaBaseDatosLineas {
     private static final String ERROR1 = "ERROR";
     private static final String ERROR2 = "Error : ";
 
+    private static int numLineasExpected = 33;
+
+    List<Linea> listLineasBuffer = new ArrayList<>();
+
     List<Linea> listLineas = new ArrayList<>();
     List<Parada> listParadas = new ArrayList<>();
     List<ParadaConNombre> listParadasConNombre = new ArrayList<>();
@@ -76,7 +80,7 @@ public class RecargaBaseDatosLineas {
             Log.e(ERROR1,ERROR2+e.getMessage());
         }
         try {
-            listLineas = ParserJSON.readArrayLineasBus(remoteFetchLineas.getBufferedData());
+            listLineasBuffer = ParserJSON.readArrayLineasBus(remoteFetchLineas.getBufferedData());
         } catch (Exception e) {
             Log.e(ERROR1,ERROR2+e.getMessage());
         }
@@ -111,98 +115,108 @@ public class RecargaBaseDatosLineas {
     }
 
 
-    public void guardaDataEnBaseDatos() {
-        this.dbLineas = new DatabaseHelper(this.contextLineas,1);
-        dbLineas.reiniciarTablas();
+    public boolean guardaDataEnBaseDatos() {
+        if(listLineasBuffer.size() != numLineasExpected) {
+            return false;
+            }else {
+            listLineas.clear();
+            listLineas.addAll(listLineasBuffer);
+            listLineasBuffer.clear();
 
-        for(Linea l: listLineas) {
-            long colorLineasID = -1;
 
-            switch (l.getNumero()+"") {
-                case "1":
-                    colorLineasID = dbLineas.createColor(new Color(255, 255, 0, 0));
-                    break;
-                case "2":
-                    colorLineasID = dbLineas.createColor(new Color(255, 171, 68, 206));
-                    break;
-                case "3":
-                    colorLineasID = dbLineas.createColor(new Color(255, 253, 205, 47));
-                    break;
-                case "4":
-                    colorLineasID = dbLineas.createColor(new Color(255, 48, 180, 214));
-                    break;
-                case "5C1":
-                    colorLineasID = dbLineas.createColor(new Color(255, 150, 150, 150));
-                    break;
-                case "5C2":
-                    colorLineasID = dbLineas.createColor(new Color(255, 150, 150, 150));
-                    break;
-                case "6C1":
-                    colorLineasID = dbLineas.createColor(new Color(255, 15, 127, 52));
-                    break;
-                case "6C2":
-                    colorLineasID = dbLineas.createColor(new Color(255, 15, 127, 52));
-                    break;
-                case "7C1":
-                    colorLineasID = dbLineas.createColor(new Color(255, 244, 98, 38));
-                    break;
-                case "7C2":
-                    colorLineasID = dbLineas.createColor(new Color(255, 244, 98, 38));
-                    break;
-                case "11":
-                    colorLineasID = dbLineas.createColor(new Color(255, 2, 23, 91));
-                    break;
-                case "12":
-                    colorLineasID = dbLineas.createColor(new Color(255, 164, 211, 99));
-                    break;
-                case "13":
-                    colorLineasID = dbLineas.createColor(new Color(255, 144, 129, 176));
-                    break;
-                case "14":
-                    colorLineasID = dbLineas.createColor(new Color(255, 14, 105, 175));
-                    break;
-                case "16":
-                    colorLineasID = dbLineas.createColor(new Color(255, 98, 24, 54));
-                    break;
-                case "17":
-                    colorLineasID = dbLineas.createColor(new Color(255, 246, 128, 132));
-                    break;
-                case "18":
-                    colorLineasID = dbLineas.createColor(new Color(255, 177, 232, 224));
-                    break;
-                case "19":
-                    colorLineasID = dbLineas.createColor(new Color(255, 18, 132, 147));
-                    break;
-                case "20":
-                    colorLineasID = dbLineas.createColor(new Color(255, 136, 248, 170));
-                    break;
-                case "21":
-                    colorLineasID = dbLineas.createColor(new Color(255, 163, 211, 98));
-                    break;
-                case "23":
-                    colorLineasID = dbLineas.createColor(new Color(255, 202, 202, 202));
-                    break;
-                default:
-                    colorLineasID = dbLineas.createColor(new Color(255, 0, 0, 0));
-                    break;
-            }
-            long lineaID =dbLineas.createLinea(l, colorLineasID);
-            l.setId((int) lineaID);
+            this.dbLineas = new DatabaseHelper(this.contextLineas, 1);
+            dbLineas.reiniciarTablas();
 
-            for(Parada parada : listParadas){
-                if(parada.getIdentifierLinea() == l.getIdentifier()){
-                    for(ParadaConNombre paradaConNombre : listParadasConNombre){
-                        if(parada.getNumParada() == paradaConNombre.getNumero()) {
-                            parada.setNombre(paradaConNombre.getParada());
-                            parada.setFavorito(0);
+            for (Linea l : listLineas) {
+                long colorLineasID = -1;
+
+                switch (l.getNumero() + "") {
+                    case "1":
+                        colorLineasID = dbLineas.createColor(new Color(255, 255, 0, 0));
+                        break;
+                    case "2":
+                        colorLineasID = dbLineas.createColor(new Color(255, 171, 68, 206));
+                        break;
+                    case "3":
+                        colorLineasID = dbLineas.createColor(new Color(255, 253, 205, 47));
+                        break;
+                    case "4":
+                        colorLineasID = dbLineas.createColor(new Color(255, 48, 180, 214));
+                        break;
+                    case "5C1":
+                        colorLineasID = dbLineas.createColor(new Color(255, 150, 150, 150));
+                        break;
+                    case "5C2":
+                        colorLineasID = dbLineas.createColor(new Color(255, 150, 150, 150));
+                        break;
+                    case "6C1":
+                        colorLineasID = dbLineas.createColor(new Color(255, 15, 127, 52));
+                        break;
+                    case "6C2":
+                        colorLineasID = dbLineas.createColor(new Color(255, 15, 127, 52));
+                        break;
+                    case "7C1":
+                        colorLineasID = dbLineas.createColor(new Color(255, 244, 98, 38));
+                        break;
+                    case "7C2":
+                        colorLineasID = dbLineas.createColor(new Color(255, 244, 98, 38));
+                        break;
+                    case "11":
+                        colorLineasID = dbLineas.createColor(new Color(255, 2, 23, 91));
+                        break;
+                    case "12":
+                        colorLineasID = dbLineas.createColor(new Color(255, 164, 211, 99));
+                        break;
+                    case "13":
+                        colorLineasID = dbLineas.createColor(new Color(255, 144, 129, 176));
+                        break;
+                    case "14":
+                        colorLineasID = dbLineas.createColor(new Color(255, 14, 105, 175));
+                        break;
+                    case "16":
+                        colorLineasID = dbLineas.createColor(new Color(255, 98, 24, 54));
+                        break;
+                    case "17":
+                        colorLineasID = dbLineas.createColor(new Color(255, 246, 128, 132));
+                        break;
+                    case "18":
+                        colorLineasID = dbLineas.createColor(new Color(255, 177, 232, 224));
+                        break;
+                    case "19":
+                        colorLineasID = dbLineas.createColor(new Color(255, 18, 132, 147));
+                        break;
+                    case "20":
+                        colorLineasID = dbLineas.createColor(new Color(255, 136, 248, 170));
+                        break;
+                    case "21":
+                        colorLineasID = dbLineas.createColor(new Color(255, 163, 211, 98));
+                        break;
+                    case "23":
+                        colorLineasID = dbLineas.createColor(new Color(255, 202, 202, 202));
+                        break;
+                    default:
+                        colorLineasID = dbLineas.createColor(new Color(255, 0, 0, 0));
+                        break;
+                }
+                long lineaID = dbLineas.createLinea(l, colorLineasID);
+                l.setId((int) lineaID);
+
+                for (Parada parada : listParadas) {
+                    if (parada.getIdentifierLinea() == l.getIdentifier()) {
+                        for (ParadaConNombre paradaConNombre : listParadasConNombre) {
+                            if (parada.getNumParada() == paradaConNombre.getNumero()) {
+                                parada.setNombre(paradaConNombre.getParada());
+                                parada.setFavorito(0);
+                            }
                         }
-                    }
 
-                    dbLineas.createParada(parada, l.getId());
+                        dbLineas.createParada(parada, l.getId());
+                    }
                 }
             }
+            dbLineas.closeDB();
+            return true;
         }
-        dbLineas.closeDB();
     }
 
     public static interface ServicioListener {
@@ -215,5 +229,21 @@ public class RecargaBaseDatosLineas {
 
     public void setRemoteFetch(RemoteFetch remoteFetch) {
         this.remoteFetchLineas = remoteFetch;
+    }
+
+    public static int getNumLineasExpected() {
+        return numLineasExpected;
+    }
+
+    public static void setNumLineasExpected(int numLineasExpected) {
+        RecargaBaseDatosLineas.numLineasExpected = numLineasExpected;
+    }
+
+    public List<Linea> getListLineasBuffer() {
+        return listLineasBuffer;
+    }
+
+    public void setListLineasBuffer(List<Linea> listLineasBuffer) {
+        this.listLineasBuffer = listLineasBuffer;
     }
 }

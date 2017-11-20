@@ -107,7 +107,7 @@ public class RecargaBaseDatosLineas {
             Log.e(ERROR1,ERROR2+e.getMessage());
         }
 
-        return !listLineas.isEmpty() && !listParadas.isEmpty();
+        return !listLineasBuffer.isEmpty() && !listParadas.isEmpty();
     }
 
     public ServicioListener getListener() {

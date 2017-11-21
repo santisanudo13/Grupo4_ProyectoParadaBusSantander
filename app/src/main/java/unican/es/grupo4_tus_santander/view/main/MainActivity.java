@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.context = getApplicationContext();
-        this.progressBarMain = (ProgressBar) findViewById(R.id.progressBarMenu);
+        this.progressBarMain = findViewById(R.id.progressBarMenu);
         this.mainPresenter = new MainPresenter(context, this);
         mainPresenter.start();
 
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void showList() {
         ListFuncionesMainAdapter listFuncionesMainAdapter = new ListFuncionesMainAdapter(context);
-        ListView listview = (ListView) findViewById(R.id.listFuncionesMenu);
+        ListView listview = findViewById(R.id.listFuncionesMenu);
         listview.setAdapter(listFuncionesMainAdapter);
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

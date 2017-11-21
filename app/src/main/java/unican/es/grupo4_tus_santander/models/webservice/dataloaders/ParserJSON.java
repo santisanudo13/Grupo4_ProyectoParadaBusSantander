@@ -28,6 +28,10 @@ public class ParserJSON{
     private static final String RESOURCES = "resources";
     private static final String DCID = "dc:identifier";
 
+    private ParserJSON() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static List<Linea> readArrayLineasBus (InputStream in) throws IOException {
             JsonReader reader = new JsonReader(new InputStreamReader(in, UTF8));
             List<Linea> listLineasBus = new ArrayList<>();

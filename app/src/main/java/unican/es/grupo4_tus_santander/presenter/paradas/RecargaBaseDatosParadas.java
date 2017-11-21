@@ -6,7 +6,6 @@ import android.net.ConnectivityManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
 import unican.es.grupo4_tus_santander.models.basedatos.helper.DatabaseHelper;

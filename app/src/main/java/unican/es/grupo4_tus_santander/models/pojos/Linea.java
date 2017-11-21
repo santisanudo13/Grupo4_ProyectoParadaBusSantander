@@ -66,4 +66,21 @@ public class Linea implements Comparable<Linea>{
     public int compareTo(@NonNull Linea linea) {
         return -1*this.getNumero().compareTo(linea.getNumero());
     }
+
+    @Override
+    public int hashCode() {
+        return this.getNumero().hashCode();
+    }
+
+    @Override
+    public boolean equals(@NonNull Object obj) {
+        if (!(obj instanceof Linea)) {
+            return false;
+        }
+        Linea other = (Linea) obj;
+        if (this.getNumero() == null) {
+            return other.getNumero() == null;
+        }
+        return this.getNumero().equals(other.getNumero());
+    }
 }

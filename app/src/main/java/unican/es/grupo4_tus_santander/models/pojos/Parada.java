@@ -125,4 +125,23 @@ public class Parada implements Comparable<Parada>{
     public int compareTo(@NonNull Parada parada) {
         return this.getNumParada() - parada.getNumParada();
     }
+
+    @Override
+    public int hashCode() {
+        return this.getNumParada();
+    }
+
+    @Override
+    public boolean equals(@NonNull Object obj) {
+        //correct argument check
+        if (!(obj instanceof Parada)) {
+            return false;
+        }
+
+        Parada other = (Parada) obj;
+        if (this.getNumParada() == 0) {
+            return other.getNumParada() == 0;
+        }
+        return this.getNumParada() == other.getNumParada();
+    }
 }

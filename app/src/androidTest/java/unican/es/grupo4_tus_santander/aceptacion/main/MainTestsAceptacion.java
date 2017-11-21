@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.aceptacion.main;
+package unican.es.grupo4_tus_santander.Aceptacion.main;
 
 
 import android.support.test.espresso.DataInteraction;

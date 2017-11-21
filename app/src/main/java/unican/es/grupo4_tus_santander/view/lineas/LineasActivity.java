@@ -1,9 +1,5 @@
 package unican.es.grupo4_tus_santander.view.lineas;
 
-
-
-
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -37,7 +33,7 @@ public class LineasActivity extends AppCompatActivity  implements SearchView.OnQ
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_lineas);
-        this.progressBarLineas=(ProgressBar)findViewById(R.id.progressLinea);
+        this.progressBarLineas= findViewById(R.id.progressLinea);
         this.listLineasPresenter = new ListLineasPresenter(getApplicationContext(),this);
 
     }//onCreate
@@ -68,7 +64,7 @@ public class LineasActivity extends AppCompatActivity  implements SearchView.OnQ
 
     public void showLista(final List<Linea> lineaList) {
         ListLineasAdapter listLineasAdapter = new ListLineasAdapter(getApplicationContext(), lineaList);
-        final ListView listview = (ListView) findViewById(R.id.listLineas);
+        final ListView listview = findViewById(R.id.listLineas);
         listview.setAdapter(listLineasAdapter);
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {

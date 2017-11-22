@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.Aceptacion.paradas;
+package unican.es.grupo4_tus_santander.aceptacion.paradas;
 
 
 import android.support.test.espresso.DataInteraction;

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -25,7 +26,8 @@ public class LineasActivity extends AppCompatActivity  implements SearchView.OnQ
 
     private ListLineasPresenter listLineasPresenter;
     private ProgressBar progressBarLineas;
-
+    private static int numLineasExpected = 33;
+    private TextView recarga;
 
 
     @Override
@@ -35,6 +37,7 @@ public class LineasActivity extends AppCompatActivity  implements SearchView.OnQ
         setContentView(R.layout.activity_lineas);
         this.progressBarLineas= findViewById(R.id.progressLinea);
         this.listLineasPresenter = new ListLineasPresenter(getApplicationContext(),this);
+        recarga=findViewById(R.id.txtrecarga);
 
     }//onCreate
 
@@ -63,21 +66,24 @@ public class LineasActivity extends AppCompatActivity  implements SearchView.OnQ
 
 
     public void showLista(final List<Linea> lineaList) {
-        ListLineasAdapter listLineasAdapter = new ListLineasAdapter(getApplicationContext(), lineaList);
-        final ListView listview = findViewById(R.id.listLineas);
-        listview.setAdapter(listLineasAdapter);
-
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                    long id) {
-                Intent intent = new Intent(LineasActivity.this, ParadasActivity.class);
-                intent.putExtra("lineaID",lineaList.get(position).getId());
-                startActivity(intent);
+        if(lineaList.size()!=numLineasExpected){
+            recarga.setVisibility(View.VISIBLE);
+        }else {
+            ListLineasAdapter listLineasAdapter = new ListLineasAdapter(getApplicationContext(), lineaList);
+            final ListView listview = findViewById(R.id.listLineas);
+            listview.setAdapter(listLineasAdapter);
+            listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position,
+                                                                        long id) {
+                    Intent intent = new Intent(LineasActivity.this, ParadasActivity.class);
+                    intent.putExtra("lineaID", lineaList.get(position).getId());
+                    startActivity(intent);
+                }
             }
-        });
+            );
 
-
+        }
     }
     public void start(){
         listLineasPresenter.start();
@@ -93,6 +99,7 @@ public class LineasActivity extends AppCompatActivity  implements SearchView.OnQ
 
         if(item.getItemId() == R.id.refresh)
         {
+            recarga.setVisibility(View.INVISIBLE);
             RecargaBaseDatosLineas r =new RecargaBaseDatosLineas(getApplicationContext(), this);
             r.start();
             return(true);

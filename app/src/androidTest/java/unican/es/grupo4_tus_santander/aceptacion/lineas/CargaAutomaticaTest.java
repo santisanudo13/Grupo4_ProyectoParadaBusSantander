@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.Aceptacion.Lineas;
+package unican.es.grupo4_tus_santander.aceptacion.lineas;
 
 
 import android.os.SystemClock;

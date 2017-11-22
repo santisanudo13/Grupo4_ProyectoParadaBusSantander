@@ -1,4 +1,4 @@
-package unican.es.grupo4_tus_santander.Aceptacion.Lineas;
+package unican.es.grupo4_tus_santander.aceptacion.lineas;
 
 
 import android.support.test.espresso.DataInteraction;
@@ -15,11 +15,13 @@ import android.widget.ListView;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import unican.es.grupo4_tus_santander.R;
+import unican.es.grupo4_tus_santander.view.lineas.LineasActivity;
 import unican.es.grupo4_tus_santander.view.main.MainActivity;
 
 import static android.support.test.espresso.Espresso.onData;
@@ -41,6 +43,7 @@ public class LineasAceptacion {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
+
 
     /**
      * A1: Comprueba que aparecen la lista de lineas
@@ -97,6 +100,7 @@ public class LineasAceptacion {
     @Test
     public void a2() {
         onView(withId(R.id.toolbar_actualizar)).perform(click());
+
         DataInteraction relativeLayout = onData(anything())
                 .inAdapterView(allOf(withId(R.id.listFuncionesMenu),
                         childAtPosition(

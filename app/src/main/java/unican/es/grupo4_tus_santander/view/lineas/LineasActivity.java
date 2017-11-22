@@ -1,9 +1,5 @@
 package unican.es.grupo4_tus_santander.view.lineas;
 
-
-
-
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -29,7 +26,8 @@ public class LineasActivity extends AppCompatActivity  implements SearchView.OnQ
 
     private ListLineasPresenter listLineasPresenter;
     private ProgressBar progressBarLineas;
-
+    private static int numLineasExpected = 33;
+    private TextView recarga;
 
 
     @Override
@@ -37,8 +35,9 @@ public class LineasActivity extends AppCompatActivity  implements SearchView.OnQ
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_lineas);
-        this.progressBarLineas=(ProgressBar)findViewById(R.id.progressLinea);
+        this.progressBarLineas= findViewById(R.id.progressLinea);
         this.listLineasPresenter = new ListLineasPresenter(getApplicationContext(),this);
+        recarga=findViewById(R.id.txtrecarga);
 
     }//onCreate
 
@@ -67,21 +66,25 @@ public class LineasActivity extends AppCompatActivity  implements SearchView.OnQ
 
 
     public void showLista(final List<Linea> lineaList) {
-        ListLineasAdapter listLineasAdapter = new ListLineasAdapter(getApplicationContext(), lineaList);
-        final ListView listview = (ListView) findViewById(R.id.listLineas);
-        listview.setAdapter(listLineasAdapter);
-
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                    long id) {
-                Intent intent = new Intent(LineasActivity.this, ParadasActivity.class);
-                intent.putExtra("lineaID",lineaList.get(position).getId());
-                startActivity(intent);
+        if(lineaList.size()!=numLineasExpected){
+            recarga.setVisibility(View.VISIBLE);
+        }else {
+            ListLineasAdapter listLineasAdapter = new ListLineasAdapter(getApplicationContext(), lineaList);
+            final ListView listview = findViewById(R.id.listLineas);
+            listview.setAdapter(listLineasAdapter);
+            listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position,
+                                                                        long id) {
+                    Intent intent = new Intent(LineasActivity.this, ParadasActivity.class);
+                    intent.putExtra("lineaID", lineaList.get(position).getId());
+                    intent.putExtra("lineaNum",lineaList.get(position).getNumero());
+                    startActivity(intent);
+                }
             }
-        });
+            );
 
-
+        }
     }
     public void start(){
         listLineasPresenter.start();
@@ -97,6 +100,7 @@ public class LineasActivity extends AppCompatActivity  implements SearchView.OnQ
 
         if(item.getItemId() == R.id.refresh)
         {
+            recarga.setVisibility(View.INVISIBLE);
             RecargaBaseDatosLineas r =new RecargaBaseDatosLineas(getApplicationContext(), this);
             r.start();
             return(true);

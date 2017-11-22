@@ -101,17 +101,16 @@ public class ListParadasPresenter {
 
     public void filtra(String s){
 
-        s=normaliza(s);
+        String buscado=normaliza(s);
         String nombre;
         String numero;
         temp = new ArrayList<>();
         for(Parada x: listaParadas){
             nombre=normaliza(x.getNombre());
-            numero=normaliza(x.getNumParada()+"");
-            if(nombre.contains(s)||(numero.contains(s))){
+            numero=normaliza(Integer.toString(x.getNumParada())+"");
+            if(nombre.contains(buscado)||(numero.contains(buscado))){
                 temp.add(x);
             }
-
         }
         paradasActivity.showList(temp);
     }

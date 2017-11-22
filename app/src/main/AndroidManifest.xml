@@ -29,6 +29,10 @@
             android:screenOrientation="portrait"
             android:label="@string/title_activity_favs" />
         <activity
+            android:name=".view.estimaciones.EstimacionesActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_estimaciones" />
+        <activity
             android:name=".view.lineas.LineasActivity"
             android:screenOrientation="portrait"
             android:label="@string/title_activity_lineas" />

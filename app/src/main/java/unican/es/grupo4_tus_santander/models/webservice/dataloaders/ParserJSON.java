@@ -5,8 +5,14 @@ import android.util.JsonReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import unican.es.grupo4_tus_santander.models.pojos.*;
 
@@ -163,4 +169,66 @@ public class ParserJSON{
 
         return new ParadaConNombre(identifier, parada, numero);
     }
+
+    public static List<Estimacion> readArrayEstimaciones (InputStream in) throws IOException, ParseException {
+        JsonReader reader = new JsonReader(new InputStreamReader(in, UTF8));
+        List<Estimacion> listEstimacionesJson = new ArrayList<>();
+        Estimacion a=null;
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.ENGLISH);
+        reader.beginObject(); //summary y resources
+        while (reader.hasNext()){
+            String name = reader.nextName();
+            if(name.equals (RESOURCES)){
+                reader.beginArray(); //cada elemento del array es un object
+                while(reader.hasNext()) {
+                    a = readEstimacion(reader);
+                    Date date = format.parse(a.getLastModified());
+                    Date now = new Date();
+                    if (date.getHours() - now.getHours() < 1 && date.getDay() - now.getDay() < 1 && !a.getEstimacionB().equals("")) {
+                        listEstimacionesJson.add(a);
+                    }
+                }
+            }else{
+                reader.skipValue();
+            }
+        }
+        return listEstimacionesJson;
+    }
+
+    private static Estimacion readEstimacion(JsonReader reader) throws IOException{
+        reader.beginObject(); //Leemos un object
+
+        String linea = "";
+        String tiempo1 = "";
+        String tiempo2 = "0";
+        String parada = "";
+        String fecha = "";
+
+        while(reader.hasNext()) {
+            String n = reader.nextName();
+            if (n.equals("ayto:etiqLinea")) {
+                linea = reader.nextString();
+            }else if (n.equals("ayto:tiempo1")) {
+                tiempo1 = reader.nextString();
+            }else if (n.equals("ayto:tiempo2")) {
+                tiempo2 = reader.nextString();
+            }else if(n.equals("ayto:paradaId")){
+                parada = reader.nextString();
+            }else if(n.equals("dc:modified")){
+                fecha = reader.nextString();
+            }else{
+                reader.skipValue();
+            }
+        }
+        reader.endObject();
+
+        if(fecha.length()>3) {
+            fecha = fecha.substring(0, fecha.length() - 1);
+        }
+
+        return new Estimacion(linea, tiempo1, tiempo2,parada,fecha);
+    }
+
+
+
 }//ParserJSON

@@ -43,7 +43,7 @@ public class ListParadasAdapter extends ArrayAdapter {
         ImageView imagenViewFavorito = viewRow.findViewById(R.id.ImagenFavorito);
 
         String nombre = paradasBus.get(position).getNombre();
-        String numero = "" + paradasBus.get(position).getNumParada();
+        String numero = "" + Integer.toString(paradasBus.get(position).getNumParada());
         int favorito = paradasBus.get(position).getFavorito();
         if(favorito == 0) {
             imagenViewFavorito.setImageResource(R.drawable.ic_star_empty);

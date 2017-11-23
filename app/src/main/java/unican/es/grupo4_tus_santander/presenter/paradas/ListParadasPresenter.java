@@ -106,6 +106,9 @@ public class ListParadasPresenter {
         String numero;
         temp = new ArrayList<>();
         for(Parada x: listaParadas){
+            if(x.getNombre()==null){
+                continue;
+            }
             nombre=normaliza(x.getNombre());
             numero=normaliza(Integer.toString(x.getNumParada())+"");
             if(nombre.contains(buscado)||(numero.contains(buscado))){

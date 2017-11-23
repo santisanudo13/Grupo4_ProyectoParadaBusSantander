@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public class EstimacionesActivity extends AppCompatActivity {
 
     private EstimacionesPresenter estimacionesPresenter;
     private ProgressBar progressBarEstimaciones;
-
+    private TextView recarga;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +49,9 @@ public class EstimacionesActivity extends AppCompatActivity {
             Log.d("parada", paradaId + "");
         }
 
+        this.recarga=findViewById(R.id.txtRecargaEstimaciones);
         this.progressBarEstimaciones = (ProgressBar) findViewById(R.id.progressBarEstimaciones);
-        this.estimacionesPresenter = new EstimacionesPresenter(lineaId,paradaId,this);
+        this.estimacionesPresenter = new EstimacionesPresenter( getApplicationContext(),lineaId,paradaId,this);
         this.estimacionesPresenter.start();
 
 
@@ -100,12 +102,23 @@ public class EstimacionesActivity extends AppCompatActivity {
     }
 
     public void showList(final List<Estimacion> estimaciones) {
-        ListEstimacionesAdapter estimacionesAdapter = new ListEstimacionesAdapter(getApplicationContext(), estimaciones);
-        final ListView listview = findViewById(R.id.listEstimacionesTotal);
-        listview.setAdapter(estimacionesAdapter);
 
+        if (estimaciones.isEmpty()) {
+            recarga.setVisibility(View.VISIBLE);
+            ListEstimacionesAdapter estimacionesAdapter = new ListEstimacionesAdapter(getApplicationContext(), estimaciones);
+            final ListView listview = findViewById(R.id.listEstimacionesTotal);
+            listview.setAdapter(estimacionesAdapter);
+        } else {
+            recarga.setVisibility(View.INVISIBLE);
+
+            ListEstimacionesAdapter estimacionesAdapter = new ListEstimacionesAdapter(getApplicationContext(), estimaciones);
+            final ListView listview = findViewById(R.id.listEstimacionesTotal);
+            listview.setAdapter(estimacionesAdapter);
+
+
+
+        }
     }
-
 
     public EstimacionesPresenter getEstimacionesPresenter() {
         return estimacionesPresenter;

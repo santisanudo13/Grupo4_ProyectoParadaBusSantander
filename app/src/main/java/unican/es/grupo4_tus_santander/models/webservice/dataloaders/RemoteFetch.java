@@ -36,7 +36,6 @@ public class RemoteFetch {
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.addRequestProperty("Accept", "application/json");
             bufferedData =  new BufferedInputStream(urlConnection.getInputStream());
-
             return 0;
     }//getJSON
 

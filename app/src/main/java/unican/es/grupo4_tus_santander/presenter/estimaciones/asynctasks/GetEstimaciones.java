@@ -24,10 +24,6 @@ public class GetEstimaciones extends AsyncTask<EstimacionesPresenter, Void, Bool
 
     @Override
     protected void onPostExecute(Boolean result){
-        if(result){
-            presenter.ordena();
-        }else{
-            presenter.getActividad().showProgress(false,-1);
-        }
+            presenter.ordena(result);
     }
 }

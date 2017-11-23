@@ -20,6 +20,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
     </ListView>
+    <TextView
+        android:id="@+id/txtRecargaEstimaciones"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Ups, vuelve a recargar"
+        android:textSize="30dp"
+        android:textAlignment="center"
+        android:visibility="invisible"/>
 
 </RelativeLayout>
 

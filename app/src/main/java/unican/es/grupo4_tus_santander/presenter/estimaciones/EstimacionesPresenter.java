@@ -41,6 +41,11 @@ public class EstimacionesPresenter {
 
     private ConnectivityManager cm = null;
 
+    public void setActiveNetworkInfo(NetworkInfo activeNetworkInfo) {
+        this.activeNetworkInfo = activeNetworkInfo;
+    }
+
+    private  NetworkInfo activeNetworkInfo = null;
 
     public EstimacionesPresenter(Context context,String linea, String parada, EstimacionesActivity activity){
         this.lineaId=linea;
@@ -48,18 +53,18 @@ public class EstimacionesPresenter {
         this.actividad=activity;
         this.context=context;
         cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        activeNetworkInfo = cm.getActiveNetworkInfo();
     }
 
 
     public void start(){
+        cm = (ConnectivityManager) actividad.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        activeNetworkInfo = cm.getActiveNetworkInfo();
         actividad.showProgress(true,0);
         new GetEstimaciones().execute(this);
     }
 
     public boolean obtenData(){
-        cm = (ConnectivityManager) actividad.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = cm.getActiveNetworkInfo();
-
         if(activeNetworkInfo == null){
             return false;
         }

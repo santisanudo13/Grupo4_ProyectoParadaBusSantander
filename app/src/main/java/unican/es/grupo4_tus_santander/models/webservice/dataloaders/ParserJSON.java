@@ -174,7 +174,7 @@ public class ParserJSON{
         JsonReader reader = new JsonReader(new InputStreamReader(in, UTF8));
         List<Estimacion> listEstimacionesJson = new ArrayList<>();
         Estimacion a=null;
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SS", Locale.ENGLISH);
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH);
         reader.beginObject(); //summary y resources
         while (reader.hasNext()){
             String name = reader.nextName();

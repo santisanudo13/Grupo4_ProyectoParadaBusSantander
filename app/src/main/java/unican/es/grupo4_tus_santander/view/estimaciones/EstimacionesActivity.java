@@ -49,7 +49,7 @@ public class EstimacionesActivity extends AppCompatActivity {
             Log.d("parada", paradaId + "");
         }
 
-        this.recarga=findViewById(R.id.txtRecargaEstimaciones);
+        this.recarga= (TextView) findViewById(R.id.txtRecargaEstimaciones);
         this.progressBarEstimaciones = (ProgressBar) findViewById(R.id.progressBarEstimaciones);
         this.estimacionesPresenter = new EstimacionesPresenter( getApplicationContext(),lineaId,paradaId,this);
         this.estimacionesPresenter.start();
@@ -106,13 +106,13 @@ public class EstimacionesActivity extends AppCompatActivity {
         if (estimaciones.isEmpty()) {
             recarga.setVisibility(View.VISIBLE);
             ListEstimacionesAdapter estimacionesAdapter = new ListEstimacionesAdapter(getApplicationContext(), estimaciones);
-            final ListView listview = findViewById(R.id.listEstimacionesTotal);
+            final ListView listview = (ListView) findViewById(R.id.listEstimacionesTotal);
             listview.setAdapter(estimacionesAdapter);
         } else {
             recarga.setVisibility(View.INVISIBLE);
 
             ListEstimacionesAdapter estimacionesAdapter = new ListEstimacionesAdapter(getApplicationContext(), estimaciones);
-            final ListView listview = findViewById(R.id.listEstimacionesTotal);
+            final ListView listview = (ListView) findViewById(R.id.listEstimacionesTotal);
             listview.setAdapter(estimacionesAdapter);
 
 

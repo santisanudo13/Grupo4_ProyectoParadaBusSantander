@@ -35,9 +35,9 @@ public class LineasActivity extends AppCompatActivity  implements SearchView.OnQ
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_lineas);
-        this.progressBarLineas= findViewById(R.id.progressLinea);
+        this.progressBarLineas= (ProgressBar) findViewById(R.id.progressLinea);
         this.listLineasPresenter = new ListLineasPresenter(getApplicationContext(),this);
-        recarga=findViewById(R.id.txtrecarga);
+        recarga= (TextView) findViewById(R.id.txtrecarga);
 
     }//onCreate
 
@@ -70,7 +70,7 @@ public class LineasActivity extends AppCompatActivity  implements SearchView.OnQ
             recarga.setVisibility(View.VISIBLE);
         }else {
             ListLineasAdapter listLineasAdapter = new ListLineasAdapter(getApplicationContext(), lineaList);
-            final ListView listview = findViewById(R.id.listLineas);
+            final ListView listview = (ListView) findViewById(R.id.listLineas);
             listview.setAdapter(listLineasAdapter);
             listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override

@@ -34,6 +34,15 @@ public class EstimacionesPresenter {
     }
 
     private EstimacionesActivity actividad;
+
+    public List<Estimacion> getEstimaciones() {
+        return estimaciones;
+    }
+
+    public void setEstimaciones(List<Estimacion> estimaciones) {
+        this.estimaciones = estimaciones;
+    }
+
     private List<Estimacion> estimaciones;
     public void setCm(ConnectivityManager cm) {
         this.cm = cm;
@@ -84,6 +93,12 @@ public class EstimacionesPresenter {
         }
     }
 
+    public List<Estimacion> getListaDevuelta() {
+        return listaDevuelta;
+    }
+
+    private List<Estimacion> listaDevuelta;
+
     public void ordena(boolean type){
         if(type) {
             List<Estimacion> parada = new ArrayList<>();
@@ -103,15 +118,17 @@ public class EstimacionesPresenter {
                 }
             }
             paradaOut.addAll(parada);
-
+            listaDevuelta=paradaOut;
 
             actividad.showList(paradaOut);
             actividad.showProgress(false, 1);
         }else{
             List<Estimacion> paradaOut = new ArrayList<>();
+            listaDevuelta=paradaOut;
 
             actividad.showList(paradaOut);
             actividad.showProgress(false, -1);
         }
+
     }
 }

@@ -34,7 +34,9 @@ public class EstimacionesPresenter {
     }
 
     private EstimacionesActivity actividad;
+
     private List<Estimacion> estimaciones;
+
     public void setCm(ConnectivityManager cm) {
         this.cm = cm;
     }
@@ -113,5 +115,9 @@ public class EstimacionesPresenter {
             actividad.showList(paradaOut);
             actividad.showProgress(false, -1);
         }
+    }
+
+    public List<Estimacion> getEstimaciones() {
+        return estimaciones;
     }
 }

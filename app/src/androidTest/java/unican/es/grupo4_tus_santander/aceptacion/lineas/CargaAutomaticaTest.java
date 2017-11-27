@@ -1,7 +1,6 @@
 package unican.es.grupo4_tus_santander.aceptacion.lineas;
 
 
-import android.os.SystemClock;
 import android.support.test.espresso.DataInteraction;
 import android.support.test.espresso.assertion.ViewAssertions;
 import android.support.test.rule.ActivityTestRule;
@@ -63,8 +62,10 @@ public class CargaAutomaticaTest {
                 .atPosition(1);
         relativeLayout.perform(click());
 
-        SystemClock.sleep(1000*15);
-
+        try {
+            Thread.sleep(1000*15);
+        } catch (InterruptedException e) {
+        }
         onView(withId(R.id.listLineas)).check(ViewAssertions.matches(listaNoVacia()));
     }
 

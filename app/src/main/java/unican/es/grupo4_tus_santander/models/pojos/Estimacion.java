@@ -74,14 +74,23 @@ public class Estimacion implements Comparable<Estimacion>{
         if (obj == null) {
             return false;
         }
+
+        if (this.getClass() != obj.getClass()) {
+            return false;
+        }
+
         if (!Estimacion.class.isAssignableFrom(obj.getClass())) {
             return false;
         }
+
         final Estimacion other = (Estimacion) obj;
 
-        if(this.getParada()!=other.getParada()){
-            return false;
-        }
-        return true;
+        return this.getParada()!=other.getParada();
+
+    }
+
+    @Override
+    public int hashCode(){
+        return 1;
     }
 }

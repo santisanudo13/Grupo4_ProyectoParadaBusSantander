@@ -9,7 +9,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -33,10 +32,6 @@ public class ParserJSON{
     private static final String UTF8 = "UTF-8";
     private static final String RESOURCES = "resources";
     private static final String DCID = "dc:identifier";
-
-    private ParserJSON() {
-        throw new IllegalStateException("Utility class");
-    }
 
     public static List<Linea> readArrayLineasBus (InputStream in) throws IOException {
             JsonReader reader = new JsonReader(new InputStreamReader(in, UTF8));

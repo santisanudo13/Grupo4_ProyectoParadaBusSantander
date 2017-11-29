@@ -23,7 +23,6 @@ import unican.es.grupo4_tus_santander.presenter.paradas.ListParadasPresenter;
 
 import unican.es.grupo4_tus_santander.R;
 import unican.es.grupo4_tus_santander.view.estimaciones.EstimacionesActivity;
-import unican.es.grupo4_tus_santander.view.lineas.LineasActivity;
 
 /**
  * Created by Asier on 25/10/17.
@@ -57,7 +56,6 @@ public class ParadasActivity extends AppCompatActivity  implements SearchView.On
 
         vacio = (TextView)findViewById(R.id.txtVacio);
         this.listParadasPresenter.start();
-        //this.listParadasPresenter.start();
     }//onCreate
 
     public void start(){

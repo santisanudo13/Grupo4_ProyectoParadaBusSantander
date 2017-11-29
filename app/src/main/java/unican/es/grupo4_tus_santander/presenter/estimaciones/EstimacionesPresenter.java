@@ -27,8 +27,6 @@ public class EstimacionesPresenter {
     private String lineaId;
     private String paradaId;
 
-    private Context context;
-
     public EstimacionesActivity getActividad() {
         return actividad;
     }
@@ -60,7 +58,6 @@ public class EstimacionesPresenter {
         this.lineaId=linea;
         this.paradaId=parada;
         this.actividad=activity;
-        this.context=context;
         cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         activeNetworkInfo = cm.getActiveNetworkInfo();
     }
@@ -84,11 +81,9 @@ public class EstimacionesPresenter {
             return true;
         } catch (IOException e) {
             Log.e("Estimaciones","error al obtener estimaciones");
-            e.printStackTrace();
             return false;
         } catch (ParseException e) {
             Log.e("Estimaciones","error al parsear estimaciones");
-            e.printStackTrace();
             return false;
         }
     }
@@ -109,7 +104,6 @@ public class EstimacionesPresenter {
             }
 
             Collections.sort(parada);
-            Estimacion temp = null;
             List<Estimacion> paradaOut = new ArrayList<>();
 
             for (int i = 0; i < parada.size(); i++) {

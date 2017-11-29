@@ -114,27 +114,19 @@ public class ListEstimacionesAdapter extends ArrayAdapter {
 
 
         String e1=estimaciones.get(position).getEstimacionA();
-        if(e1.equals("")|| e1==null) {
-        }else{
-            int k1= Integer.parseInt(e1);
-            k1=k1/60;
-            if(k1==0){
+        int k1= Integer.parseInt(e1);
+        k1=k1/60;
+        if(k1==0){
                 est1.setText("En parada");
-            }else{
+        }else{
                 est1.setText(k1+"");
-            }
-
         }
 
         String e2=estimaciones.get(position).getEstimacionB();
-        if(e2.equals("")|| e2==null) {
-            est2.setVisibility(View.GONE);
-        }else{
-            int k1= Integer.parseInt(estimaciones.get(position).getEstimacionB());
-            k1=k1/60;
-            est2.setText(k1+"");
-        }
 
+        int k2= Integer.parseInt(estimaciones.get(position).getEstimacionB());
+        k2=k2/60;
+        est2.setText(k2+"");
 
         return viewRow;
     }

@@ -2,10 +2,6 @@ package unican.es.grupo4_tus_santander.presenter.estimaciones.asynctasks;
 
 import android.os.AsyncTask;
 
-import java.util.List;
-
-import unican.es.grupo4_tus_santander.models.webservice.dataloaders.ParserJSON;
-import unican.es.grupo4_tus_santander.models.webservice.dataloaders.RemoteFetch;
 import unican.es.grupo4_tus_santander.presenter.estimaciones.EstimacionesPresenter;
 
 /**

@@ -20,14 +20,14 @@ import static junit.framework.Assert.assertNotNull;
 @RunWith(AndroidJUnit4.class)
 public class EstimacionesPresenterTest {
     @Test
-    public void obtenEstimacionesCorrecto() {
+    public void i1() {
         EstimacionesPresenter ep = new EstimacionesPresenter(InstrumentationRegistry.getTargetContext(),null, null, null);
         assertTrue(ep.obtenData());
         assertNotNull(ep.getEstimaciones());
     }
 
     @Test
-    public void obtenEstimacionesError() {
+    public void i2() {
         EstimacionesPresenter ep = new EstimacionesPresenter(InstrumentationRegistry.getTargetContext(),null, null, null);
         ep.setActiveNetworkInfo(null);
         assertFalse(ep.obtenData());

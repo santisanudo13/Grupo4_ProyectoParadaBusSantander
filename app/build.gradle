@@ -1,10 +1,39 @@
+buildscript{
+    repositories{
+        jcenter()
+    }
+    dependencies{
+        classpath 'com.android.tools.build:gradle:2.3.3'
+    }
+}
+
+plugins {
+    id "org.sonarqube" version "2.5"
+}
+
 apply plugin: 'com.android.application'
+
+sonarqube {
+    properties {
+        property "sonar.host.url", "https://sonarcloud.io"
+        property "sonar.organization", "isuc"
+        property "sonar.login", "7581ebd0d74f43ef91ae6b9864776973b548c9d3"
+        property "sonar.projectKey", "tusgrupo4"
+        property "sonar.projectName", "TUS Grupo 4"
+    }
+}
+
+allprojects{
+    repositories{
+        jcenter()
+    }
+}
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.0"
+    buildToolsVersion '26.0.2'
     defaultConfig {
-        applicationId "es.unican.grupo_4_tus_santander"
+        applicationId "unican.es.grupo4_tus_santander"
         minSdkVersion 15
         targetSdkVersion 26
         versionCode 1
@@ -20,11 +49,13 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    compile 'junit:junit:4.12'
-    compile 'com.android.support.test:runner:1.0.1'
-    compile 'com.android.support.test.espresso:espresso-core:3.0.1'
-    compile 'org.mockito:mockito-core:2.7.22'
-    compile 'org.mockito:mockito-android:2.7.22'
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:26.+'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:2.7.22'
+    androidTestCompile 'org.mockito:mockito-android:2.7.22'
 }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp">
+
+    <ProgressBar
+        android:id="@+id/progressBarEstimaciones"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:max="100"
+        android:backgroundTint="@color/colorPrimary"
+        android:indeterminateTint="#1a09d6"
+        android:layout_marginTop="-7dp"
+        android:visibility="invisible"/>
+    <ListView
+        android:id="@+id/listEstimacionesTotal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
+    <TextView
+        android:id="@+id/txtRecargaEstimaciones"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Ups, vuelve a recargar"
+        android:textSize="30dp"
+        android:textAlignment="center"
+        android:visibility="invisible"/>
+
+</RelativeLayout>
+

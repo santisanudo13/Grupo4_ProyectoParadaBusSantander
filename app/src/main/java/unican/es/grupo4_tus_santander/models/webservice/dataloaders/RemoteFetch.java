@@ -20,6 +20,7 @@ public class RemoteFetch {
     public static final String URL_PARADAS ="http://datos.santander.es/api/rest/datasets/lineas_bus_paradas.json?items=500000";
     public static final String URL_PARADAS_NOMBRE ="http://datos.santander.es/api/rest/datasets/paradas_bus.json?items=2300";
 
+    public static final String URL_ESTIMACIONES = "http://datos.santander.es/api/rest/datasets/control_flotas_estimaciones.json?items=2500";
 
 
     private BufferedInputStream bufferedData;
@@ -35,7 +36,6 @@ public class RemoteFetch {
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.addRequestProperty("Accept", "application/json");
             bufferedData =  new BufferedInputStream(urlConnection.getInputStream());
-
             return 0;
     }//getJSON
 

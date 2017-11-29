@@ -1,0 +1,28 @@
+{"summary":{"items":1897,"items_per_page":1897,"pages":1,"current_page":1},"resources":[
+    {
+      "ayto:tiempo1":"66",
+      "ayto:distancia2":"14507",
+      "ayto:destino1":"PIQUIO",
+      "ayto:distancia1":"7445",
+      "ayto:tiempo2":"225",
+      "ayto:paradaId":"1",
+      "ayto:destino2":"PIQUIO",
+      "ayto:fechActual":"2017-11-26T15:17:09.237Z",
+      "dc:modified":"2017-11-26T15:17:17.236Z",
+      "dc:identifier":"125",
+      "ayto:etiqLinea":"3",
+      "uri":"http://datos.santander.es/api/datos/control_flotas_estimaciones/125.json"},
+    {
+      "ayto:tiempo1":"88",
+      "ayto:distancia2":"5724",
+      "ayto:destino1":"CONSUELO BERGES",
+      "ayto:distancia1":"608",
+      "ayto:tiempo2":"1137",
+      "ayto:paradaId":"2",
+      "ayto:destino2":"CONSUELO BERGES",
+      "ayto:fechActual":"2017-11-26T15:17:09.237Z",
+      "dc:modified":"2017-11-26T15:17:17.236Z",
+      "dc:identifier":"126",
+      "ayto:etiqLinea":"2",
+      "uri":"http://datos.santander.es/api/datos/control_flotas_estimaciones/126.json"}
+]}

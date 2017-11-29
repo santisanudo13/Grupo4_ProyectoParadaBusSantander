@@ -1,7 +1,11 @@
 package unican.es.grupo4_tus_santander.view.paradas;
 
+
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.AdapterView;
 import android.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +22,8 @@ import unican.es.grupo4_tus_santander.models.pojos.Parada;
 import unican.es.grupo4_tus_santander.presenter.paradas.ListParadasPresenter;
 
 import unican.es.grupo4_tus_santander.R;
+import unican.es.grupo4_tus_santander.view.estimaciones.EstimacionesActivity;
+import unican.es.grupo4_tus_santander.view.lineas.LineasActivity;
 
 /**
  * Created by Asier on 25/10/17.
@@ -27,25 +33,31 @@ public class ParadasActivity extends AppCompatActivity  implements SearchView.On
     private ListParadasPresenter listParadasPresenter;
     private ProgressBar progressBar;
     private TextView vacio;
+    private Context context;
+    private int lineaId = -1;
+    private String lineaNum="";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.context = getApplicationContext();
 
         setContentView(R.layout.activity_paradas);
-        this.progressBar=findViewById(R.id.progressParada);
+        this.progressBar=(ProgressBar)findViewById(R.id.progressParada);
         Bundle extras = getIntent().getExtras();
-        int lineaId = -1;
+
         if(extras != null){
             lineaId = (int) extras.get("lineaID");
+            lineaNum = extras.getString("lineaNum");
         }
 
         this.listParadasPresenter = new ListParadasPresenter(getApplicationContext(),this);
         this.listParadasPresenter.setIdLinea(lineaId);
 
-        vacio = findViewById(R.id.txtVacio);
+        vacio = (TextView)findViewById(R.id.txtVacio);
         this.listParadasPresenter.start();
+        //this.listParadasPresenter.start();
     }//onCreate
 
     public void start(){
@@ -101,7 +113,7 @@ public class ParadasActivity extends AppCompatActivity  implements SearchView.On
         return true;
     }
 
-    public void showList(List<Parada> paradasList) {
+    public void showList(final List<Parada> paradasList) {
         ListParadasAdapter listParadasAdapter;
         if(!paradasList.isEmpty()) {
             vacio.setVisibility(View.INVISIBLE);
@@ -112,8 +124,20 @@ public class ParadasActivity extends AppCompatActivity  implements SearchView.On
             listParadasAdapter = new ListParadasAdapter(this, v);
             vacio.setVisibility(View.VISIBLE);
         }
-        ListView listview = findViewById(R.id.listParadas);
+        ListView listview = (ListView) findViewById(R.id.listParadas);
         listview.setAdapter(listParadasAdapter);
+
+
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+                Intent intent = new Intent(context , EstimacionesActivity.class);
+                intent.putExtra("lineaId",lineaNum+"");
+                intent.putExtra("parada",paradasList.get(position).getNumParada()+"");
+                startActivity(intent);
+            }
+        });
     }
 
     public ListParadasPresenter getListParadasPresenter() {

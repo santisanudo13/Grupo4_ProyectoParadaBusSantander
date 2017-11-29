@@ -10,6 +10,7 @@
     <string name="title_activity_tarifas">Tarifas</string>
     <string name="title_activity_restricciones">Restricciones</string>
     <string name="title_activity_ajustes">Ajustes</string>
+    <string name="title_activity_estimaciones">Estimaciones</string>
     <string name="title_activity_serviciosAlternativos">Transportes Alternativos</string>
     <string name="cargando">Cargando</string>
     <string name="no_encontrado">No hay resultados</string>
